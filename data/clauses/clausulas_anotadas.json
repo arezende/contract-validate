@@ -1,0 +1,116 @@
+{
+  "metadata": {
+    "description": "Dataset de cláusulas contratuais anotadas para avaliação do ContractFOL",
+    "version": "1.0",
+    "language": "pt-BR",
+    "domain": "contratos esportivos",
+    "annotation_protocol": "Protocolo descrito no Apêndice B da dissertação"
+  },
+  "clauses": [
+    {
+      "id": "CL001",
+      "text": "O PATROCINADOR obriga-se a realizar o pagamento das parcelas até o quinto dia útil de cada mês.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "patrocinador",
+      "fol_gold": "∀m.Mes(m) → Obrigacao(patrocinador, Pagamento(parcelas), QuintoDiaUtil(m))",
+      "notes": "Obrigação de pagamento com prazo definido"
+    },
+    {
+      "id": "CL002",
+      "text": "É vedado ao CONTRATADO o uso da marca do COB sem autorização prévia por escrito.",
+      "modality": "PROIBICAO",
+      "agent": "contratado",
+      "fol_gold": "Proibicao(contratado, UsoMarca(sem_autorizacao))",
+      "notes": "Proibição de uso de marca"
+    },
+    {
+      "id": "CL003",
+      "text": "O ATLETA poderá utilizar as instalações do centro de treinamento durante o período de vigência do contrato.",
+      "modality": "PERMISSAO",
+      "agent": "atleta",
+      "fol_gold": "Permissao(atleta, UsoInstalacoes(centro_treinamento))",
+      "notes": "Permissão de uso de instalações"
+    },
+    {
+      "id": "CL004",
+      "text": "O CONTRATADO obriga-se a exibir a marca do COB em todos os materiais promocionais.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratado",
+      "fol_gold": "Obrigacao(contratado, UsoMarca(materiais_promocionais), Sempre)",
+      "notes": "Obrigação de uso de marca - potencial conflito com CL002"
+    },
+    {
+      "id": "CL005",
+      "text": "Caso o PATROCINADOR não realize o pagamento no prazo, incidirá multa de 2%.",
+      "modality": "CONDICAO",
+      "agent": "patrocinador",
+      "fol_gold": "Condicao(Inadimplencia(patrocinador, pagamento), Multa(0.02))",
+      "notes": "Cláusula condicional de penalidade"
+    },
+    {
+      "id": "CL006",
+      "text": "Entende-se por EVENTO qualquer competição esportiva oficial organizada pelo COB.",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "Definicao(evento, CompeticaoOficial(cob))",
+      "notes": "Cláusula definitória"
+    },
+    {
+      "id": "CL007",
+      "text": "O COB garante ao PATROCINADOR exclusividade na categoria de bebidas durante a vigência do contrato.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "cob",
+      "fol_gold": "Obrigacao(cob, Exclusividade(patrocinador, categoria_bebidas), Vigencia)",
+      "notes": "Garantia de exclusividade"
+    },
+    {
+      "id": "CL008",
+      "text": "O presente contrato terá vigência de 24 meses a partir da assinatura.",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "Prazo(contrato, DataAssinatura, DataAssinatura + 24meses)",
+      "notes": "Definição de prazo"
+    },
+    {
+      "id": "CL009",
+      "text": "A CONTRATADA não poderá subcontratar terceiros sem autorização expressa da CONTRATANTE.",
+      "modality": "PROIBICAO",
+      "agent": "contratada",
+      "fol_gold": "Proibicao(contratada, Subcontratacao(sem_autorizacao))",
+      "notes": "Proibição de subcontratação"
+    },
+    {
+      "id": "CL010",
+      "text": "O ATLETA terá direito a receber bonificação adicional em caso de conquista de medalha olímpica.",
+      "modality": "PERMISSAO",
+      "agent": "atleta",
+      "fol_gold": "Condicao(MedalhaOlimpica(atleta), Permissao(atleta, Bonificacao(adicional)))",
+      "notes": "Direito condicionado a resultado"
+    },
+    {
+      "id": "CL011",
+      "text": "É proibido ao PATROCINADOR patrocinar eventos concorrentes durante a vigência deste contrato.",
+      "modality": "PROIBICAO",
+      "agent": "patrocinador",
+      "fol_gold": "Proibicao(patrocinador, Patrocinio(eventos_concorrentes))",
+      "notes": "Cláusula de não-concorrência"
+    },
+    {
+      "id": "CL012",
+      "text": "O CONTRATADO deverá manter sigilo sobre todas as informações confidenciais.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratado",
+      "fol_gold": "Obrigacao(contratado, Sigilo(informacoes_confidenciais), Sempre)",
+      "notes": "Obrigação de confidencialidade"
+    }
+  ],
+  "conflict_pairs": [
+    {
+      "id": "CP001",
+      "clause_ids": ["CL002", "CL004"],
+      "conflict_type": "OBRIGACAO_PROIBICAO",
+      "description": "CL002 proíbe uso de marca sem autorização, CL004 obriga exibição de marca",
+      "resolution": "Adicionar exceção em CL002 para uso autorizado em materiais promocionais"
+    }
+  ]
+}

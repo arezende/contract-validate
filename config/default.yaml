@@ -1,0 +1,75 @@
+# ContractFOL - Configuração Padrão
+# Validação Automatizada de Contratos Inter-Institucionais
+
+# Configurações do Pipeline
+pipeline:
+  # Provedor LLM: "openai" ou "anthropic"
+  llm_provider: "openai"
+
+  # Modelo LLM a utilizar
+  # OpenAI: gpt-4, gpt-4-turbo, gpt-3.5-turbo
+  # Anthropic: claude-3-opus-20240229, claude-3-sonnet-20240229
+  llm_model: "gpt-4"
+
+  # Máximo de tentativas de refinamento para tradução NL-FOL
+  max_refinement_attempts: 3
+
+  # Usar heurísticas além do LLM para classificação
+  use_heuristics: true
+
+  # Timeout do solver Z3 em milissegundos
+  z3_timeout_ms: 30000
+
+# Configurações do Extrator de Cláusulas
+extractor:
+  # Comprimento mínimo para considerar como cláusula
+  min_clause_length: 20
+
+  # Comprimento máximo para uma única cláusula
+  max_clause_length: 5000
+
+# Configurações do Classificador Deôntico
+classifier:
+  # Limiar de confiança para aceitar classificação
+  confidence_threshold: 0.7
+
+# Configurações do Verificador
+verifier:
+  # Incluir axiomas de background
+  include_axioms: true
+
+  # Timeout em milissegundos
+  timeout_ms: 30000
+
+# Configurações de Saída
+output:
+  # Gerar relatório automaticamente
+  generate_report: true
+
+  # Formato do relatório: "text", "json", "html"
+  report_format: "text"
+
+  # Diretório para relatórios
+  reports_dir: "data/results"
+
+# Configurações de Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Configurações de Avaliação Experimental
+evaluation:
+  # Diretório com contratos de teste
+  contracts_dir: "data/contracts"
+
+  # Arquivo com cláusulas anotadas (ground truth)
+  clauses_file: "data/clauses/clausulas_anotadas.json"
+
+  # Número de execuções para média
+  num_runs: 3
+
+  # Métodos a comparar
+  methods:
+    - "contractfol"
+    - "gpt4_cot"
+    - "baseline"
