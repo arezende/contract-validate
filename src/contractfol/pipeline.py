@@ -33,7 +33,7 @@ class PipelineConfig:
     """Configuração do pipeline."""
 
     # LLM settings
-    llm_provider: str = "openai"  # "openai" ou "anthropic"
+    llm_provider: str = "openai"  # "openai", "anthropic" ou "gemini"
     llm_model: str = "gpt-4"
     llm_api_key: str | None = None
 
@@ -106,7 +106,12 @@ class ContractFOLPipeline:
             # Tentar obter da variável de ambiente
             import os
 
-            api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("ANTHROPIC_API_KEY")
+            api_key = (
+                os.environ.get("OPENAI_API_KEY")
+                or os.environ.get("ANTHROPIC_API_KEY")
+                or os.environ.get("GOOGLE_API_KEY")
+                or os.environ.get("GEMINI_API_KEY")
+            )
             if not api_key:
                 if self.config.verbose:
                     print("Aviso: Nenhuma API key configurada. Usando modo heurístico.")
@@ -122,6 +127,11 @@ class ContractFOLPipeline:
                 from anthropic import Anthropic
 
                 return Anthropic(api_key=self.config.llm_api_key)
+            elif self.config.llm_provider == "gemini":
+                import google.generativeai as genai
+
+                genai.configure(api_key=self.config.llm_api_key)
+                return genai.GenerativeModel(self.config.llm_model)
         except ImportError as e:
             if self.config.verbose:
                 print(f"Aviso: Biblioteca LLM não instalada: {e}")
@@ -326,8 +336,8 @@ def create_pipeline(
 
     Args:
         api_key: API key do provedor LLM
-        provider: "openai" ou "anthropic"
-        model: Nome do modelo
+        provider: "openai", "anthropic" ou "gemini"
+        model: Nome do modelo (ex: gpt-4, claude-3-opus, gemini-1.5-pro)
         verbose: Se deve imprimir logs
 
     Returns:

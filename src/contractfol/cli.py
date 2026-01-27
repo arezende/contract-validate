@@ -33,7 +33,7 @@ console = Console()
 def validate(
     file_path: str = typer.Argument(..., help="Caminho do arquivo de contrato"),
     api_key: Optional[str] = typer.Option(None, "--api-key", "-k", help="API key do LLM"),
-    provider: str = typer.Option("openai", "--provider", "-p", help="Provedor LLM (openai/anthropic)"),
+    provider: str = typer.Option("openai", "--provider", "-p", help="Provedor LLM (openai/anthropic/gemini)"),
     model: str = typer.Option("gpt-4", "--model", "-m", help="Modelo LLM"),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Modo verboso"),
     output: Optional[str] = typer.Option(None, "--output", "-o", help="Arquivo de saída"),
@@ -204,8 +204,10 @@ O presente contrato tem vigência de 12 (doze) meses a partir da data de assinat
     console.print("\n[bold green]Demonstração concluída![/bold green]")
     console.print(
         "\nNota: Para melhores resultados, configure uma API key de LLM:\n"
-        "  export OPENAI_API_KEY=sua-chave\n"
-        "  contractfol validate contrato.txt"
+        "  export OPENAI_API_KEY=sua-chave         # Para GPT-4\n"
+        "  export ANTHROPIC_API_KEY=sua-chave      # Para Claude\n"
+        "  export GOOGLE_API_KEY=sua-chave         # Para Gemini\n"
+        "  contractfol validate contrato.txt -p gemini -m gemini-1.5-pro"
     )
 
 

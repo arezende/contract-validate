@@ -11,7 +11,8 @@ Métodos comparados:
 1. ContractFOL (proposto)
 2. GPT-4-CoT (Chain-of-Thought)
 3. Claude-CoT
-4. Baseline Neural
+4. Gemini-CoT
+5. Baseline Neural
 """
 
 import json
@@ -44,10 +45,11 @@ class ExperimentConfig:
     # LLM settings
     openai_api_key: str | None = None
     anthropic_api_key: str | None = None
+    google_api_key: str | None = None
 
     # Experimento
     methods: list[str] = field(
-        default_factory=lambda: ["contractfol", "gpt4_cot", "claude_cot", "baseline"]
+        default_factory=lambda: ["contractfol", "gpt4_cot", "claude_cot", "gemini_cot", "baseline"]
     )
     num_runs: int = 1  # Número de execuções para média
     verbose: bool = True
@@ -153,6 +155,16 @@ Responda apenas com o JSON:"""
                     messages=[{"role": "user", "content": prompt}],
                 )
                 result = response.content[0].text
+            elif hasattr(self.llm_client, "generate_content"):
+                # Google Gemini client
+                response = self.llm_client.generate_content(
+                    prompt,
+                    generation_config={
+                        "temperature": 0.1,
+                        "max_output_tokens": 2000,
+                    },
+                )
+                result = response.text
             else:
                 return []
 
@@ -242,6 +254,8 @@ class ExperimentRunner:
                 predictions = self._run_llm_cot(clauses, "openai", "gpt-4")
             elif method == "claude_cot":
                 predictions = self._run_llm_cot(clauses, "anthropic", "claude-3-opus-20240229")
+            elif method == "gemini_cot":
+                predictions = self._run_llm_cot(clauses, "gemini", "gemini-1.5-pro")
             elif method == "baseline":
                 predictions = self._run_baseline(clauses)
             else:
@@ -308,11 +322,14 @@ class ExperimentRunner:
         self, clauses: list[Clause], provider: str, model: str
     ) -> list[dict]:
         """Executa método LLM com Chain-of-Thought."""
-        api_key = (
-            self.config.openai_api_key
-            if provider == "openai"
-            else self.config.anthropic_api_key
-        )
+        if provider == "openai":
+            api_key = self.config.openai_api_key
+        elif provider == "anthropic":
+            api_key = self.config.anthropic_api_key
+        elif provider == "gemini":
+            api_key = self.config.google_api_key
+        else:
+            api_key = None
 
         if not api_key:
             print(f"  API key não configurada para {provider}")
@@ -323,10 +340,17 @@ class ExperimentRunner:
                 from openai import OpenAI
 
                 client = OpenAI(api_key=api_key)
-            else:
+            elif provider == "anthropic":
                 from anthropic import Anthropic
 
                 client = Anthropic(api_key=api_key)
+            elif provider == "gemini":
+                import google.generativeai as genai
+
+                genai.configure(api_key=api_key)
+                client = genai.GenerativeModel(model)
+            else:
+                return []
 
             method = LLMOnlyMethod(client, model)
             return method.detect_conflicts(clauses)
@@ -432,6 +456,7 @@ class ExperimentRunner:
 def run_experiment(
     openai_key: str | None = None,
     anthropic_key: str | None = None,
+    google_key: str | None = None,
     verbose: bool = True,
 ) -> dict:
     """
@@ -440,6 +465,7 @@ def run_experiment(
     config = ExperimentConfig(
         openai_api_key=openai_key,
         anthropic_api_key=anthropic_key,
+        google_api_key=google_key,
         verbose=verbose,
     )
     runner = ExperimentRunner(config)

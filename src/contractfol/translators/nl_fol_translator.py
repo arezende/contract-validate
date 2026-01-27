@@ -5,7 +5,7 @@ Implementa a tradução de cláusulas contratuais em português para fórmulas
 em Lógica de Primeira Ordem, conforme Seção 5.5 da dissertação.
 
 O tradutor utiliza:
-- Prompting estruturado com LLMs (GPT-4 ou Claude)
+- Prompting estruturado com LLMs (GPT-4, Claude ou Gemini)
 - Mecanismo de auto-refinamento baseado em feedback de verificadores
 - Ontologia de domínio para guiar a tradução
 
@@ -145,7 +145,7 @@ class NLFOLTranslator:
         Inicializa o tradutor.
 
         Args:
-            llm_client: Cliente OpenAI ou Anthropic
+            llm_client: Cliente OpenAI, Anthropic ou Gemini
             model: Nome do modelo a utilizar
             ontology: Ontologia de domínio
             max_refinement_attempts: Máximo de tentativas de refinamento
@@ -332,6 +332,16 @@ Forneça APENAS a fórmula FOL corrigida:"""
                     messages=[{"role": "user", "content": prompt}],
                 )
                 result = response.content[0].text
+            elif hasattr(self.llm_client, "generate_content"):
+                # Google Gemini
+                response = self.llm_client.generate_content(
+                    prompt,
+                    generation_config={
+                        "temperature": 0.2,
+                        "max_output_tokens": 500,
+                    },
+                )
+                result = response.text
             else:
                 raise ValueError("Cliente LLM não reconhecido")
 

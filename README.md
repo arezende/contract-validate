@@ -52,6 +52,9 @@ export OPENAI_API_KEY="sua-chave-openai"
 
 # Anthropic (para Claude)
 export ANTHROPIC_API_KEY="sua-chave-anthropic"
+
+# Google (para Gemini)
+export GOOGLE_API_KEY="sua-chave-google"
 ```
 
 ## Uso
@@ -59,8 +62,14 @@ export ANTHROPIC_API_KEY="sua-chave-anthropic"
 ### Interface de Linha de Comando
 
 ```bash
-# Validar um contrato
+# Validar um contrato (usa OpenAI por padrão)
 contractfol validate contrato.txt
+
+# Validar usando Gemini
+contractfol validate contrato.txt -p gemini -m gemini-1.5-pro
+
+# Validar usando Claude
+contractfol validate contrato.txt -p anthropic -m claude-3-opus-20240229
 
 # Validar com saída para arquivo
 contractfol validate contrato.txt -o relatorio.txt

@@ -77,7 +77,7 @@ class DeonticClassifier:
         Inicializa o classificador.
 
         Args:
-            llm_client: Cliente OpenAI/Anthropic (opcional)
+            llm_client: Cliente OpenAI/Anthropic/Gemini (opcional)
             model: Nome do modelo LLM a utilizar
             use_heuristics: Se deve usar heurísticas além do LLM
             confidence_threshold: Limiar mínimo de confiança
@@ -182,6 +182,17 @@ class DeonticClassifier:
                     system=self._get_system_prompt(),
                 )
                 result_text = response.content[0].text
+            elif hasattr(self.llm_client, "generate_content"):
+                # Google Gemini client
+                full_prompt = f"{self._get_system_prompt()}\n\n{prompt}"
+                response = self.llm_client.generate_content(
+                    full_prompt,
+                    generation_config={
+                        "temperature": 0.1,
+                        "max_output_tokens": 200,
+                    },
+                )
+                result_text = response.text
             else:
                 raise ValueError("Cliente LLM não reconhecido")
 
