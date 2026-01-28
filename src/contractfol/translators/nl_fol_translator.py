@@ -7,7 +7,9 @@ em Lógica de Primeira Ordem, conforme Seção 5.5 da dissertação.
 O tradutor utiliza:
 - Prompting estruturado com LLMs (GPT-4, Claude ou Gemini)
 - Mecanismo de auto-refinamento baseado em feedback de verificadores
-- Ontologia de domínio para guiar a tradução
+- Ontologia de domínio para guiar a tradução (estática ou dinâmica)
+- Descoberta automática de predicados quando necessário
+- Base de conhecimento para armazenamento de fatos
 
 Exemplo de tradução (da dissertação):
 Cláusula: "O PATROCINADOR obriga-se a realizar o pagamento das parcelas
@@ -16,11 +18,14 @@ FOL: ∀m.Mes(m) → Obrigacao(patrocinador, Pagamento(parcelas), QuintoDiaUtil(
 """
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 from contractfol.models import Clause, DeonticModality, FOLFormula
 from contractfol.ontology import ContractOntology, get_ontology
+from contractfol.dynamic_ontology import DynamicOntology, get_dynamic_ontology
+from contractfol.knowledge_base import KnowledgeBase, get_knowledge_base
+from contractfol.predicate_discovery import PredicateDiscovery, DiscoveryResult
 
 
 @dataclass
@@ -469,3 +474,336 @@ def translate_clauses(
     """
     translator = NLFOLTranslator(llm_client=llm_client)
     return [translator.translate(clause) for clause in clauses]
+
+
+@dataclass
+class DynamicTranslationResult(TranslationResult):
+    """Resultado de tradução com suporte a predicados dinâmicos."""
+
+    discovered_predicates: list[str] = field(default_factory=list)
+    knowledge_base_id: str = ""
+    suggested_predicates: list[str] = field(default_factory=list)
+
+
+class DynamicNLFOLTranslator(NLFOLTranslator):
+    """
+    Tradutor NL-FOL com suporte a predicados dinâmicos.
+
+    Estende o tradutor base com:
+    - Descoberta automática de predicados durante tradução
+    - Integração com ontologia dinâmica
+    - Armazenamento de fatos na base de conhecimento
+    - Sugestão de predicados relevantes
+    """
+
+    def __init__(
+        self,
+        llm_client: Any | None = None,
+        model: str = "gpt-4",
+        ontology: DynamicOntology | None = None,
+        knowledge_base: KnowledgeBase | None = None,
+        max_refinement_attempts: int = 3,
+        enable_predicate_discovery: bool = True,
+        auto_register_predicates: bool = False,
+        min_predicate_confidence: float = 0.7,
+    ):
+        """
+        Inicializa o tradutor dinâmico.
+
+        Args:
+            llm_client: Cliente LLM
+            model: Nome do modelo
+            ontology: Ontologia dinâmica (ou cria uma nova)
+            knowledge_base: Base de conhecimento (ou cria uma nova)
+            max_refinement_attempts: Máximo de tentativas de refinamento
+            enable_predicate_discovery: Se True, descobre predicados automaticamente
+            auto_register_predicates: Se True, registra predicados descobertos
+            min_predicate_confidence: Confiança mínima para aceitar predicados
+        """
+        self.dynamic_ontology = ontology or get_dynamic_ontology()
+        super().__init__(
+            llm_client=llm_client,
+            model=model,
+            ontology=self.dynamic_ontology,
+            max_refinement_attempts=max_refinement_attempts,
+        )
+
+        self.knowledge_base = knowledge_base or get_knowledge_base()
+        self.enable_predicate_discovery = enable_predicate_discovery
+        self.auto_register_predicates = auto_register_predicates
+        self.min_predicate_confidence = min_predicate_confidence
+
+        self.predicate_discoverer = PredicateDiscovery(
+            llm_client=llm_client,
+            model=model,
+            ontology=self.dynamic_ontology,
+            auto_register=auto_register_predicates,
+            min_confidence=min_predicate_confidence,
+        )
+
+    def translate(
+        self,
+        clause: Clause,
+        modality: DeonticModality | None = None,
+        contract_id: str = "",
+        store_in_kb: bool = True,
+    ) -> DynamicTranslationResult:
+        """
+        Traduz uma cláusula para FOL com suporte a predicados dinâmicos.
+
+        Args:
+            clause: Cláusula a traduzir
+            modality: Modalidade deôntica
+            contract_id: ID do contrato (para base de conhecimento)
+            store_in_kb: Se True, armazena o resultado na base de conhecimento
+
+        Returns:
+            DynamicTranslationResult com fórmula e metadados
+        """
+        discovered_predicates = []
+        suggested_predicates = []
+
+        # 1. Descobrir predicados se habilitado
+        if self.enable_predicate_discovery and self.llm_client:
+            discovery_result = self.predicate_discoverer.analyze_text(clause.text)
+
+            # Coletar predicados descobertos
+            discovered_predicates = discovery_result.accepted
+
+            # Se descobriu predicados, atualizar o validador
+            if discovered_predicates:
+                self.validator = FOLSyntaxValidator(self.dynamic_ontology)
+
+        # 2. Sugerir predicados relevantes
+        suggestions = self.predicate_discoverer.suggest_predicate_for_clause(
+            clause.text, top_k=5
+        )
+        suggested_predicates = [pred.name for pred, score in suggestions if score > 0.1]
+
+        # 3. Traduzir usando o método base (com ontologia atualizada)
+        base_result = super().translate(clause, modality)
+
+        # 4. Armazenar na base de conhecimento
+        kb_id = ""
+        if store_in_kb and base_result.is_valid:
+            assertion = self.knowledge_base.add_assertion(
+                formula=base_result.fol_formula,
+                source_clause_id=clause.id,
+                source_text=clause.text,
+                contract_id=contract_id,
+                created_by="translation",
+            )
+            kb_id = assertion.id
+
+        # 5. Retornar resultado estendido
+        return DynamicTranslationResult(
+            original_text=base_result.original_text,
+            fol_formula=base_result.fol_formula,
+            is_valid=base_result.is_valid,
+            validation_errors=base_result.validation_errors,
+            attempts=base_result.attempts,
+            predicates_used=base_result.predicates_used,
+            constants_used=base_result.constants_used,
+            discovered_predicates=discovered_predicates,
+            knowledge_base_id=kb_id,
+            suggested_predicates=suggested_predicates,
+        )
+
+    def translate_with_new_predicates(
+        self,
+        clause: Clause,
+        modality: DeonticModality | None = None,
+        contract_id: str = "",
+    ) -> DynamicTranslationResult:
+        """
+        Traduz com tentativa de criar novos predicados se necessário.
+
+        Se a tradução inicial falhar por predicados desconhecidos,
+        tenta descobrir e registrar novos predicados antes de traduzir novamente.
+        """
+        # Primeira tentativa
+        result = self.translate(
+            clause, modality, contract_id, store_in_kb=False
+        )
+
+        if result.is_valid:
+            # Armazenar na KB se válido
+            if result.fol_formula:
+                assertion = self.knowledge_base.add_assertion(
+                    formula=result.fol_formula,
+                    source_clause_id=clause.id,
+                    source_text=clause.text,
+                    contract_id=contract_id,
+                    created_by="translation",
+                )
+                result.knowledge_base_id = assertion.id
+            return result
+
+        # Verificar se o erro é por predicados desconhecidos
+        unknown_pred_errors = [
+            e for e in result.validation_errors
+            if "desconhecidos" in e.lower() or "unknown" in e.lower()
+        ]
+
+        if unknown_pred_errors and self.llm_client:
+            # Forçar descoberta de predicados
+            old_auto_register = self.predicate_discoverer.auto_register
+            self.predicate_discoverer.auto_register = True
+
+            discovery = self.predicate_discoverer.analyze_text(clause.text)
+
+            self.predicate_discoverer.auto_register = old_auto_register
+
+            if discovery.accepted:
+                # Atualizar validador e tentar novamente
+                self.validator = FOLSyntaxValidator(self.dynamic_ontology)
+                result = self.translate(clause, modality, contract_id, store_in_kb=True)
+                result.discovered_predicates = discovery.accepted
+
+        return result
+
+    def _build_translation_prompt(
+        self, text: str, modality: DeonticModality | None
+    ) -> str:
+        """Constrói prompt de tradução com ontologia dinâmica."""
+        # Usar descrição estendida da ontologia dinâmica
+        if hasattr(self.ontology, 'get_extended_ontology_description'):
+            ontology_desc = self.ontology.get_extended_ontology_description()
+        else:
+            ontology_desc = self.ontology.get_ontology_description()
+
+        modality_hint = ""
+        if modality:
+            modality_hint = f"\nEsta cláusula foi classificada como: {modality.value}"
+
+        # Adicionar sugestões de predicados
+        suggestions = self.predicate_discoverer.suggest_predicate_for_clause(text, top_k=3)
+        suggestions_hint = ""
+        if suggestions:
+            suggested_preds = [f"- {pred.name}: {pred.description}" for pred, _ in suggestions]
+            suggestions_hint = f"\n\n## Predicados Sugeridos (mais relevantes)\n" + "\n".join(suggested_preds)
+
+        return f"""Você é um especialista em tradução de linguagem jurídica para Lógica de Primeira Ordem (FOL).
+
+{ontology_desc}
+{suggestions_hint}
+
+## Tarefa
+Traduza a seguinte cláusula contratual para uma fórmula em Lógica de Primeira Ordem.
+{modality_hint}
+
+## Cláusula
+{text}
+
+## Instruções
+1. Use PREFERENCIALMENTE os predicados sugeridos ou da ontologia
+2. Use quantificadores quando apropriado (∀ para universal, ∃ para existencial)
+3. Use conectivos lógicos: ∧ (e), ∨ (ou), → (implica), ¬ (não), ↔ (se e somente se)
+4. Identifique claramente os agentes (CONTRATANTE, CONTRATADO, etc.) como constantes
+5. A fórmula deve capturar a semântica normativa da cláusula
+
+## Exemplos
+- "O PATROCINADOR obriga-se a pagar mensalmente" →
+  Obrigacao(patrocinador, Pagamento(mensal), FimMes)
+
+- "O CONTRATADO não poderá utilizar a marca sem autorização" →
+  Proibicao(contratado, UsoMarca(sem_autorizacao))
+
+- "Se houver atraso, haverá multa" →
+  Condicao(Atraso, Multa)
+
+## Resposta
+Forneça APENAS a fórmula FOL, sem explicações adicionais.
+Fórmula FOL:"""
+
+    def batch_translate(
+        self,
+        clauses: list[Clause],
+        contract_id: str = "",
+        discover_predicates_first: bool = True,
+    ) -> list[DynamicTranslationResult]:
+        """
+        Traduz múltiplas cláusulas em lote.
+
+        Args:
+            clauses: Lista de cláusulas
+            contract_id: ID do contrato
+            discover_predicates_first: Se True, descobre predicados de todas
+                                       as cláusulas antes de traduzir
+
+        Returns:
+            Lista de resultados de tradução
+        """
+        results = []
+
+        # Fase 1: Descobrir predicados de todas as cláusulas
+        if discover_predicates_first and self.enable_predicate_discovery and self.llm_client:
+            all_text = "\n\n".join([c.text for c in clauses])
+            self.predicate_discoverer.analyze_text(all_text)
+            # Atualizar validador
+            self.validator = FOLSyntaxValidator(self.dynamic_ontology)
+
+        # Fase 2: Traduzir cada cláusula
+        for clause in clauses:
+            result = self.translate(
+                clause,
+                contract_id=contract_id,
+                store_in_kb=True,
+            )
+            results.append(result)
+
+        return results
+
+    def get_translation_statistics(self) -> dict:
+        """Retorna estatísticas das traduções."""
+        kb_stats = self.knowledge_base.get_statistics()
+        ontology_stats = self.dynamic_ontology.export_statistics()
+
+        return {
+            "knowledge_base": kb_stats,
+            "ontology": ontology_stats,
+            "translator": {
+                "model": self.model,
+                "max_refinement_attempts": self.max_refinement_attempts,
+                "predicate_discovery_enabled": self.enable_predicate_discovery,
+                "auto_register_predicates": self.auto_register_predicates,
+                "min_predicate_confidence": self.min_predicate_confidence,
+            },
+        }
+
+    def check_consistency(self) -> dict:
+        """Verifica consistência da base de conhecimento."""
+        result = self.knowledge_base.check_consistency()
+        return {
+            "is_consistent": result.is_consistent,
+            "conflicts": result.conflicts,
+            "warnings": result.warnings,
+            "checked_assertions": result.checked_assertions,
+            "check_time_ms": result.check_time_ms,
+        }
+
+
+def translate_clauses_dynamic(
+    clauses: list[Clause],
+    llm_client: Any = None,
+    contract_id: str = "",
+    enable_discovery: bool = True,
+) -> list[DynamicTranslationResult]:
+    """
+    Função utilitária para tradução dinâmica de múltiplas cláusulas.
+
+    Args:
+        clauses: Lista de cláusulas a traduzir
+        llm_client: Cliente LLM (opcional)
+        contract_id: ID do contrato
+        enable_discovery: Se True, habilita descoberta de predicados
+
+    Returns:
+        Lista de resultados de tradução dinâmica
+    """
+    translator = DynamicNLFOLTranslator(
+        llm_client=llm_client,
+        enable_predicate_discovery=enable_discovery,
+        auto_register_predicates=enable_discovery,
+    )
+    return translator.batch_translate(clauses, contract_id)

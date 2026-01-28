@@ -1,0 +1,225 @@
+{
+  "version": "1.0",
+  "description": "Predicados dinâmicos descobertos automaticamente para contratos brasileiros",
+  "updated_at": "2026-01-27T00:00:00",
+  "predicates": [
+    {
+      "name": "Garantia",
+      "arity": 3,
+      "description": "Agente oferece garantia de tipo específico para o contrato",
+      "argument_types": ["Agente", "String", "Contrato"],
+      "argument_names": ["garantidor", "tipo_garantia", "contrato"],
+      "examples": [
+        "Garantia(contratado, caucao, contrato_001)",
+        "Garantia(fiador, fianca_bancaria, contrato_002)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "O CONTRATADO deverá apresentar garantia no valor de 3 meses",
+        "confidence": 0.85,
+        "usage_count": 5,
+        "is_core": false,
+        "domain": "estrutural"
+      },
+      "semantic_tags": ["estrutural", "financeiro"],
+      "related_predicates": ["Valor", "Obrigacao"]
+    },
+    {
+      "name": "Penalidade",
+      "arity": 3,
+      "description": "Penalidade aplicável a agente por infração específica",
+      "argument_types": ["Agente", "String", "Valor"],
+      "argument_names": ["agente", "infracao", "valor_multa"],
+      "examples": [
+        "Penalidade(contratado, atraso_entrega, 10000.00)",
+        "Penalidade(patrocinador, inadimplencia, 50000.00)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "Em caso de descumprimento, a parte infratora pagará multa",
+        "confidence": 0.9,
+        "usage_count": 12,
+        "is_core": false,
+        "domain": "deontico"
+      },
+      "semantic_tags": ["deontico", "valor"],
+      "related_predicates": ["Proibicao", "Valor", "Condicao"]
+    },
+    {
+      "name": "Rescisao",
+      "arity": 3,
+      "description": "Rescisão de contrato por agente com motivo especificado",
+      "argument_types": ["Contrato", "Agente", "String"],
+      "argument_names": ["contrato", "agente", "motivo"],
+      "examples": [
+        "Rescisao(contrato_001, contratante, inadimplencia)",
+        "Rescisao(contrato_002, contratado, justa_causa)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "O contrato poderá ser rescindido por qualquer das partes",
+        "confidence": 0.88,
+        "usage_count": 8,
+        "is_core": false,
+        "domain": "estrutural"
+      },
+      "semantic_tags": ["estrutural"],
+      "related_predicates": ["Prazo", "Condicao"]
+    },
+    {
+      "name": "Renovacao",
+      "arity": 3,
+      "description": "Renovação automática ou opcional de contrato por período",
+      "argument_types": ["Contrato", "Tempo", "String"],
+      "argument_names": ["contrato", "periodo", "tipo_renovacao"],
+      "examples": [
+        "Renovacao(contrato_001, 12_meses, automatica)",
+        "Renovacao(contrato_002, 6_meses, mediante_acordo)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "O contrato será renovado automaticamente por igual período",
+        "confidence": 0.82,
+        "usage_count": 6,
+        "is_core": false,
+        "domain": "temporal"
+      },
+      "semantic_tags": ["temporal", "estrutural"],
+      "related_predicates": ["Prazo", "Condicao"]
+    },
+    {
+      "name": "Confidencialidade",
+      "arity": 3,
+      "description": "Obrigação de sigilo sobre informações específicas",
+      "argument_types": ["Agente", "String", "Tempo"],
+      "argument_names": ["agente", "tipo_informacao", "duracao"],
+      "examples": [
+        "Confidencialidade(contratado, dados_comerciais, 5_anos)",
+        "Confidencialidade(atleta, estrategia_equipe, vigencia_contrato)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "As partes comprometem-se a manter sigilo sobre todas as informações",
+        "confidence": 0.91,
+        "usage_count": 10,
+        "is_core": false,
+        "domain": "deontico"
+      },
+      "semantic_tags": ["deontico"],
+      "related_predicates": ["Obrigacao", "Proibicao"]
+    },
+    {
+      "name": "Cessao",
+      "arity": 4,
+      "description": "Cessão ou transferência de direitos/obrigações entre partes",
+      "argument_types": ["Agente", "Agente", "String", "Bool"],
+      "argument_names": ["cedente", "cessionario", "objeto_cessao", "com_anuencia"],
+      "examples": [
+        "Cessao(contratado, terceiro, direitos_imagem, true)",
+        "Cessao(patrocinador, empresa_afiliada, obrigacoes, true)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "É vedada a cessão de direitos sem prévia autorização",
+        "confidence": 0.78,
+        "usage_count": 4,
+        "is_core": false,
+        "domain": "estrutural"
+      },
+      "semantic_tags": ["estrutural", "relacional"],
+      "related_predicates": ["Permissao", "Proibicao", "Parte"]
+    },
+    {
+      "name": "Notificacao",
+      "arity": 4,
+      "description": "Exigência de notificação formal entre partes com prazo",
+      "argument_types": ["Agente", "Agente", "String", "Tempo"],
+      "argument_names": ["notificante", "notificado", "assunto", "prazo_antecedencia"],
+      "examples": [
+        "Notificacao(contratante, contratado, rescisao, 30_dias)",
+        "Notificacao(patrocinador, atleta, alteracao_contrato, 15_dias)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "Qualquer alteração deverá ser comunicada com 30 dias de antecedência",
+        "confidence": 0.85,
+        "usage_count": 7,
+        "is_core": false,
+        "domain": "acao"
+      },
+      "semantic_tags": ["acao", "temporal"],
+      "related_predicates": ["Obrigacao", "Prazo"]
+    },
+    {
+      "name": "Reajuste",
+      "arity": 3,
+      "description": "Reajuste de valores por índice em periodicidade definida",
+      "argument_types": ["String", "String", "Tempo"],
+      "argument_names": ["objeto_reajuste", "indice", "periodicidade"],
+      "examples": [
+        "Reajuste(mensalidade, IGPM, anual)",
+        "Reajuste(valor_patrocinio, IPCA, semestral)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "Os valores serão reajustados anualmente pelo IGPM",
+        "confidence": 0.87,
+        "usage_count": 9,
+        "is_core": false,
+        "domain": "valor"
+      },
+      "semantic_tags": ["valor", "temporal"],
+      "related_predicates": ["Valor", "Prazo"]
+    },
+    {
+      "name": "Foro",
+      "arity": 2,
+      "description": "Eleição de foro para resolução de disputas",
+      "argument_types": ["Contrato", "String"],
+      "argument_names": ["contrato", "cidade_foro"],
+      "examples": [
+        "Foro(contrato_001, sao_paulo)",
+        "Foro(contrato_002, rio_de_janeiro)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "Fica eleito o foro da comarca de São Paulo",
+        "confidence": 0.95,
+        "usage_count": 15,
+        "is_core": false,
+        "domain": "estrutural"
+      },
+      "semantic_tags": ["estrutural"],
+      "related_predicates": ["Parte"]
+    },
+    {
+      "name": "Arbitragem",
+      "arity": 3,
+      "description": "Cláusula compromissória de arbitragem",
+      "argument_types": ["Contrato", "String", "String"],
+      "argument_names": ["contrato", "camara_arbitral", "sede"],
+      "examples": [
+        "Arbitragem(contrato_001, ccbc, sao_paulo)",
+        "Arbitragem(contrato_002, fgv, rio_de_janeiro)"
+      ],
+      "metadata": {
+        "created_at": "2026-01-27T00:00:00",
+        "source_clause": "Eventuais conflitos serão resolvidos por arbitragem",
+        "confidence": 0.83,
+        "usage_count": 3,
+        "is_core": false,
+        "domain": "estrutural"
+      },
+      "semantic_tags": ["estrutural"],
+      "related_predicates": ["Foro", "Condicao"]
+    }
+  ],
+  "custom_axioms": [
+    "; Penalidade implica que houve infração (condição)",
+    "(assert (forall ((a Agent) (i String) (v Real)) (=> (Penalidade a i v) (exists ((inf Action)) (Condicao inf (Penalidade a i v))))))",
+    "; Confidencialidade implica proibição de divulgação",
+    "(assert (forall ((a Agent) (t String) (d Time)) (=> (Confidencialidade a t d) (Proibicao a (Divulgacao t)))))",
+    "; Cessão sem anuência está proibida por padrão",
+    "(assert (forall ((c Agent) (ce Agent) (o String)) (=> (and (Cessao c ce o false)) (Proibicao c (Cessao c ce o false)))))"
+  ]
+}

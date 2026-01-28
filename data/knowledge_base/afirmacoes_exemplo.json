@@ -1,0 +1,305 @@
+{
+  "version": "1.0",
+  "description": "Base de conhecimento de afirmações para teste de predicados dinâmicos",
+  "updated_at": "2026-01-27T00:00:00",
+  "assertions": [
+    {
+      "id": "A00001",
+      "formula": "Parte(cob, contrato_patrocinio_001)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL001",
+      "source_text": "O COMITÊ OLÍMPICO DO BRASIL (COB), doravante denominado CONTRATANTE",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 1.0,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "user"
+    },
+    {
+      "id": "A00002",
+      "formula": "Parte(patrocinador_xyz, contrato_patrocinio_001)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL001",
+      "source_text": "A empresa XYZ LTDA, doravante denominada PATROCINADORA",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 1.0,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "user"
+    },
+    {
+      "id": "A00003",
+      "formula": "Prazo(contrato_patrocinio_001, 2026-01-01, 2028-12-31)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL002",
+      "source_text": "O presente contrato terá vigência de 01/01/2026 a 31/12/2028",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 1.0,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00004",
+      "formula": "Obrigacao(patrocinador_xyz, Pagamento(mensalidade), QuintoDiaUtil)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL003",
+      "source_text": "O PATROCINADOR obriga-se a realizar o pagamento das parcelas até o quinto dia útil de cada mês",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.95,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00005",
+      "formula": "Valor(Pagamento(mensalidade), 500000.00, contrato_patrocinio_001)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL003",
+      "source_text": "no valor de R$ 500.000,00 (quinhentos mil reais)",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 1.0,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00006",
+      "formula": "Permissao(patrocinador_xyz, UsoMarca(cob_materiais_promocionais))",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL004",
+      "source_text": "O PATROCINADOR está autorizado a utilizar as marcas do COB em materiais promocionais",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.9,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00007",
+      "formula": "Proibicao(patrocinador_xyz, UsoMarca(sem_autorizacao_previa))",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL005",
+      "source_text": "É vedada a utilização das marcas sem prévia aprovação por escrito",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.92,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00008",
+      "formula": "Exclusividade(patrocinador_xyz, categoria_bebidas_esportivas)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL006",
+      "source_text": "O PATROCINADOR terá exclusividade na categoria de bebidas esportivas",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.88,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00009",
+      "formula": "Condicao(Inadimplencia(patrocinador_xyz), Rescisao(contrato_patrocinio_001))",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL007",
+      "source_text": "A inadimplência por mais de 30 dias ensejará a rescisão do contrato",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.85,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00010",
+      "formula": "Penalidade(patrocinador_xyz, inadimplencia, 100000.00)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL008",
+      "source_text": "Em caso de inadimplência, incidirá multa de R$ 100.000,00",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.9,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00011",
+      "formula": "Confidencialidade(patrocinador_xyz, informacoes_comerciais, 5_anos)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL009",
+      "source_text": "As informações comerciais devem ser mantidas em sigilo por 5 anos",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.87,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00012",
+      "formula": "Confidencialidade(cob, informacoes_comerciais, 5_anos)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL009",
+      "source_text": "As informações comerciais devem ser mantidas em sigilo por 5 anos",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.87,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00013",
+      "formula": "Notificacao(patrocinador_xyz, cob, rescisao_antecipada, 60_dias)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL010",
+      "source_text": "A rescisão antecipada deverá ser comunicada com 60 dias de antecedência",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.83,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00014",
+      "formula": "Renovacao(contrato_patrocinio_001, 12_meses, automatica)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL011",
+      "source_text": "O contrato será automaticamente renovado por períodos de 12 meses",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.8,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00015",
+      "formula": "Reajuste(mensalidade, IGPM, anual)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL012",
+      "source_text": "Os valores serão reajustados anualmente pelo IGPM-FGV",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.88,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00016",
+      "formula": "Foro(contrato_patrocinio_001, rio_de_janeiro)",
+      "assertion_type": "FACT",
+      "status": "ACTIVE",
+      "source_clause_id": "CL013",
+      "source_text": "Fica eleito o foro da comarca do Rio de Janeiro",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 0.95,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "translation"
+    },
+    {
+      "id": "A00017",
+      "formula": "Permissao(patrocinador_xyz, Pagamento(mensalidade))",
+      "assertion_type": "INFERRED",
+      "status": "ACTIVE",
+      "source_clause_id": "",
+      "source_text": "",
+      "contract_id": "contrato_patrocinio_001",
+      "confidence": 1.0,
+      "created_at": "2026-01-27T00:00:00",
+      "created_by": "inference",
+      "inferred_from": ["A00004"]
+    }
+  ],
+  "rules": [
+    {
+      "id": "rule_obrig_perm",
+      "name": "Obrigação implica Permissão",
+      "description": "Se um agente é obrigado a fazer algo, então é permitido fazê-lo",
+      "antecedent_pattern": "Obrigacao\\((\\w+),\\s*([^,]+),\\s*([^)]+)\\)",
+      "consequent_template": "Permissao({agent}, {action})",
+      "requires_predicates": ["Obrigacao"],
+      "confidence": 1.0,
+      "priority": 10,
+      "enabled": true
+    },
+    {
+      "id": "rule_proib_nperm",
+      "name": "Proibição implica não-Permissão",
+      "description": "Se um agente é proibido de fazer algo, então não é permitido",
+      "antecedent_pattern": "Proibicao\\((\\w+),\\s*([^)]+)\\)",
+      "consequent_template": "¬Permissao({agent}, {action})",
+      "requires_predicates": ["Proibicao"],
+      "confidence": 1.0,
+      "priority": 10,
+      "enabled": true
+    },
+    {
+      "id": "rule_exclusiv",
+      "name": "Exclusividade é exclusiva",
+      "description": "Exclusividade de um recurso impede uso por outros agentes",
+      "antecedent_pattern": "Exclusividade\\((\\w+),\\s*([^)]+)\\)",
+      "consequent_template": "∀x.(x ≠ {agent} → ¬Permissao(x, Uso({resource})))",
+      "requires_predicates": ["Exclusividade"],
+      "confidence": 0.95,
+      "priority": 5,
+      "enabled": true
+    },
+    {
+      "id": "rule_confidenc_proib",
+      "name": "Confidencialidade implica Proibição de divulgação",
+      "description": "Se há obrigação de confidencialidade, há proibição de divulgar",
+      "antecedent_pattern": "Confidencialidade\\((\\w+),\\s*([^,]+),\\s*([^)]+)\\)",
+      "consequent_template": "Proibicao({agent}, Divulgacao({tipo_informacao}))",
+      "requires_predicates": ["Confidencialidade"],
+      "confidence": 0.9,
+      "priority": 8,
+      "enabled": true
+    },
+    {
+      "id": "rule_penalidade_condicao",
+      "name": "Penalidade é consequência de infração",
+      "description": "Penalidade só se aplica se houve a infração correspondente",
+      "antecedent_pattern": "Penalidade\\((\\w+),\\s*([^,]+),\\s*([^)]+)\\)",
+      "consequent_template": "Condicao({infracao}, Penalidade({agent}, {infracao}, {valor}))",
+      "requires_predicates": ["Penalidade"],
+      "confidence": 0.85,
+      "priority": 6,
+      "enabled": true
+    }
+  ],
+  "counter": 17,
+  "test_cases": [
+    {
+      "description": "Verificar que obrigação de pagamento implica permissão",
+      "positive": {
+        "formula": "Obrigacao(patrocinador_xyz, Pagamento(mensalidade), QuintoDiaUtil) → Permissao(patrocinador_xyz, Pagamento(mensalidade))",
+        "expected": true
+      },
+      "negative": {
+        "formula": "Obrigacao(patrocinador_xyz, Pagamento(mensalidade), QuintoDiaUtil) ∧ ¬Permissao(patrocinador_xyz, Pagamento(mensalidade))",
+        "expected": false
+      }
+    },
+    {
+      "description": "Verificar conflito entre proibição e permissão",
+      "positive": {
+        "formula": "Permissao(patrocinador_xyz, UsoMarca(cob_materiais_promocionais))",
+        "expected": true
+      },
+      "negative": {
+        "formula": "Permissao(patrocinador_xyz, UsoMarca(cob_materiais_promocionais)) ∧ Proibicao(patrocinador_xyz, UsoMarca(cob_materiais_promocionais))",
+        "expected": false
+      }
+    },
+    {
+      "description": "Verificar exclusividade impede outros",
+      "positive": {
+        "formula": "Exclusividade(patrocinador_xyz, categoria_bebidas_esportivas)",
+        "expected": true
+      },
+      "negative": {
+        "formula": "Exclusividade(patrocinador_xyz, categoria_bebidas_esportivas) ∧ Permissao(outro_patrocinador, Uso(categoria_bebidas_esportivas))",
+        "expected": false
+      }
+    }
+  ]
+}
