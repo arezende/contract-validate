@@ -47,6 +47,10 @@ class ExperimentConfig:
     anthropic_api_key: str | None = None
     google_api_key: str | None = None
 
+    # Provedor e modelo usados pelo ContractFOL
+    llm_provider: str = "openai"   # "openai", "anthropic" ou "gemini"
+    llm_model: str = "gpt-4"
+
     # Experimento
     methods: list[str] = field(
         default_factory=lambda: ["contractfol", "gpt4_cot", "claude_cot", "gemini_cot", "baseline"]
@@ -240,6 +244,7 @@ class ExperimentRunner:
         ]
 
         timing = TimingMetrics()
+        all_predictions: list[dict] = []
 
         for run in range(self.config.num_runs):
             if self.config.verbose:
@@ -249,26 +254,44 @@ class ExperimentRunner:
 
             # Detectar conflitos
             if method == "contractfol":
-                predictions = self._run_contractfol(clauses)
+                predictions, report = self._run_contractfol(clauses)
+                # Extrair timing per-etapa do ValidationReport
+                timing.extraction_times.append(report.extraction_time_ms)
+                timing.classification_times.append(report.classification_time_ms)
+                timing.translation_times.append(report.translation_time_ms)
+                timing.verification_times.append(report.verification_time_ms)
+                timing.total_times.append(report.total_time_ms)
             elif method == "gpt4_cot":
                 predictions = self._run_llm_cot(clauses, "openai", "gpt-4")
+                timing.total_times.append((time.time() - start_time) * 1000)
             elif method == "claude_cot":
                 predictions = self._run_llm_cot(clauses, "anthropic", "claude-3-opus-20240229")
+                timing.total_times.append((time.time() - start_time) * 1000)
             elif method == "gemini_cot":
                 predictions = self._run_llm_cot(clauses, "gemini", "gemini-1.5-pro")
+                timing.total_times.append((time.time() - start_time) * 1000)
             elif method == "baseline":
                 predictions = self._run_baseline(clauses)
+                timing.total_times.append((time.time() - start_time) * 1000)
             else:
                 predictions = []
+                timing.total_times.append(0.0)
 
-            elapsed = (time.time() - start_time) * 1000
-            timing.total_times.append(elapsed)
+            all_predictions.extend(predictions)
+
+        # Usar predições de todas as runs para métricas (deduplicar pares)
+        unique_predictions = {
+            tuple(sorted(p.get("clause_ids", []))): p
+            for p in all_predictions
+        }
+        final_predictions = list(unique_predictions.values())
 
         # Calcular métricas de detecção
-        results.detection_metrics = calculate_metrics(predictions, gt_conflicts)
+        results.detection_metrics = calculate_metrics(final_predictions, gt_conflicts)
         results.timing_metrics = timing
+        results.num_contracts = 1  # ground truth carregado como contrato único
 
-        # Métricas de tradução (apenas para ContractFOL)
+        # Métricas de tradução (apenas para ContractFOL; clauses já foram atualizadas in-place)
         if method == "contractfol":
             results.translation_metrics = self._evaluate_translations(clauses)
 
@@ -292,16 +315,32 @@ class ExperimentRunner:
             clauses.append(clause)
         return clauses
 
-    def _run_contractfol(self, clauses: list[Clause]) -> list[dict]:
-        """Executa pipeline ContractFOL."""
+    def _run_contractfol(self, clauses: list[Clause]) -> tuple[list[dict], Any]:
+        """Executa pipeline ContractFOL.
+
+        Returns:
+            Tupla (predictions, report) onde report contém timing per-etapa.
+        """
+        # Selecionar API key de acordo com o provedor configurado
+        provider = self.config.llm_provider
+        if provider == "openai":
+            api_key = self.config.openai_api_key
+        elif provider == "anthropic":
+            api_key = self.config.anthropic_api_key
+        elif provider == "gemini":
+            api_key = self.config.google_api_key
+        else:
+            api_key = self.config.openai_api_key
+
         config = PipelineConfig(
-            llm_api_key=self.config.openai_api_key,
-            llm_provider="openai",
+            llm_api_key=api_key,
+            llm_provider=provider,
+            llm_model=self.config.llm_model,
             verbose=False,
         )
         pipeline = ContractFOLPipeline(config=config)
 
-        # Criar contrato com cláusulas
+        # Criar contrato com cláusulas (mesmos objetos — pipeline os modifica in-place)
         contract = Contract(id="test", title="Test Contract", clauses=clauses)
         report = pipeline.validate_contracts(contracts=[contract])
 
@@ -316,7 +355,7 @@ class ExperimentRunner:
                 }
             )
 
-        return predictions
+        return predictions, report
 
     def _run_llm_cot(
         self, clauses: list[Clause], provider: str, model: str
@@ -393,22 +432,114 @@ class ExperimentRunner:
         return metrics
 
     def _save_results(self):
-        """Salva resultados em arquivo JSON."""
+        """Salva resultados em JSON, CSV e LaTeX."""
         output_dir = Path(self.config.output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
 
+        timestamp = int(time.time())
         results_dict = {
             method: results.to_dict() for method, results in self.results.items()
         }
-
-        # Adicionar comparação
         results_dict["comparison"] = self._generate_comparison()
 
-        output_file = output_dir / f"experiment_results_{int(time.time())}.json"
-        with open(output_file, "w") as f:
+        # JSON completo
+        json_file = output_dir / f"experiment_results_{timestamp}.json"
+        with open(json_file, "w") as f:
             json.dump(results_dict, f, indent=2, ensure_ascii=False)
+        print(f"\nResultados JSON salvos em: {json_file}")
 
-        print(f"\nResultados salvos em: {output_file}")
+        # CSV de comparação
+        csv_file = output_dir / f"comparison_{timestamp}.csv"
+        self._export_csv(csv_file)
+        print(f"Resultados CSV salvos em: {csv_file}")
+
+        # LaTeX para dissertação
+        tex_file = output_dir / f"comparison_{timestamp}.tex"
+        self._export_latex(tex_file)
+        print(f"Tabela LaTeX salva em: {tex_file}")
+
+    def _export_csv(self, path: Path):
+        """Exporta tabela comparativa em CSV."""
+        import csv
+
+        rows = []
+        for method, results in self.results.items():
+            dm = results.detection_metrics
+            tm = results.timing_metrics
+            row = {
+                "metodo": method,
+                "precisao": f"{dm.precision:.4f}",
+                "recall": f"{dm.recall:.4f}",
+                "f1_score": f"{dm.f1_score:.4f}",
+                "acuracia": f"{dm.accuracy:.4f}",
+                "verdadeiros_positivos": dm.true_positives,
+                "falsos_positivos": dm.false_positives,
+                "falsos_negativos": dm.false_negatives,
+                "tempo_total_ms": f"{tm.mean_total_time:.1f}",
+                "tempo_extracao_ms": f"{tm.mean_extraction_time:.1f}",
+                "tempo_classificacao_ms": f"{tm.mean_classification_time:.1f}",
+                "tempo_traducao_ms": f"{tm.mean_translation_time:.1f}",
+                "tempo_verificacao_ms": f"{tm.mean_verification_time:.1f}",
+                "num_clausulas": results.num_clauses,
+                "gt_conflitos": results.num_conflicts_ground_truth,
+            }
+            rows.append(row)
+
+        if rows:
+            with open(path, "w", newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+                writer.writeheader()
+                writer.writerows(rows)
+
+    def _export_latex(self, path: Path):
+        """Exporta tabela comparativa em LaTeX pronta para dissertação."""
+        method_labels = {
+            "contractfol": "ContractFOL (proposto)",
+            "gpt4_cot": "GPT-4 + CoT",
+            "claude_cot": "Claude + CoT",
+            "gemini_cot": "Gemini + CoT",
+            "baseline": "Baseline Heurístico",
+        }
+
+        lines = [
+            "% Tabela gerada automaticamente pelo ExperimentRunner",
+            "% Seção 6.3 da dissertação — Resultados Comparativos",
+            r"\begin{table}[ht]",
+            r"  \centering",
+            r"  \caption{Resultados comparativos dos métodos de detecção de inconsistências contratuais}",
+            r"  \label{tab:resultados-comparativos}",
+            r"  \begin{tabular}{lrrrrr}",
+            r"    \toprule",
+            r"    \textbf{Método} & \textbf{Precisão} & \textbf{Recall} & \textbf{F1-Score} & \textbf{Tempo (ms)} \\",
+            r"    \midrule",
+        ]
+
+        sorted_results = sorted(
+            self.results.items(),
+            key=lambda x: x[1].detection_metrics.f1_score,
+            reverse=True,
+        )
+
+        for method, results in sorted_results:
+            dm = results.detection_metrics
+            tm = results.timing_metrics
+            label = method_labels.get(method, method)
+            # Negrito para o método proposto
+            if method == "contractfol":
+                label = r"\textbf{" + label + "}"
+            lines.append(
+                f"    {label} & {dm.precision:.2%} & {dm.recall:.2%} & "
+                f"{dm.f1_score:.2%} & {tm.mean_total_time:.0f}$\\pm${tm.std_total_time:.0f} \\\\"
+            )
+
+        lines += [
+            r"    \bottomrule",
+            r"  \end{tabular}",
+            r"\end{table}",
+        ]
+
+        with open(path, "w", encoding="utf-8") as f:
+            f.write("\n".join(lines) + "\n")
 
     def _generate_comparison(self) -> dict:
         """Gera tabela comparativa dos métodos."""

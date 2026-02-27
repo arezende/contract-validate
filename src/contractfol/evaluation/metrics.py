@@ -262,6 +262,83 @@ def calculate_metrics(
     return metrics
 
 
+def compute_wilson_interval(
+    successes: int,
+    total: int,
+    confidence: float = 0.95,
+) -> tuple[float, float]:
+    """
+    Calcula intervalo de confiança de Wilson para proporções.
+
+    Usado para estimar IC do F1-Score considerando TP como "sucessos"
+    e (TP + FP + FN) como "total de julgamentos".
+
+    Args:
+        successes: Número de acertos (ex: TP)
+        total: Total de tentativas (ex: TP + FP + FN)
+        confidence: Nível de confiança (padrão: 0.95)
+
+    Returns:
+        (lower, upper) — limites inferior e superior do IC
+    """
+    import math
+
+    if total == 0:
+        return 0.0, 0.0
+
+    # z-score para o nível de confiança solicitado (aproximação normal)
+    z_table = {0.90: 1.645, 0.95: 1.960, 0.99: 2.576}
+    z = z_table.get(confidence, 1.960)
+
+    p_hat = successes / total
+    denominator = 1 + (z ** 2) / total
+    centre = (p_hat + (z ** 2) / (2 * total)) / denominator
+    margin = (z * math.sqrt(p_hat * (1 - p_hat) / total + (z ** 2) / (4 * total ** 2))) / denominator
+
+    lower = max(0.0, centre - margin)
+    upper = min(1.0, centre + margin)
+    return lower, upper
+
+
+def compute_f1_confidence_interval(
+    metrics: "DetectionMetrics",
+    confidence: float = 0.95,
+) -> tuple[float, float]:
+    """
+    Estima intervalo de confiança do F1-Score usando propagação via Wilson.
+
+    Estratégia: calcula IC de precisão e recall separadamente (Wilson score)
+    e propaga via min/max do F1 nos extremos do IC.
+
+    Args:
+        metrics: DetectionMetrics já calculadas
+        confidence: Nível de confiança
+
+    Returns:
+        (f1_lower, f1_upper)
+    """
+    tp = metrics.true_positives
+    fp = metrics.false_positives
+    fn = metrics.false_negatives
+
+    # IC da Precisão: TP / (TP + FP)
+    p_total = tp + fp
+    p_lower, p_upper = compute_wilson_interval(tp, p_total, confidence) if p_total > 0 else (0.0, 1.0)
+
+    # IC do Recall: TP / (TP + FN)
+    r_total = tp + fn
+    r_lower, r_upper = compute_wilson_interval(tp, r_total, confidence) if r_total > 0 else (0.0, 1.0)
+
+    def f1(p: float, r: float) -> float:
+        if p + r == 0:
+            return 0.0
+        return 2 * p * r / (p + r)
+
+    f1_lower = f1(p_lower, r_lower)
+    f1_upper = f1(p_upper, r_upper)
+    return f1_lower, f1_upper
+
+
 def compare_fol_formulas(predicted: str, gold: str) -> tuple[bool, float]:
     """
     Compara uma fórmula FOL predita com a fórmula gold standard.

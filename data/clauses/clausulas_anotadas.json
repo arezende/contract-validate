@@ -1,10 +1,20 @@
 {
   "metadata": {
     "description": "Dataset de cláusulas contratuais anotadas para avaliação do ContractFOL",
-    "version": "1.0",
+    "version": "2.0",
     "language": "pt-BR",
-    "domain": "contratos esportivos",
-    "annotation_protocol": "Protocolo descrito no Apêndice B da dissertação"
+    "domain": "contratos esportivos (patrocínio, fornecimento, atleta)",
+    "annotation_protocol": "Protocolo descrito no Apêndice B da dissertação",
+    "total_clauses": 60,
+    "total_conflict_pairs": 21,
+    "conflict_type_distribution": {
+      "OBRIGACAO_PROIBICAO": 4,
+      "OBRIGACOES_MUTUAMENTE_EXCLUSIVAS": 4,
+      "PRAZO_INCONSISTENTE": 4,
+      "CONDICAO_IMPOSSIVEL": 3,
+      "AGENTE_AMBIGUO": 3,
+      "VALOR_INCONSISTENTE": 3
+    }
   },
   "clauses": [
     {
@@ -37,7 +47,7 @@
       "modality": "OBRIGACAO_ATIVA",
       "agent": "contratado",
       "fol_gold": "Obrigacao(contratado, UsoMarca(materiais_promocionais), Sempre)",
-      "notes": "Obrigação de uso de marca - potencial conflito com CL002"
+      "notes": "Obrigação de uso de marca — conflito com CL002 (OBRIGACAO_PROIBICAO)"
     },
     {
       "id": "CL005",
@@ -69,7 +79,7 @@
       "modality": "DEFINICAO",
       "agent": null,
       "fol_gold": "Prazo(contrato, DataAssinatura, DataAssinatura + 24meses)",
-      "notes": "Definição de prazo"
+      "notes": "Definição de prazo — 24 meses"
     },
     {
       "id": "CL009",
@@ -102,6 +112,390 @@
       "agent": "contratado",
       "fol_gold": "Obrigacao(contratado, Sigilo(informacoes_confidenciais), Sempre)",
       "notes": "Obrigação de confidencialidade"
+    },
+    {
+      "id": "CL013",
+      "text": "É expressamente vedado ao ATLETA divulgar informações sobre o contrato a terceiros.",
+      "modality": "PROIBICAO",
+      "agent": "atleta",
+      "fol_gold": "Proibicao(atleta, Divulgacao(informacoes_contrato))",
+      "notes": "Proibição de divulgação — conflito com CL014 (OBRIGACAO_PROIBICAO)"
+    },
+    {
+      "id": "CL014",
+      "text": "O ATLETA deverá divulgar publicamente os termos gerais do presente contrato de patrocínio.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "atleta",
+      "fol_gold": "Obrigacao(atleta, Divulgacao(termos_contrato), Sempre)",
+      "notes": "Obrigação de divulgação — conflito com CL013 (OBRIGACAO_PROIBICAO)"
+    },
+    {
+      "id": "CL015",
+      "text": "O FORNECEDOR não poderá utilizar insumos de terceiros não homologados pela CONTRATANTE.",
+      "modality": "PROIBICAO",
+      "agent": "fornecedor",
+      "fol_gold": "Proibicao(fornecedor, UsoInsumos(nao_homologados))",
+      "notes": "Proibição de insumos não homologados"
+    },
+    {
+      "id": "CL016",
+      "text": "O FORNECEDOR obriga-se a utilizar exclusivamente insumos fornecidos por terceiros especializados.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "fornecedor",
+      "fol_gold": "Obrigacao(fornecedor, UsoInsumos(terceiros_especializados), Sempre)",
+      "notes": "Obrigação de uso de insumos de terceiros — conflito com CL015 (OBRIGACAO_PROIBICAO)"
+    },
+    {
+      "id": "CL017",
+      "text": "O COB obriga-se a fornecer ao ATLETA suporte médico completo durante competições.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "cob",
+      "fol_gold": "Obrigacao(cob, Suporte(medico, atleta), Competicao)",
+      "notes": "Obrigação de suporte médico"
+    },
+    {
+      "id": "CL018",
+      "text": "O COB não é responsável por qualquer suporte médico ao ATLETA durante as competições.",
+      "modality": "PROIBICAO",
+      "agent": "cob",
+      "fol_gold": "Proibicao(cob, Responsabilidade(suporte_medico, atleta))",
+      "notes": "Isenção de responsabilidade médica — conflito com CL017 (OBRIGACAO_PROIBICAO)"
+    },
+    {
+      "id": "CL019",
+      "text": "O PATROCINADOR deverá entregar os materiais de divulgação exclusivamente em formato digital.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "patrocinador",
+      "fol_gold": "Obrigacao(patrocinador, Entrega(materiais_divulgacao, formato_digital), Sempre)",
+      "notes": "Obrigação de formato digital"
+    },
+    {
+      "id": "CL020",
+      "text": "O PATROCINADOR deverá entregar os materiais de divulgação exclusivamente em formato impresso.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "patrocinador",
+      "fol_gold": "Obrigacao(patrocinador, Entrega(materiais_divulgacao, formato_impresso), Sempre)",
+      "notes": "Obrigação de formato impresso — conflito com CL019 (OBRIGACOES_MUTUAMENTE_EXCLUSIVAS)"
+    },
+    {
+      "id": "CL021",
+      "text": "O ATLETA deverá comparecer a todos os eventos de mídia organizados pelo PATROCINADOR.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "atleta",
+      "fol_gold": "∀e.EventoMidia(e, patrocinador) → Obrigacao(atleta, Comparecimento(e), DataEvento(e))",
+      "notes": "Obrigação de comparecimento a todos os eventos"
+    },
+    {
+      "id": "CL022",
+      "text": "O ATLETA deverá comparecer a nenhum evento de mídia durante o período de treinamento intensivo.",
+      "modality": "PROIBICAO",
+      "agent": "atleta",
+      "fol_gold": "∀e.EventoMidia(e) ∧ Periodo(treinamento_intensivo) → Proibicao(atleta, Comparecimento(e))",
+      "notes": "Proibição de comparecimento em treinamento — conflito com CL021 (OBRIGACOES_MUTUAMENTE_EXCLUSIVAS)"
+    },
+    {
+      "id": "CL023",
+      "text": "A CONTRATADA deverá prestar os serviços de logística utilizando veículos próprios.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratada",
+      "fol_gold": "Obrigacao(contratada, PrestacaoServico(logistica, veiculos_proprios), Sempre)",
+      "notes": "Obrigação de veículos próprios"
+    },
+    {
+      "id": "CL024",
+      "text": "A CONTRATADA deverá prestar os serviços de logística utilizando veículos da CONTRATANTE.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratada",
+      "fol_gold": "Obrigacao(contratada, PrestacaoServico(logistica, veiculos_contratante), Sempre)",
+      "notes": "Obrigação de veículos da CONTRATANTE — conflito com CL023 (OBRIGACOES_MUTUAMENTE_EXCLUSIVAS)"
+    },
+    {
+      "id": "CL025",
+      "text": "O FORNECEDOR deverá emitir notas fiscais mensalmente até o décimo dia do mês seguinte.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "fornecedor",
+      "fol_gold": "∀m.Mes(m) → Obrigacao(fornecedor, EmissaoNF(m), DecimoDia(m+1))",
+      "notes": "Obrigação de emissão de NF mensal"
+    },
+    {
+      "id": "CL026",
+      "text": "O FORNECEDOR deverá emitir notas fiscais trimestralmente até o último dia do trimestre.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "fornecedor",
+      "fol_gold": "∀t.Trimestre(t) → Obrigacao(fornecedor, EmissaoNF(t), UltimoDia(t))",
+      "notes": "Obrigação trimestral — conflito com CL025 (OBRIGACOES_MUTUAMENTE_EXCLUSIVAS)"
+    },
+    {
+      "id": "CL027",
+      "text": "O presente contrato vigorará pelo período de 12 meses contados da data de assinatura.",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "Prazo(contrato, DataAssinatura, DataAssinatura + 12meses)",
+      "notes": "Vigência de 12 meses — conflito com CL008 (PRAZO_INCONSISTENTE)"
+    },
+    {
+      "id": "CL028",
+      "text": "O pagamento da primeira parcela deverá ser efetuado em até 30 dias após a assinatura do contrato.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "patrocinador",
+      "fol_gold": "Obrigacao(patrocinador, Pagamento(parcela_1), DataAssinatura + 30dias)",
+      "notes": "Prazo de 30 dias para primeira parcela"
+    },
+    {
+      "id": "CL029",
+      "text": "O pagamento da primeira parcela deverá ser efetuado em até 15 dias após a assinatura do contrato.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "patrocinador",
+      "fol_gold": "Obrigacao(patrocinador, Pagamento(parcela_1), DataAssinatura + 15dias)",
+      "notes": "Prazo de 15 dias para primeira parcela — conflito com CL028 (PRAZO_INCONSISTENTE)"
+    },
+    {
+      "id": "CL030",
+      "text": "A entrega do relatório final deverá ocorrer em até 60 dias após o encerramento do contrato.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratada",
+      "fol_gold": "Obrigacao(contratada, Entrega(relatorio_final), Encerramento + 60dias)",
+      "notes": "Prazo de 60 dias para relatório"
+    },
+    {
+      "id": "CL031",
+      "text": "A entrega do relatório final deverá ocorrer em até 90 dias após o encerramento do contrato.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratada",
+      "fol_gold": "Obrigacao(contratada, Entrega(relatorio_final), Encerramento + 90dias)",
+      "notes": "Prazo de 90 dias para relatório — conflito com CL030 (PRAZO_INCONSISTENTE)"
+    },
+    {
+      "id": "CL032",
+      "text": "Os serviços contratados deverão ser concluídos no prazo máximo de 6 meses.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratada",
+      "fol_gold": "Obrigacao(contratada, ConclusaoServicos, DataInicio + 6meses)",
+      "notes": "Prazo de 6 meses para conclusão"
+    },
+    {
+      "id": "CL033",
+      "text": "Os serviços contratados deverão ser concluídos no prazo máximo de 18 meses.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratada",
+      "fol_gold": "Obrigacao(contratada, ConclusaoServicos, DataInicio + 18meses)",
+      "notes": "Prazo de 18 meses para conclusão — conflito com CL032 (PRAZO_INCONSISTENTE)"
+    },
+    {
+      "id": "CL034",
+      "text": "O ATLETA receberá bônus apenas se vencer a competição E se alcançar índice olímpico simultaneamente.",
+      "modality": "CONDICAO",
+      "agent": "atleta",
+      "fol_gold": "Condicao(VitoriaCompetição(atleta) ∧ IndiceOlimpico(atleta), Permissao(atleta, Bonus))",
+      "notes": "Condição de vitória E índice — potencialmente impossível"
+    },
+    {
+      "id": "CL035",
+      "text": "O índice olímpico só é concedido ao atleta que não vencer nenhuma competição seletiva.",
+      "modality": "CONDICAO",
+      "agent": null,
+      "fol_gold": "∀a.IndiceOlimpico(a) → ¬∃c.VitoriaCompetição(a, c)",
+      "notes": "Índice apenas para não-vencedores — conflito com CL034 (CONDICAO_IMPOSSIVEL)"
+    },
+    {
+      "id": "CL036",
+      "text": "O PATROCINADOR poderá rescindir o contrato somente após notificação de 30 dias E aprovação do COB.",
+      "modality": "PERMISSAO",
+      "agent": "patrocinador",
+      "fol_gold": "Condicao(Notificacao(30dias) ∧ Aprovacao(cob), Permissao(patrocinador, Rescisao))",
+      "notes": "Rescisão condicionada a dois requisitos"
+    },
+    {
+      "id": "CL037",
+      "text": "O COB não poderá aprovar rescisões solicitadas pelo PATROCINADOR sob nenhuma circunstância.",
+      "modality": "PROIBICAO",
+      "agent": "cob",
+      "fol_gold": "Proibicao(cob, Aprovacao(rescisao_patrocinador))",
+      "notes": "Proibição de aprovar rescisão — conflito com CL036 (CONDICAO_IMPOSSIVEL)"
+    },
+    {
+      "id": "CL038",
+      "text": "A multa rescisória será paga apenas mediante comprovação de força maior E decisão judicial.",
+      "modality": "CONDICAO",
+      "agent": null,
+      "fol_gold": "Condicao(ForcaMaior ∧ DecisaoJudicial, Pagamento(multa_rescisoria))",
+      "notes": "Multa condicionada a força maior e decisão judicial"
+    },
+    {
+      "id": "CL039",
+      "text": "O Poder Judiciário não poderá interferir em disputas relativas ao presente contrato.",
+      "modality": "PROIBICAO",
+      "agent": null,
+      "fol_gold": "Proibicao(poder_judiciario, Interferencia(disputas_contrato))",
+      "notes": "Cláusula de não-interferência judicial — conflito com CL038 (CONDICAO_IMPOSSIVEL)"
+    },
+    {
+      "id": "CL040",
+      "text": "Fica responsável pela execução das obrigações de patrocínio a parte identificada como PATROCINADOR.",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "Responsavel(patrocinador, ObrigacoesPatrocinio)",
+      "notes": "Definição de responsável — agente nominalmente claro"
+    },
+    {
+      "id": "CL041",
+      "text": "Fica responsável pela execução das obrigações de patrocínio a parte identificada como PARCEIRO.",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "Responsavel(parceiro, ObrigacoesPatrocinio)",
+      "notes": "Definição de responsável usando nome diferente — conflito com CL040 (AGENTE_AMBIGUO)"
+    },
+    {
+      "id": "CL042",
+      "text": "Os relatórios mensais deverão ser entregues pela CONTRATANTE ao COB.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratante",
+      "fol_gold": "Obrigacao(contratante, Entrega(relatorios_mensais, cob), MensalMente)",
+      "notes": "CONTRATANTE entrega relatório"
+    },
+    {
+      "id": "CL043",
+      "text": "Os relatórios mensais deverão ser entregues pela CONTRATADA ao COB.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratada",
+      "fol_gold": "Obrigacao(contratada, Entrega(relatorios_mensais, cob), MensalMente)",
+      "notes": "CONTRATADA entrega relatório — conflito de agente com CL042 (AGENTE_AMBIGUO)"
+    },
+    {
+      "id": "CL044",
+      "text": "A gestão financeira do contrato é de responsabilidade exclusiva do COB.",
+      "modality": "DEFINICAO",
+      "agent": "cob",
+      "fol_gold": "Responsavel(cob, GestaoFinanceira)",
+      "notes": "Responsabilidade do COB"
+    },
+    {
+      "id": "CL045",
+      "text": "A gestão financeira do contrato é de responsabilidade exclusiva do PATROCINADOR.",
+      "modality": "DEFINICAO",
+      "agent": "patrocinador",
+      "fol_gold": "Responsavel(patrocinador, GestaoFinanceira)",
+      "notes": "Responsabilidade do PATROCINADOR — conflito com CL044 (AGENTE_AMBIGUO)"
+    },
+    {
+      "id": "CL046",
+      "text": "O valor do patrocínio anual é de R$ 1.000.000,00 (hum milhão de reais).",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "ValorContrato(patrocinio_anual, 1000000)",
+      "notes": "Valor anual de R$ 1 milhão"
+    },
+    {
+      "id": "CL047",
+      "text": "O valor do patrocínio anual é de R$ 1.500.000,00 (hum milhão e quinhentos mil reais).",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "ValorContrato(patrocinio_anual, 1500000)",
+      "notes": "Valor anual de R$ 1,5 milhão — conflito com CL046 (VALOR_INCONSISTENTE)"
+    },
+    {
+      "id": "CL048",
+      "text": "A multa por inadimplência corresponderá a 10% do valor total do contrato.",
+      "modality": "CONDICAO",
+      "agent": null,
+      "fol_gold": "Condicao(Inadimplencia, Multa(0.10, ValorTotal))",
+      "notes": "Multa de 10%"
+    },
+    {
+      "id": "CL049",
+      "text": "A multa por inadimplência corresponderá a 20% do valor total do contrato.",
+      "modality": "CONDICAO",
+      "agent": null,
+      "fol_gold": "Condicao(Inadimplencia, Multa(0.20, ValorTotal))",
+      "notes": "Multa de 20% — conflito com CL048 (VALOR_INCONSISTENTE)"
+    },
+    {
+      "id": "CL050",
+      "text": "O reajuste anual do contrato será de 5% (cinco por cento) sobre o valor base.",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "ReajusteAnual(contrato, 0.05, ValorBase)",
+      "notes": "Reajuste de 5%"
+    },
+    {
+      "id": "CL051",
+      "text": "O reajuste anual do contrato será de 8% (oito por cento) sobre o valor base.",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "ReajusteAnual(contrato, 0.08, ValorBase)",
+      "notes": "Reajuste de 8% — conflito com CL050 (VALOR_INCONSISTENTE)"
+    },
+    {
+      "id": "CL052",
+      "text": "O ATLETA deverá participar de no mínimo 10 eventos promocionais por ano.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "atleta",
+      "fol_gold": "∀a.Ano(a) → Obrigacao(atleta, Participacao(eventos_promocionais, min=10), a)",
+      "notes": "Mínimo de 10 eventos por ano"
+    },
+    {
+      "id": "CL053",
+      "text": "O PATROCINADOR poderá utilizar a imagem do atleta em campanhas publicitárias.",
+      "modality": "PERMISSAO",
+      "agent": "patrocinador",
+      "fol_gold": "Permissao(patrocinador, UsoImagem(atleta, campanhas_publicitarias))",
+      "notes": "Permissão de uso de imagem"
+    },
+    {
+      "id": "CL054",
+      "text": "O FORNECEDOR deverá garantir nível mínimo de serviço de 99% de disponibilidade mensal.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "fornecedor",
+      "fol_gold": "∀m.Mes(m) → Obrigacao(fornecedor, Disponibilidade(servico, 0.99), m)",
+      "notes": "SLA de 99%"
+    },
+    {
+      "id": "CL055",
+      "text": "O contrato poderá ser renovado por igual período mediante acordo entre as partes.",
+      "modality": "PERMISSAO",
+      "agent": null,
+      "fol_gold": "Condicao(Acordo(partes), Permissao(renovacao, PeriodoIgual))",
+      "notes": "Cláusula de renovação"
+    },
+    {
+      "id": "CL056",
+      "text": "A CONTRATANTE deverá disponibilizar as instalações necessárias para execução dos serviços.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "contratante",
+      "fol_gold": "Obrigacao(contratante, Disponibilizacao(instalacoes), ExecucaoServicos)",
+      "notes": "Obrigação de disponibilizar instalações"
+    },
+    {
+      "id": "CL057",
+      "text": "Os materiais de treinamento deverão ser fornecidos pelo COB ao ATLETA sem custo adicional.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "cob",
+      "fol_gold": "Obrigacao(cob, Fornecimento(materiais_treinamento, atleta, custo=0), Sempre)",
+      "notes": "Obrigação de fornecimento gratuito"
+    },
+    {
+      "id": "CL058",
+      "text": "Qualquer alteração contratual deverá ser formalizada por meio de aditivo assinado por ambas as partes.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": null,
+      "fol_gold": "∀a.AlteracaoContratual(a) → Obrigacao(partes, FormalizacaoAditivo(a), DataAlteracao(a))",
+      "notes": "Requisito de formalização de alterações"
+    },
+    {
+      "id": "CL059",
+      "text": "O presente instrumento é regido pelas leis brasileiras e o foro competente é o da cidade do Rio de Janeiro.",
+      "modality": "DEFINICAO",
+      "agent": null,
+      "fol_gold": "LeiAplicavel(contrato, brasil) ∧ Foro(contrato, rio_de_janeiro)",
+      "notes": "Cláusula de lei aplicável e foro"
+    },
+    {
+      "id": "CL060",
+      "text": "O ATLETA deverá dedicar-se exclusivamente ao COB, sendo vedada qualquer atividade esportiva por outra entidade.",
+      "modality": "OBRIGACAO_ATIVA",
+      "agent": "atleta",
+      "fol_gold": "Obrigacao(atleta, Exclusividade(cob), Vigencia) ∧ Proibicao(atleta, AtividadeEsportiva(outra_entidade))",
+      "notes": "Cláusula de exclusividade total"
     }
   ],
   "conflict_pairs": [
@@ -109,8 +503,148 @@
       "id": "CP001",
       "clause_ids": ["CL002", "CL004"],
       "conflict_type": "OBRIGACAO_PROIBICAO",
-      "description": "CL002 proíbe uso de marca sem autorização, CL004 obriga exibição de marca",
-      "resolution": "Adicionar exceção em CL002 para uso autorizado em materiais promocionais"
+      "description": "CL002 proíbe uso de marca sem autorização; CL004 obriga exibição de marca em materiais promocionais",
+      "resolution": "Adicionar em CL002 exceção explícita para uso autorizado em materiais promocionais"
+    },
+    {
+      "id": "CP002",
+      "clause_ids": ["CL013", "CL014"],
+      "conflict_type": "OBRIGACAO_PROIBICAO",
+      "description": "CL013 proíbe o atleta de divulgar informações do contrato; CL014 o obriga a divulgar os termos gerais",
+      "resolution": "Delimitar claramente quais informações são confidenciais vs. públicas"
+    },
+    {
+      "id": "CP003",
+      "clause_ids": ["CL015", "CL016"],
+      "conflict_type": "OBRIGACAO_PROIBICAO",
+      "description": "CL015 proíbe uso de insumos de terceiros não homologados; CL016 obriga uso de insumos de terceiros especializados",
+      "resolution": "Especificar lista de terceiros homologados que satisfaça ambas as cláusulas"
+    },
+    {
+      "id": "CP004",
+      "clause_ids": ["CL017", "CL018"],
+      "conflict_type": "OBRIGACAO_PROIBICAO",
+      "description": "CL017 obriga o COB a fornecer suporte médico ao atleta; CL018 isenta o COB de qualquer responsabilidade médica",
+      "resolution": "Remover CL018 ou redefinir o escopo da responsabilidade médica"
+    },
+    {
+      "id": "CP005",
+      "clause_ids": ["CL019", "CL020"],
+      "conflict_type": "OBRIGACOES_MUTUAMENTE_EXCLUSIVAS",
+      "description": "CL019 exige entrega exclusivamente em formato digital; CL020 exige entrega exclusivamente em formato impresso",
+      "resolution": "Escolher um formato ou permitir ambos eliminando o termo 'exclusivamente'"
+    },
+    {
+      "id": "CP006",
+      "clause_ids": ["CL021", "CL022"],
+      "conflict_type": "OBRIGACOES_MUTUAMENTE_EXCLUSIVAS",
+      "description": "CL021 obriga comparecimento a TODOS os eventos de mídia; CL022 proíbe comparecimento durante treinamento intensivo",
+      "resolution": "Definir calendário que separe períodos de treinamento e eventos de mídia"
+    },
+    {
+      "id": "CP007",
+      "clause_ids": ["CL023", "CL024"],
+      "conflict_type": "OBRIGACOES_MUTUAMENTE_EXCLUSIVAS",
+      "description": "CL023 exige uso de veículos próprios; CL024 exige uso de veículos da CONTRATANTE",
+      "resolution": "Definir claramente de quem são os veículos a serem utilizados"
+    },
+    {
+      "id": "CP008",
+      "clause_ids": ["CL025", "CL026"],
+      "conflict_type": "OBRIGACOES_MUTUAMENTE_EXCLUSIVAS",
+      "description": "CL025 exige emissão mensal de NF; CL026 exige emissão trimestral de NF",
+      "resolution": "Padronizar a periodicidade de emissão em uma única frequência"
+    },
+    {
+      "id": "CP009",
+      "clause_ids": ["CL008", "CL027"],
+      "conflict_type": "PRAZO_INCONSISTENTE",
+      "description": "CL008 define vigência de 24 meses; CL027 define vigência de 12 meses para o mesmo contrato",
+      "resolution": "Remover uma das cláusulas e estabelecer prazo único"
+    },
+    {
+      "id": "CP010",
+      "clause_ids": ["CL028", "CL029"],
+      "conflict_type": "PRAZO_INCONSISTENTE",
+      "description": "CL028 estabelece prazo de 30 dias para pagamento da 1ª parcela; CL029 estabelece prazo de 15 dias",
+      "resolution": "Definir prazo único para o pagamento da primeira parcela"
+    },
+    {
+      "id": "CP011",
+      "clause_ids": ["CL030", "CL031"],
+      "conflict_type": "PRAZO_INCONSISTENTE",
+      "description": "CL030 define prazo de 60 dias para entrega do relatório final; CL031 define 90 dias",
+      "resolution": "Alinhar prazo de entrega do relatório final"
+    },
+    {
+      "id": "CP012",
+      "clause_ids": ["CL032", "CL033"],
+      "conflict_type": "PRAZO_INCONSISTENTE",
+      "description": "CL032 define conclusão dos serviços em 6 meses; CL033 define 18 meses para os mesmos serviços",
+      "resolution": "Estabelecer prazo único de conclusão compatível com o escopo"
+    },
+    {
+      "id": "CP013",
+      "clause_ids": ["CL034", "CL035"],
+      "conflict_type": "CONDICAO_IMPOSSIVEL",
+      "description": "CL034 exige vitória E índice olímpico para bônus; CL035 define índice olímpico como exclusivo para não-vencedores — condição nunca satisfatível",
+      "resolution": "Reformular critérios de elegibilidade para o bônus de forma mutuamente compatível"
+    },
+    {
+      "id": "CP014",
+      "clause_ids": ["CL036", "CL037"],
+      "conflict_type": "CONDICAO_IMPOSSIVEL",
+      "description": "CL036 exige aprovação do COB para rescisão; CL037 proíbe o COB de aprovar rescisões — rescisão é impossível",
+      "resolution": "Remover CL037 ou redefinir as condições de aprovação do COB"
+    },
+    {
+      "id": "CP015",
+      "clause_ids": ["CL038", "CL039"],
+      "conflict_type": "CONDICAO_IMPOSSIVEL",
+      "description": "CL038 exige decisão judicial para pagamento de multa rescisória; CL039 proíbe interferência judicial — pagamento jamais poderá ocorrer",
+      "resolution": "Definir mecanismo alternativo de resolução (arbitragem) consistente com ambas"
+    },
+    {
+      "id": "CP016",
+      "clause_ids": ["CL040", "CL041"],
+      "conflict_type": "AGENTE_AMBIGUO",
+      "description": "CL040 atribui obrigações de patrocínio ao PATROCINADOR; CL041 atribui as mesmas obrigações ao PARCEIRO — dois nomes para o mesmo papel?",
+      "resolution": "Padronizar nomenclatura das partes em todo o contrato"
+    },
+    {
+      "id": "CP017",
+      "clause_ids": ["CL042", "CL043"],
+      "conflict_type": "AGENTE_AMBIGUO",
+      "description": "CL042 designa CONTRATANTE para entregar relatórios; CL043 designa CONTRATADA — agente da obrigação é ambíguo",
+      "resolution": "Definir claramente qual parte é responsável pela entrega dos relatórios"
+    },
+    {
+      "id": "CP018",
+      "clause_ids": ["CL044", "CL045"],
+      "conflict_type": "AGENTE_AMBIGUO",
+      "description": "CL044 atribui gestão financeira exclusivamente ao COB; CL045 atribui exclusivamente ao PATROCINADOR",
+      "resolution": "Definir responsabilidades financeiras de cada parte sem sobreposição"
+    },
+    {
+      "id": "CP019",
+      "clause_ids": ["CL046", "CL047"],
+      "conflict_type": "VALOR_INCONSISTENTE",
+      "description": "CL046 define valor de patrocínio anual em R$ 1.000.000,00; CL047 define R$ 1.500.000,00",
+      "resolution": "Consolidar valor único do patrocínio anual"
+    },
+    {
+      "id": "CP020",
+      "clause_ids": ["CL048", "CL049"],
+      "conflict_type": "VALOR_INCONSISTENTE",
+      "description": "CL048 define multa por inadimplência em 10% do valor total; CL049 define 20%",
+      "resolution": "Estabelecer percentual único de multa por inadimplência"
+    },
+    {
+      "id": "CP021",
+      "clause_ids": ["CL050", "CL051"],
+      "conflict_type": "VALOR_INCONSISTENTE",
+      "description": "CL050 estabelece reajuste anual de 5%; CL051 estabelece 8% — índices contraditórios",
+      "resolution": "Definir índice único de reajuste anual, preferencialmente atrelado a indicador oficial (IPCA, IGP-M)"
     }
   ]
 }

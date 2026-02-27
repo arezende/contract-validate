@@ -40,6 +40,25 @@ def main():
         help="Anthropic API key",
     )
     parser.add_argument(
+        "--google-key",
+        type=str,
+        default=os.environ.get("GOOGLE_API_KEY") or os.environ.get("GEMINI_API_KEY"),
+        help="Google/Gemini API key",
+    )
+    parser.add_argument(
+        "--llm-provider",
+        type=str,
+        default="openai",
+        choices=["openai", "anthropic", "gemini"],
+        help="Provedor LLM para o ContractFOL (default: openai)",
+    )
+    parser.add_argument(
+        "--llm-model",
+        type=str,
+        default=None,
+        help="Modelo LLM para o ContractFOL (default: depende do provedor)",
+    )
+    parser.add_argument(
         "--methods",
         nargs="+",
         default=["contractfol", "baseline"],
@@ -71,10 +90,21 @@ def main():
 
     args = parser.parse_args()
 
+    # Resolver modelo padrão por provedor quando não especificado
+    provider_default_models = {
+        "openai": "gpt-4",
+        "anthropic": "claude-3-opus-20240229",
+        "gemini": "gemini-1.5-pro",
+    }
+    llm_model = args.llm_model or provider_default_models[args.llm_provider]
+
     # Configurar experimento
     config = ExperimentConfig(
         openai_api_key=args.openai_key,
         anthropic_api_key=args.anthropic_key,
+        google_api_key=args.google_key,
+        llm_provider=args.llm_provider,
+        llm_model=llm_model,
         methods=args.methods,
         num_runs=args.runs,
         verbose=not args.quiet,
@@ -96,6 +126,10 @@ def main():
     if not args.anthropic_key and "claude_cot" in args.methods:
         print("\nAviso: Anthropic API key não configurada. Claude CoT não será executado.")
         config.methods = [m for m in config.methods if m != "claude_cot"]
+
+    if not args.google_key and "gemini_cot" in args.methods:
+        print("\nAviso: Google/Gemini API key não configurada. Gemini CoT não será executado.")
+        config.methods = [m for m in config.methods if m != "gemini_cot"]
 
     runner = ExperimentRunner(config)
     results = runner.run_all()
