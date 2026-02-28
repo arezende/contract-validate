@@ -19,6 +19,8 @@ from pathlib import Path
 from typing import Any
 
 from contractfol.classifiers import DeonticClassifier
+from contractfol.detectors import AbusiveClauseDetector
+from contractfol.detectors.abusive_clause_detector import DetectorConfig
 from contractfol.extractors import ClauseExtractor
 from contractfol.generators import ExplanationGenerator
 from contractfol.models import Clause, Contract, ValidationReport, VerificationStatus
@@ -43,6 +45,14 @@ class PipelineConfig:
 
     # Verification settings
     z3_timeout_ms: int = 30000
+
+    # Abusive clause detection settings
+    enable_abusive_detection: bool = True
+    abusive_use_heuristics: bool = True
+    abusive_use_formal: bool = True
+    abusive_use_llm: bool = True
+    abusive_multa_threshold: float = 10.0
+    abusive_confidence_threshold: float = 0.6
 
     # Output settings
     generate_report: bool = True
@@ -95,6 +105,17 @@ class ContractFOLPipeline:
             timeout_ms=self.config.z3_timeout_ms,
         )
         self.explanation_generator = ExplanationGenerator(
+            llm_client=self.llm_client,
+            model=self.config.llm_model,
+        )
+        self.abusive_detector = AbusiveClauseDetector(
+            config=DetectorConfig(
+                use_heuristics=self.config.abusive_use_heuristics,
+                use_formal_verification=self.config.abusive_use_formal,
+                use_llm=self.config.abusive_use_llm,
+                multa_threshold_percent=self.config.abusive_multa_threshold,
+                confidence_threshold=self.config.abusive_confidence_threshold,
+            ),
             llm_client=self.llm_client,
             model=self.config.llm_model,
         )
@@ -215,6 +236,29 @@ class ContractFOLPipeline:
 
         if self.config.verbose:
             print(f"Classificação concluída em {report.classification_time_ms:.1f}ms")
+
+        # Etapa 2.5: Detecção de cláusulas abusivas
+        if self.config.enable_abusive_detection:
+            abusive_start = time.time()
+
+            for clause in all_clauses:
+                violations = self.abusive_detector.detect(clause)
+                report.abusive_clauses.extend(violations)
+
+            report.abusive_detection_time_ms = (time.time() - abusive_start) * 1000
+
+            if self.config.verbose:
+                print(
+                    f"Detecção de abusividade: {report.abusive_clause_count} violações "
+                    f"em {report.abusive_detection_time_ms:.1f}ms"
+                )
+
+            # Gerar explicações para cláusulas abusivas
+            for violation in report.abusive_clauses:
+                explanation = self.explanation_generator.generate_abusive_explanation(
+                    violation, all_clauses
+                )
+                violation.explanation = explanation
 
         # Etapa 3: Tradução NL-FOL
         translation_start = time.time()

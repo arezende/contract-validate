@@ -24,7 +24,14 @@ import json
 from dataclasses import dataclass
 from typing import Any
 
-from contractfol.models import Clause, Conflict, ConflictType, ValidationReport
+from contractfol.models import (
+    AbusiveClauseType,
+    AbusiveClauseViolation,
+    Clause,
+    Conflict,
+    ConflictType,
+    ValidationReport,
+)
 
 
 # Templates de explicação para cada tipo de conflito
@@ -128,6 +135,121 @@ CONFLICT_TEMPLATES = {
             "Definir qual cláusula prevalece em caso de divergência",
             "Adicionar cláusula de ajuste automático",
         ],
+    },
+}
+
+
+# Templates de explicação para cláusulas abusivas
+ABUSIVE_TEMPLATES = {
+    AbusiveClauseType.EXCLUSAO_RESPONSABILIDADE: {
+        "title": "Exclusão Abusiva de Responsabilidade",
+        "template": (
+            "A cláusula exclui ou limita indevidamente a responsabilidade de uma das partes. "
+            "Conforme CC Art. 424, em contratos de adesão é nula a renúncia antecipada "
+            "a direito resultante da natureza do negócio."
+        ),
+    },
+    AbusiveClauseType.RESCISAO_UNILATERAL: {
+        "title": "Rescisão Unilateral sem Reciprocidade",
+        "template": (
+            "A cláusula permite rescisão unilateral sem garantir o mesmo direito à outra parte "
+            "ou sem aviso prévio compatível. Conforme CC Art. 473, a resilição unilateral "
+            "requer aviso prévio proporcional aos investimentos realizados."
+        ),
+    },
+    AbusiveClauseType.MODIFICACAO_UNILATERAL: {
+        "title": "Modificação Unilateral do Contrato",
+        "template": (
+            "A cláusula permite alteração unilateral das condições contratuais, "
+            "violando o princípio da boa-fé objetiva (CC Art. 422) e a função "
+            "social do contrato (CC Art. 421)."
+        ),
+    },
+    AbusiveClauseType.MULTA_EXCESSIVA: {
+        "title": "Cláusula Penal Excessiva",
+        "template": (
+            "A multa estipulada é desproporcional ao valor da obrigação principal. "
+            "CC Art. 412 limita a cominação ao valor da obrigação, e Art. 413 "
+            "determina redução equitativa quando manifestamente excessiva."
+        ),
+    },
+    AbusiveClauseType.RENUNCIA_DIREITO: {
+        "title": "Renúncia Antecipada de Direito",
+        "template": (
+            "A cláusula impõe renúncia antecipada e irrevogável a direitos fundamentais. "
+            "CC Art. 424 veda essa prática em contratos de adesão."
+        ),
+    },
+    AbusiveClauseType.DESVANTAGEM_EXAGERADA: {
+        "title": "Lesão - Desvantagem Exagerada",
+        "template": (
+            "A cláusula cria desproporção manifesta entre as prestações das partes, "
+            "podendo configurar lesão (CC Art. 157)."
+        ),
+    },
+    AbusiveClauseType.ONEROSIDADE_EXCESSIVA: {
+        "title": "Impedimento de Revisão por Onerosidade",
+        "template": (
+            "A cláusula impede a invocação de onerosidade excessiva ou caso fortuito. "
+            "CC Arts. 478-480 garantem o direito à resolução contratual quando a "
+            "prestação se torna excessivamente onerosa por fatos extraordinários."
+        ),
+    },
+    AbusiveClauseType.BOA_FE_VIOLACAO: {
+        "title": "Violação da Boa-Fé Objetiva",
+        "template": (
+            "A cláusula confere poder discricionário excessivo a uma das partes, "
+            "violando o dever de boa-fé objetiva (CC Art. 422) e transparência contratual."
+        ),
+    },
+    AbusiveClauseType.CLAUSULA_LEONINA: {
+        "title": "Cláusula Leonina",
+        "template": (
+            "A cláusula exclui uma das partes dos benefícios ou imputa todas as perdas "
+            "a apenas uma parte, configurando cláusula leonina (CC Art. 1.008 por analogia)."
+        ),
+    },
+    AbusiveClauseType.PERDA_PRESTACOES: {
+        "title": "Perda Total de Prestações Pagas",
+        "template": (
+            "A cláusula determina perda total dos valores pagos em caso de rescisão, "
+            "configurando penalidade desproporcional. CC Art. 413 prevê redução equitativa."
+        ),
+    },
+    AbusiveClauseType.TRANSFERENCIA_RESPONSABILIDADE: {
+        "title": "Transferência Indevida de Responsabilidade",
+        "template": (
+            "A cláusula transfere responsabilidade de forma desequilibrada, "
+            "concentrando riscos em apenas uma das partes sem justificativa."
+        ),
+    },
+    AbusiveClauseType.INDENIZACAO_DESPROPORCIONAL: {
+        "title": "Indenização Desproporcional",
+        "template": (
+            "A indenização predeterminada é desproporcional ao dano potencial. "
+            "CC Art. 944: a indenização mede-se pela extensão do dano."
+        ),
+    },
+    AbusiveClauseType.ARBITRAGEM_COMPULSORIA: {
+        "title": "Arbitragem Compulsória",
+        "template": (
+            "A cláusula impõe arbitragem obrigatória sem possibilidade de acesso "
+            "ao Poder Judiciário, podendo ser abusiva por analogia ao CDC Art. 51, VII."
+        ),
+    },
+    AbusiveClauseType.ALTERACAO_PRECO_UNILATERAL: {
+        "title": "Alteração Unilateral de Preço",
+        "template": (
+            "A cláusula permite reajuste unilateral de preços sem critério "
+            "objetivo ou concordância da outra parte."
+        ),
+    },
+    AbusiveClauseType.OUTRA_ABUSIVIDADE: {
+        "title": "Potencial Abusividade Contratual",
+        "template": (
+            "A cláusula apresenta indícios de abusividade que merecem atenção "
+            "e análise jurídica especializada."
+        ),
     },
 }
 
@@ -410,6 +532,53 @@ Responda em formato estruturado."""
 
         return enriched
 
+    def generate_abusive_explanation(
+        self, violation: AbusiveClauseViolation, clauses: list[Clause]
+    ) -> str:
+        """
+        Gera explicação para uma cláusula abusiva detectada.
+
+        Args:
+            violation: Violação detectada
+            clauses: Lista de todas as cláusulas para contexto
+
+        Returns:
+            Texto da explicação
+        """
+        template = ABUSIVE_TEMPLATES.get(
+            violation.violation_type,
+            ABUSIVE_TEMPLATES[AbusiveClauseType.OUTRA_ABUSIVIDADE],
+        )
+
+        # Encontrar a cláusula afetada
+        affected_clause = next(
+            (c for c in clauses if c.id == violation.clause_id), None
+        )
+        clause_ref = ""
+        if affected_clause:
+            clause_ref = (
+                f"Cláusula {affected_clause.number}"
+                if affected_clause.number
+                else f"Cláusula {affected_clause.id}"
+            )
+
+        explanation_parts = [
+            f"CLÁUSULA ABUSIVA DETECTADA - {template['title']}",
+            f"Cláusula afetada: {clause_ref}",
+            f"Base legal: {violation.legal_basis}",
+            "",
+            template["template"],
+            "",
+            f"Descrição: {violation.description}",
+            "",
+            f"SUGESTÃO: {violation.suggestion}",
+            f"Severidade: {violation.severity}",
+            f"Confiança: {violation.confidence:.0%}",
+            f"Camada de detecção: {violation.detection_layer}",
+        ]
+
+        return "\n".join(explanation_parts)
+
     def generate_report(
         self, validation_report: ValidationReport, clauses: list[Clause]
     ) -> str:
@@ -476,6 +645,44 @@ Responda em formato estruturado."""
                 ]
             )
 
+        # Seção de cláusulas abusivas
+        if validation_report.has_abusive_clauses:
+            lines.append("-" * 60)
+            lines.append("CLÁUSULAS ABUSIVAS DETECTADAS")
+            lines.append("-" * 60)
+
+            for violation in validation_report.abusive_clauses:
+                template = ABUSIVE_TEMPLATES.get(
+                    violation.violation_type,
+                    ABUSIVE_TEMPLATES[AbusiveClauseType.OUTRA_ABUSIVIDADE],
+                )
+
+                lines.extend(
+                    [
+                        "",
+                        f"### {template['title']} ###",
+                        f"Cláusula: {violation.clause_id}",
+                        f"Base legal: {violation.legal_basis}",
+                        f"Severidade: {violation.severity}",
+                        f"Confiança: {violation.confidence:.0%}",
+                        f"Detecção: {violation.detection_layer}",
+                        "",
+                        violation.description,
+                        "",
+                        f"SUGESTÃO: {violation.suggestion}",
+                        "",
+                    ]
+                )
+        else:
+            lines.extend(
+                [
+                    "-" * 60,
+                    "NENHUMA CLÁUSULA ABUSIVA DETECTADA",
+                    "-" * 60,
+                    "",
+                ]
+            )
+
         # Estatísticas de tempo
         lines.extend(
             [
@@ -484,6 +691,7 @@ Responda em formato estruturado."""
                 "-" * 60,
                 f"Tempo de extração: {validation_report.extraction_time_ms:.1f}ms",
                 f"Tempo de classificação: {validation_report.classification_time_ms:.1f}ms",
+                f"Tempo de detecção de abusividade: {validation_report.abusive_detection_time_ms:.1f}ms",
                 f"Tempo de tradução: {validation_report.translation_time_ms:.1f}ms",
                 f"Tempo de verificação: {validation_report.verification_time_ms:.1f}ms",
                 f"Tempo total: {validation_report.total_time_ms:.1f}ms",

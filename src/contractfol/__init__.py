@@ -11,7 +11,13 @@ Design Science Research" - Anderson Rezende, COPPE/UFRJ, 2025.
 __version__ = "0.1.0"
 __author__ = "Anderson Rezende"
 
-from contractfol.pipeline import ContractFOLPipeline
+from contractfol.detectors import AbusiveClauseDetector
 from contractfol.ontology import ContractOntology
+from contractfol.pipeline import ContractFOLPipeline
 
-__all__ = ["ContractFOLPipeline", "ContractOntology", "__version__"]
+__all__ = [
+    "ContractFOLPipeline",
+    "ContractOntology",
+    "AbusiveClauseDetector",
+    "__version__",
+]

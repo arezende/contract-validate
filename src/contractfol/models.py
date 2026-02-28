@@ -32,6 +32,29 @@ class ConflictType(Enum):
     VALOR_INCONSISTENTE = "VALOR_INCONSISTENTE"       # Valores monetários conflitantes
 
 
+class AbusiveClauseType(Enum):
+    """Tipos de cláusulas abusivas conforme legislação brasileira (foco B2B)."""
+
+    # Código Civil - Princípios gerais e contratos empresariais
+    EXCLUSAO_RESPONSABILIDADE = "EXCLUSAO_RESPONSABILIDADE"       # CC Art. 424, 393
+    RESCISAO_UNILATERAL = "RESCISAO_UNILATERAL"                   # CC Art. 473
+    MODIFICACAO_UNILATERAL = "MODIFICACAO_UNILATERAL"             # CC Art. 421, 422
+    MULTA_EXCESSIVA = "MULTA_EXCESSIVA"                           # CC Art. 412, 413
+    RENUNCIA_DIREITO = "RENUNCIA_DIREITO"                         # CC Art. 424
+    DESVANTAGEM_EXAGERADA = "DESVANTAGEM_EXAGERADA"               # CC Art. 157 (lesão)
+    ONEROSIDADE_EXCESSIVA = "ONEROSIDADE_EXCESSIVA"               # CC Art. 478-480
+    BOA_FE_VIOLACAO = "BOA_FE_VIOLACAO"                           # CC Art. 113, 422
+    CLAUSULA_LEONINA = "CLAUSULA_LEONINA"                         # CC Art. 1.008 (sociedade)
+    PERDA_PRESTACOES = "PERDA_PRESTACOES"                         # CC Art. 413
+    TRANSFERENCIA_RESPONSABILIDADE = "TRANSFERENCIA_RESPONSABILIDADE"  # CC Art. 424
+    INDENIZACAO_DESPROPORCIONAL = "INDENIZACAO_DESPROPORCIONAL"   # CC Art. 944
+    # CDC por analogia (contratos de adesão empresarial)
+    ARBITRAGEM_COMPULSORIA = "ARBITRAGEM_COMPULSORIA"             # CDC Art. 51 VII (analogia)
+    ALTERACAO_PRECO_UNILATERAL = "ALTERACAO_PRECO_UNILATERAL"     # CDC Art. 51 X (analogia)
+    # Geral
+    OUTRA_ABUSIVIDADE = "OUTRA_ABUSIVIDADE"
+
+
 class VerificationStatus(Enum):
     """Status da verificação formal."""
 
@@ -150,6 +173,28 @@ class Conflict:
 
 
 @dataclass
+class AbusiveClauseViolation:
+    """Representa uma violação detectada em cláusula individual."""
+
+    id: str
+    clause_id: str
+    violation_type: AbusiveClauseType
+
+    # Fundamentação legal
+    legal_basis: str  # Ex: "CC, Art. 424"
+    description: str
+    suggestion: str
+
+    # Metadados
+    severity: str = "HIGH"  # HIGH, MEDIUM, LOW
+    confidence: float = 1.0
+    detection_layer: str = "heuristic"  # "heuristic", "formal", "llm"
+
+    # Explicação gerada (preenchida pelo ExplanationGenerator)
+    explanation: Optional[str] = None
+
+
+@dataclass
 class ValidationReport:
     """Relatório completo de validação contratual."""
 
@@ -158,6 +203,7 @@ class ValidationReport:
     # Resultados
     status: VerificationStatus = VerificationStatus.UNKNOWN
     conflicts: list[Conflict] = field(default_factory=list)
+    abusive_clauses: list[AbusiveClauseViolation] = field(default_factory=list)
 
     # Estatísticas
     total_clauses: int = 0
@@ -167,6 +213,7 @@ class ValidationReport:
     # Tempo de processamento
     extraction_time_ms: float = 0.0
     classification_time_ms: float = 0.0
+    abusive_detection_time_ms: float = 0.0
     translation_time_ms: float = 0.0
     verification_time_ms: float = 0.0
     total_time_ms: float = 0.0
@@ -176,5 +223,13 @@ class ValidationReport:
         return len(self.conflicts) > 0
 
     @property
+    def has_abusive_clauses(self) -> bool:
+        return len(self.abusive_clauses) > 0
+
+    @property
     def conflict_count(self) -> int:
         return len(self.conflicts)
+
+    @property
+    def abusive_clause_count(self) -> int:
+        return len(self.abusive_clauses)

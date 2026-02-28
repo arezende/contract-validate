@@ -255,6 +255,61 @@ class ContractOntology:
             ["AposEvento(prazo_pagamento, Entrega(produto))"],
         )
 
+        # Predicados para Detecção de Cláusulas Abusivas
+        self._add_predicate(
+            "Rescisao",
+            2,
+            "Agente a rescinde contrato c",
+            ["Agente", "Contrato"],
+            ["agente", "contrato"],
+            ["Rescisao(contratante, contrato_001)"],
+        )
+
+        self._add_predicate(
+            "Multa",
+            2,
+            "Multa/penalidade imposta ao agente com valor percentual",
+            ["Agente", "Real"],
+            ["agente", "valor_percentual"],
+            ["Multa(contratado, 10.0)"],
+        )
+
+        self._add_predicate(
+            "RenunciaDir",
+            2,
+            "Agente a renuncia ao direito d",
+            ["Agente", "Acao"],
+            ["agente", "direito"],
+            ["RenunciaDir(contratado, direito_reclamacao)"],
+        )
+
+        self._add_predicate(
+            "ModificacaoUnilateral",
+            2,
+            "Agente a modifica unilateralmente objeto o",
+            ["Agente", "Acao"],
+            ["agente", "objeto"],
+            ["ModificacaoUnilateral(contratante, condicoes_contrato)"],
+        )
+
+        self._add_predicate(
+            "ExclusaoResp",
+            2,
+            "Exclusão de responsabilidade do agente a no contrato c",
+            ["Agente", "Contrato"],
+            ["agente", "contrato"],
+            ["ExclusaoResp(contratante, contrato_001)"],
+        )
+
+        self._add_predicate(
+            "ContratoAdesao",
+            1,
+            "Contrato c é um contrato de adesão",
+            ["Contrato"],
+            ["contrato"],
+            ["ContratoAdesao(contrato_001)"],
+        )
+
     def _add_predicate(
         self,
         name: str,
@@ -315,6 +370,32 @@ class ContractOntology:
         self.axioms.append(
             "(assert (forall ((c Contract) (d1 Date) (d2 Date)) "
             "(=> (Prazo c d1 d2) (Antes d1 d2))))"
+        )
+
+        # --- Axiomas para Detecção de Cláusulas Abusivas ---
+
+        # Axioma 6: Simetria de rescisão (CC Art. 473)
+        # ∀a,b,c: Permissao(a, Rescisao(c)) ∧ Parte(b,c) ∧ ¬(a=b)
+        #          → Permissao(b, Rescisao(c))
+        self.axioms.append(
+            "(assert (forall ((a Agent) (b Agent) (c Contract)) "
+            "(=> (and (Permissao a (Rescisao a c)) (Parte b c) (not (= a b))) "
+            "(Permissao b (Rescisao b c)))))"
+        )
+
+        # Axioma 7: Exclusão de responsabilidade em contrato de adesão é nula
+        # (CC Art. 424)
+        # ∀a,c: ExclusaoResp(a,c) ∧ ContratoAdesao(c) → ⊥ (insatisfatível)
+        self.axioms.append(
+            "(assert (forall ((a Agent) (c Contract)) "
+            "(not (and (ExclusaoResp a c) (ContratoAdesao c)))))"
+        )
+
+        # Axioma 8: Modificação unilateral viola boa-fé (CC Art. 422)
+        # ∀a,o: ModificacaoUnilateral(a,o) → ¬Permissao(a, o)
+        self.axioms.append(
+            "(assert (forall ((a Agent) (o Action)) "
+            "(=> (ModificacaoUnilateral a o) (not (Permissao a o)))))"
         )
 
     def get_predicate(self, name: str) -> Predicate | None:

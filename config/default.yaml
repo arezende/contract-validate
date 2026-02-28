@@ -42,6 +42,25 @@ verifier:
   # Timeout em milissegundos
   timeout_ms: 30000
 
+# Configurações do Detector de Cláusulas Abusivas
+abusive_detector:
+  # Habilitar detecção de cláusulas abusivas
+  enabled: true
+
+  # Camadas de detecção (todas ativas por padrão)
+  use_heuristics: true
+  use_formal_verification: true
+  use_llm: true
+
+  # Tipo de contrato: "b2b" (inter-institucional) ou "b2c" (consumo)
+  contract_type: "b2b"
+
+  # Limiar de multa para considerá-la excessiva (CC Art. 413)
+  multa_threshold_percent: 10.0
+
+  # Limiar mínimo de confiança para reportar violação
+  confidence_threshold: 0.6
+
 # Configurações de Saída
 output:
   # Gerar relatório automaticamente
