@@ -45,7 +45,7 @@ DEONTIC_PATTERNS = {
         r"\b(abster-se-á|deverá\s+abster-se|compromete-se\s+a\s+não)\b",
     ],
     DeonticModality.CONDICAO: [
-        r"\b(caso|se|quando|desde\s+que|na\s+hipótese|em\s+caso\s+de|"
+        r"\b(caso|(?<!-)se|quando|desde\s+que|na\s+hipótese|em\s+caso\s+de|"
         r"verificando-se|ocorrendo|havendo|mediante|sob\s+condição)\b",
         r"\b(então|acarretará|ensejará|implicará|resultará)\b",
     ],

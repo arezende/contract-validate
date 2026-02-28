@@ -103,6 +103,13 @@ class FOLSyntaxValidator:
         reserved = {"and", "or", "not", "implies", "iff", "forall", "exists", "true", "false"}
         all_vars -= reserved
 
+        # Extrair constantes: lowercase terms used as predicate arguments
+        # (appear after '(' or ',' and before ',' or ')' within predicate calls)
+        constants = set()
+        const_pattern = r"(?<=[(,])\s*([a-z][a-z0-9_]*)\s*(?=[,)])"
+        constants = set(re.findall(const_pattern, formula))
+        all_vars -= constants
+
         # Variáveis livres são as que aparecem mas não estão quantificadas
         # (simplificação - não considera escopo)
         return list(all_vars - quantified)
