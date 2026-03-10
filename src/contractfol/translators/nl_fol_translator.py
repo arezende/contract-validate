@@ -383,6 +383,116 @@ Forneça APENAS a fórmula FOL corrigida:"""
 
         return response
 
+    def refine_with_solver_feedback(
+        self,
+        clause: Clause,
+        solver_error: str,
+        max_attempts: int = 2,
+    ) -> TranslationResult:
+        """
+        Refinamento guiado pelo solver (Logic-LLM style self-refinement).
+
+        Quando o Z3 não consegue converter ou rejeita uma fórmula, este método
+        alimenta o erro do solver de volta ao LLM para que ele corrija a fórmula.
+
+        Args:
+            clause: Cláusula com fórmula FOL que falhou na verificação Z3
+            solver_error: Mensagem de erro retornada pelo Z3Verifier
+            max_attempts: Máximo de tentativas de refinamento com feedback do solver
+
+        Returns:
+            TranslationResult com fórmula refinada
+        """
+        if not self.llm_client or not clause.fol_formula:
+            return TranslationResult(
+                original_text=clause.text,
+                fol_formula=clause.fol_formula or "",
+                is_valid=False,
+                validation_errors=[solver_error],
+                attempts=0,
+                predicates_used=self._extract_predicates(clause.fol_formula or ""),
+                constants_used=self._extract_constants(clause.fol_formula or ""),
+            )
+
+        current_formula = clause.fol_formula
+        last_error = solver_error
+
+        for attempt in range(1, max_attempts + 1):
+            prompt = self._build_solver_refinement_prompt(
+                clause.text, current_formula, last_error, clause.modality
+            )
+
+            formula = self._call_llm(prompt)
+
+            # Primeiro validar sintaxe
+            is_valid, syntax_errors = self.validator.validate(formula)
+            if not is_valid:
+                current_formula = formula
+                last_error = "; ".join(syntax_errors)
+                continue
+
+            # Retornar fórmula refinada (a verificação Z3 será feita pelo pipeline)
+            return TranslationResult(
+                original_text=clause.text,
+                fol_formula=formula,
+                is_valid=True,
+                validation_errors=[],
+                attempts=attempt,
+                predicates_used=self._extract_predicates(formula),
+                constants_used=self._extract_constants(formula),
+            )
+
+        # Esgotou tentativas
+        return TranslationResult(
+            original_text=clause.text,
+            fol_formula=current_formula,
+            is_valid=False,
+            validation_errors=[last_error],
+            attempts=max_attempts,
+            predicates_used=self._extract_predicates(current_formula),
+            constants_used=self._extract_constants(current_formula),
+        )
+
+    def _build_solver_refinement_prompt(
+        self,
+        text: str,
+        previous_formula: str,
+        solver_error: str,
+        modality: DeonticModality | None,
+    ) -> str:
+        """Constrói prompt de refinamento baseado em feedback do solver Z3."""
+        modality_hint = ""
+        if modality:
+            modality_hint = f"\nModalidade deôntica: {modality.value}"
+
+        return f"""A fórmula FOL gerada anteriormente foi rejeitada pelo verificador formal Z3.
+Corrija a fórmula para que seja aceita pelo solver.
+
+## Cláusula Original
+{text}
+{modality_hint}
+
+## Fórmula Anterior (rejeitada pelo Z3)
+{previous_formula}
+
+## Erro do Verificador Z3
+{solver_error}
+
+## Predicados Disponíveis na Ontologia (com aridade)
+{chr(10).join(self.ontology.get_predicate_signatures())}
+
+## Instruções de Correção
+1. A fórmula deve ser convertível para SMT-LIB2 (formato Z3)
+2. Use APENAS predicados da ontologia com a aridade correta
+3. Predicados deônticos: Obrigacao(agente, acao, prazo), Permissao(agente, acao), Proibicao(agente, acao)
+4. Predicados de ação retornam Action: Pagamento(desc), UsoMarca(modalidade), Entrega(objeto)
+5. Não use predicados inventados — use apenas os listados acima
+6. Verifique balanceamento de parênteses
+7. Quantificadores: use Forall var. corpo ou Exists var. corpo
+
+## Resposta
+Forneça APENAS a fórmula FOL corrigida:"""
+
     def _translate_heuristic(
         self, clause: Clause, modality: DeonticModality | None
     ) -> TranslationResult:

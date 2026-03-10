@@ -43,6 +43,10 @@ class PipelineConfig:
     max_refinement_attempts: int = 3
     use_heuristics: bool = True
 
+    # Solver-guided refinement settings (Logic-LLM style)
+    enable_solver_refinement: bool = True
+    max_solver_refinement_attempts: int = 2
+
     # Verification settings
     z3_timeout_ms: int = 30000
 
@@ -280,6 +284,51 @@ class ContractFOLPipeline:
                 f"Tradução: {translated_count}/{len(all_clauses)} "
                 f"({report.translation_success_rate:.1%}) em {report.translation_time_ms:.1f}ms"
             )
+
+        # Etapa 3.5: Refinamento guiado pelo solver (Logic-LLM style)
+        if self.config.enable_solver_refinement and self.llm_client:
+            refinement_start = time.time()
+            refined_count = 0
+
+            for clause in all_clauses:
+                if not clause.fol_formula or not clause.fol_parsed:
+                    continue
+
+                # Pré-verificar fórmula individual com Z3
+                success, error = self.verifier.verify_single_formula(clause.fol_formula)
+                if success:
+                    continue
+
+                # Z3 rejeitou — alimentar erro de volta ao LLM
+                if self.config.verbose:
+                    print(
+                        f"  Refinando cláusula {clause.id}: {error}"
+                    )
+
+                result = self.translator.refine_with_solver_feedback(
+                    clause,
+                    error,
+                    max_attempts=self.config.max_solver_refinement_attempts,
+                )
+
+                if result.is_valid:
+                    # Re-verificar a fórmula refinada com Z3
+                    re_success, _ = self.verifier.verify_single_formula(
+                        result.fol_formula
+                    )
+                    if re_success:
+                        clause.fol_formula = result.fol_formula
+                        clause.fol_parsed = True
+                        clause.fol_translation_attempts += result.attempts
+                        refined_count += 1
+
+            report.solver_refinement_time_ms = (time.time() - refinement_start) * 1000
+
+            if self.config.verbose:
+                print(
+                    f"Refinamento solver: {refined_count} fórmulas corrigidas "
+                    f"em {report.solver_refinement_time_ms:.1f}ms"
+                )
 
         # Etapa 4: Verificação formal
         verification_start = time.time()

@@ -165,6 +165,90 @@ class TestFOLValidator:
         assert any("vazia" in e.lower() for e in errors)
 
 
+class TestSolverGuidedRefinement:
+    """Testes do refinamento guiado pelo solver (Logic-LLM style)."""
+
+    def test_verify_single_formula_valid(self):
+        """Fórmula válida passa na pré-verificação Z3."""
+        from contractfol.verifiers import Z3Verifier
+
+        verifier = Z3Verifier()
+        # Fórmula sem predicados aninhados (compatível com parser Z3 atual)
+        formula = "Permissao(patrocinador, acao)"
+        success, error = verifier.verify_single_formula(formula)
+
+        assert success
+        assert error == ""
+
+    def test_verify_single_formula_valid_obrigacao(self):
+        """Fórmula de obrigação válida passa na pré-verificação Z3."""
+        from contractfol.verifiers import Z3Verifier
+
+        verifier = Z3Verifier()
+        formula = "Obrigacao(contratado, entrega, prazo)"
+        success, error = verifier.verify_single_formula(formula)
+
+        assert success
+        assert error == ""
+
+    def test_verify_single_formula_conversion_error(self):
+        """Fórmula com aridade incorreta retorna erro de conversão Z3."""
+        from contractfol.verifiers import Z3Verifier
+
+        verifier = Z3Verifier()
+        # Obrigacao espera 3 argumentos, mas passamos apenas 1
+        formula = "Obrigacao(agente)"
+        success, error = verifier.verify_single_formula(formula)
+
+        assert not success
+        assert "erro" in error.lower()
+
+    def test_verify_single_formula_contradiction(self):
+        """Fórmula que contradiz axiomas de background é rejeitada."""
+        from contractfol.verifiers import Z3Verifier
+
+        verifier = Z3Verifier()
+        # Obrigação e proibição sobre a mesma ação contradiz axioma 1
+        formula = "Obrigacao(agente, acao, prazo) And Proibicao(agente, acao)"
+        success, error = verifier.verify_single_formula(formula)
+
+        assert not success
+        assert "insatisfatível" in error.lower() or "axiomas" in error.lower()
+
+    def test_refine_without_llm_returns_original(self):
+        """Sem LLM, refinamento retorna fórmula original com erro."""
+        from contractfol.translators import NLFOLTranslator
+
+        translator = NLFOLTranslator(llm_client=None)
+        clause = Clause(
+            id="1",
+            text="O CONTRATADO obriga-se a entregar o produto.",
+            contract_id="test",
+            fol_formula="FormulaErrada(x, y)",
+        )
+        result = translator.refine_with_solver_feedback(
+            clause, "Erro de conversão Z3: predicado desconhecido"
+        )
+
+        assert not result.is_valid
+        assert "Erro de conversão Z3" in result.validation_errors[0]
+
+    def test_pipeline_config_solver_refinement_defaults(self):
+        """PipelineConfig inclui configurações de refinamento do solver."""
+        from contractfol.pipeline import PipelineConfig
+
+        config = PipelineConfig()
+        assert config.enable_solver_refinement is True
+        assert config.max_solver_refinement_attempts == 2
+
+    def test_validation_report_solver_refinement_time(self):
+        """ValidationReport inclui tempo de refinamento do solver."""
+        from contractfol.models import ValidationReport, VerificationStatus
+
+        report = ValidationReport(contract_ids=["test"])
+        assert report.solver_refinement_time_ms == 0.0
+
+
 class TestModels:
     """Testes dos modelos de dados."""
 

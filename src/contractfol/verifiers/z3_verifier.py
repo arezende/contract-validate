@@ -198,6 +198,50 @@ class Z3Verifier:
 
         return axioms
 
+    def verify_single_formula(self, formula: str) -> tuple[bool, str]:
+        """
+        Pré-verifica uma fórmula FOL individual tentando convertê-la para Z3.
+
+        Usado no ciclo de auto-refinamento guiado pelo solver (Logic-LLM style):
+        detecta erros de conversão cedo, antes da verificação de consistência completa.
+
+        Args:
+            formula: Fórmula FOL em string
+
+        Returns:
+            Tupla (success, error_message). Se success=True, error_message é vazio.
+        """
+        try:
+            z3_expr = self._convert_fol_to_z3(formula)
+            if z3_expr is None:
+                return False, "Conversão retornou expressão nula"
+
+            # Verificar se a fórmula é satisfatível isoladamente
+            solver = Solver()
+            solver.set("timeout", min(self.timeout_ms, 5000))
+
+            # Adicionar axiomas de background
+            for _, axiom_formula in self._get_axioms(solver):
+                solver.add(axiom_formula)
+
+            solver.add(z3_expr)
+            result = solver.check()
+
+            if result == unsat:
+                return False, (
+                    "Fórmula é insatisfatível com os axiomas de background "
+                    "(contradiz os axiomas de consistência do domínio)"
+                )
+            elif result == unknown:
+                return True, ""  # Timeout não é erro — aceitar a fórmula
+            else:
+                return True, ""
+
+        except Z3ConversionError as e:
+            return False, f"Erro de conversão Z3: {e}"
+        except Exception as e:
+            return False, f"Erro inesperado na verificação: {e}"
+
     def verify_consistency(self, clauses: list[Clause]) -> VerificationResult:
         """
         Verifica a consistência de um conjunto de cláusulas.

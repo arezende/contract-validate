@@ -215,6 +215,7 @@ class ValidationReport:
     classification_time_ms: float = 0.0
     abusive_detection_time_ms: float = 0.0
     translation_time_ms: float = 0.0
+    solver_refinement_time_ms: float = 0.0
     verification_time_ms: float = 0.0
     total_time_ms: float = 0.0
 
