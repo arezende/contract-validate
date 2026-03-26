@@ -72,3 +72,7 @@ target-version = "py311"
 python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
+
+[tool.pyright]
+typeCheckingMode = "basic"
+extraPaths = ["src"]

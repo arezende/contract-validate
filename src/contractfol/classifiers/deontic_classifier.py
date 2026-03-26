@@ -90,9 +90,7 @@ class DeonticClassifier:
         # Compilar padrões
         self._compiled_patterns: dict[DeonticModality, list[re.Pattern]] = {}
         for modality, patterns in DEONTIC_PATTERNS.items():
-            self._compiled_patterns[modality] = [
-                re.compile(p, re.IGNORECASE) for p in patterns
-            ]
+            self._compiled_patterns[modality] = [re.compile(p, re.IGNORECASE) for p in patterns]
 
     def classify(self, clause: Clause) -> tuple[DeonticModality, float]:
         """
@@ -143,7 +141,8 @@ class DeonticClassifier:
             return DeonticModality.DEFINICAO, 0.3  # Default com baixa confiança
 
         best_modality = max(scores, key=scores.get)
-        confidence = scores[best_modality] / total_matches
+        confidence = 0.5 + (0.1 * scores[best_modality])
+        confidence = min(confidence, 0.95)
 
         # Ajustar confiança baseado no número total de matches
         if total_matches >= 3:

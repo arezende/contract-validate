@@ -89,6 +89,9 @@ class FOLSyntaxValidator:
 
     def _find_free_variables(self, formula: str) -> list[str]:
         """Encontra variáveis potencialmente livres."""
+        if not re.search(r"(?:∀|∃|Forall|Exists|forall|exists)", formula, re.IGNORECASE):
+            return []
+
         # Extrair variáveis quantificadas
         quantified = set()
         quant_pattern = r"(?:∀|∃|Forall|Exists|forall|exists)\s*([a-z][a-z0-9_]*)"
@@ -235,9 +238,7 @@ class NLFOLTranslator:
             constants_used=self._extract_constants(last_formula),
         )
 
-    def _build_translation_prompt(
-        self, text: str, modality: DeonticModality | None
-    ) -> str:
+    def _build_translation_prompt(self, text: str, modality: DeonticModality | None) -> str:
         """Constrói o prompt de tradução inicial."""
         ontology_desc = self.ontology.get_ontology_description()
 
@@ -299,7 +300,7 @@ Fórmula FOL:"""
 {errors_str}
 
 ## Predicados Disponíveis na Ontologia
-{', '.join(self.ontology.list_predicates())}
+{", ".join(self.ontology.list_predicates())}
 
 ## Instruções de Correção
 1. Corrija os erros listados acima
@@ -313,9 +314,7 @@ Forneça APENAS a fórmula FOL corrigida:"""
     def _call_llm(self, prompt: str) -> str:
         """Chama o LLM e extrai a fórmula da resposta."""
         try:
-            if hasattr(self.llm_client, "chat") and hasattr(
-                self.llm_client.chat, "completions"
-            ):
+            if hasattr(self.llm_client, "chat") and hasattr(self.llm_client.chat, "completions"):
                 # OpenAI-style
                 response = self.llm_client.chat.completions.create(
                     model=self.model,
@@ -461,9 +460,7 @@ Forneça APENAS a fórmula FOL corrigida:"""
         return clause
 
 
-def translate_clauses(
-    clauses: list[Clause], llm_client: Any = None
-) -> list[TranslationResult]:
+def translate_clauses(clauses: list[Clause], llm_client: Any = None) -> list[TranslationResult]:
     """
     Função utilitária para traduzir múltiplas cláusulas.
     """

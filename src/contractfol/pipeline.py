@@ -17,7 +17,6 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
-
 from contractfol.classifiers import DeonticClassifier
 from contractfol.detectors import AbusiveClauseDetector
 from contractfol.detectors.abusive_clause_detector import DetectorConfig

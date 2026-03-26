@@ -204,7 +204,7 @@ class ExperimentRunner:
         """Carrega dados anotados (ground truth)."""
         gt_path = Path(self.config.clauses_file)
         if gt_path.exists():
-            with open(gt_path) as f:
+            with open(gt_path, encoding="utf-8") as f:
                 return json.load(f)
         return {"clauses": [], "conflict_pairs": []}
 
@@ -444,7 +444,7 @@ class ExperimentRunner:
 
         # JSON completo
         json_file = output_dir / f"experiment_results_{timestamp}.json"
-        with open(json_file, "w") as f:
+        with open(json_file, "w", encoding="utf-8") as f:
             json.dump(results_dict, f, indent=2, ensure_ascii=False)
         print(f"\nResultados JSON salvos em: {json_file}")
 
