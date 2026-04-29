@@ -1,0 +1,25 @@
+CONTRATO 005 - DESENVOLVIMENTO DE SOFTWARE (CONTRATO NORMAL)
+
+CONTRATANTE: Iota Logistica S.A., CNPJ 99.000.111/0001-33, com sede na Av. das Nacoes, 777, Brasilia/DF, CEP 70000-000, doravante CONTRATANTE.
+CONTRATADA: Kappa Tech ME, CNPJ 10.111.222/0001-44, com sede na Rua dos Codigos, 256, Florianopolis/SC, CEP 88000-000, doravante CONTRATADA.
+
+CLAUSULA 1 - OBJETO: Desenvolvimento de um sistema web personalizado para gestao de frotas.
+CLAUSULA 2 - ESCOPO: O sistema devera conter modulos de cadastro, rastreamento e relatorios financeiros.
+CLAUSULA 3 - PRAZO DE ENTREGA: O prazo total para desenvolvimento e entrega e de 180 dias.
+CLAUSULA 4 - CRONOGRAMA: As entregas serao fracionadas em 4 fases mensais, conforme anexo tecnico.
+CLAUSULA 5 - VALOR: O valor total do projeto e de R$ 80.000,00 (oitenta mil reais).
+CLAUSULA 6 - PAGAMENTO: O valor sera pago em 4 parcelas de R$ 20.000,00, vinculadas a aprovacao de cada fase.
+CLAUSULA 7 - APROVACAO: A CONTRATANTE tera 5 dias uteis para homologar cada entrega.
+CLAUSULA 8 - PROPRIEDADE INTELECTUAL: O codigo-fonte sera de propriedade exclusiva da CONTRATANTE apos a quitacao total.
+CLAUSULA 9 - SUPORTE: A CONTRATADA fornecera suporte tecnico gratuito por 90 dias apos a entrega final.
+CLAUSULA 10 - MANUTENCAO: Apos o periodo de suporte, eventuais manutencoes serao cobradas a parte.
+CLAUSULA 11 - CONFIDENCIALIDADE: E vedado a CONTRATADA utilizar dados da CONTRATANTE para outros fins.
+CLAUSULA 12 - MULTA MORATORIA: Atraso nos pagamentos gera multa de 2% e juros de 1% a.m.
+CLAUSULA 13 - PENALIDADE POR ATRASO NA ENTREGA: Atraso nas fases do projeto gera desconto de 1% do valor da parcela por dia util.
+CLAUSULA 14 - MUDANCA DE ESCOPO: Novas funcionalidades deverao ser orcadas em termo aditivo.
+CLAUSULA 15 - RESCISAO: Em caso de rescisao antecipada, serao pagos os valores proporcionais as fases concluidas.
+CLAUSULA 16 - VINCULO: Este contrato nao estabelece vinculo empregaticio.
+CLAUSULA 17 - CESSAO: Nenhuma das partes podera ceder o contrato sem anuencia.
+CLAUSULA 18 - COMUNICACAO: Toda comunicacao oficial sera realizada via e-mail dos gestores do projeto.
+CLAUSULA 19 - CODIGO ABERTO: A CONTRATADA garante nao utilizar bibliotecas com licencas restritivas que prejudiquem a comercializacao.
+CLAUSULA 20 - FORO: Elege-se o foro de Brasilia/DF.

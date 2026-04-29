@@ -1,0 +1,25 @@
+CONTRATO 004 - FORNECIMENTO DE PRODUTOS (COM PROBLEMAS E OMISSOES)
+
+CONTRATANTE: Comercio Eta Ltda, CNPJ 77.888.999/0001-11, com sede na Rua do Comercio, 12, Salvador/BA, CEP 40000-000, doravante CONTRATANTE.
+CONTRATADA: Fabrica Theta S.A., CNPJ 88.999.000/0001-22, com sede na Rodovia BR-101, Km 50, Feira de Santana/BA, CEP 44000-000, doravante CONTRATADA.
+
+CLAUSULA 1 - OBJETO: Fornecimento continuo de pecas automotivas pela CONTRATADA.
+CLAUSULA 2 - QUANTIDADE: A CONTRATADA se compromete a fornecer 500 pecas por semana a CONTRATANTE.
+CLAUSULA 3 - CONTRADICAO DE VOLUME: Fica estipulado que o volume maximo de entregas sera de 100 pecas por mes em carater de exclusividade.
+CLAUSULA 4 - VIGENCIA: O contrato tem vigencia de 12 meses.
+CLAUSULA 5 - PRECO: O preco unitario de cada peca e de R$ 50,00.
+CLAUSULA 6 - PAGAMENTO: Os pagamentos serao realizados em ate 30 dias apos o faturamento.
+CLAUSULA 7 - RESPONSABILIDADE DO FRETE: O frete para envio das pecas e de inteira responsabilidade e custo da CONTRATADA.
+CLAUSULA 8 - CONTRADICAO DE FRETE: A CONTRATANTE obriga-se a pagar a transportadora todos os custos relativos ao frete de envio.
+CLAUSULA 9 - QUALIDADE: Os produtos devem seguir as normas do Inmetro.
+CLAUSULA 10 - DEVOLUCAO: Produtos com defeito poderao ser devolvidos em ate 7 dias.
+CLAUSULA 11 - OMISSAO DE MULTA: A multa por atraso na entrega das pecas sera regida e calculada exclusivamente pelas regras descritas na Clausula 28 deste instrumento.
+CLAUSULA 12 - GARANTIA: A garantia dos produtos e de 90 dias contra defeitos de fabricacao.
+CLAUSULA 13 - OBRIGACAO DA CONTRATANTE: Receber as mercadorias no horario comercial.
+CLAUSULA 14 - OBRIGACAO DA CONTRATADA: Emitir as respectivas Notas Fiscais Eletronicas.
+CLAUSULA 15 - RESCISAO: O contrato podera ser cancelado mediante aviso previo de 60 dias.
+CLAUSULA 16 - MULTA RESCISORIA: A rescisao imediata gera multa de R$ 10.000,00.
+CLAUSULA 17 - AMBIGUIDADE NO PRECO: O preco unitario dos produtos podera sofrer alteracoes sempre que a CONTRATADA quiser.
+CLAUSULA 18 - SUBCONTRATACAO: A CONTRATADA podera subcontratar o servico de fabricacao.
+CLAUSULA 19 - SIGILO: As partes manterao sigilo sobre o modelo de negocios.
+CLAUSULA 20 - FORO: Elege-se o foro de Salvador/BA.

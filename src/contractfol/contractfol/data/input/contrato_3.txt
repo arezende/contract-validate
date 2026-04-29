@@ -1,0 +1,25 @@
+CONTRATO 003 - CONSULTORIA EMPRESARIAL (CONTRATO NORMAL)
+
+CONTRATANTE: Industria Epsilon Ltda, CNPJ 55.666.777/0001-88, com sede na Av. Industrial, 500, Campinas/SP, CEP 13000-000, doravante CONTRATANTE.
+CONTRATADA: Zeta Consultores S.A., CNPJ 66.777.888/0001-99, com sede na Rua Direita, 40, Sao Paulo/SP, CEP 01001-000, doravante CONTRATADA.
+
+CLAUSULA 1 - OBJETO: Prestacao de servicos de consultoria financeira e reestruturacao de processos.
+CLAUSULA 2 - ESCOPO: Analise de fluxo de caixa, reducao de custos e auditoria interna.
+CLAUSULA 3 - LOCAL: Os trabalhos serao remotos, com reunioes quinzenais na sede da CONTRATANTE.
+CLAUSULA 4 - VIGENCIA: O contrato tera validade de 6 (seis) meses.
+CLAUSULA 5 - VALOR: O valor global da consultoria e de R$ 60.000,00.
+CLAUSULA 6 - PAGAMENTO: Sera pago em 6 parcelas mensais e iguais de R$ 10.000,00.
+CLAUSULA 7 - VENCIMENTO: Os pagamentos ocorrerao no dia 10 de cada mes mediante emissao de Nota Fiscal.
+CLAUSULA 8 - OBRIGACOES DA CONTRATADA: Entregar relatorios mensais de desempenho e recomendacoes.
+CLAUSULA 9 - OBRIGACOES DA CONTRATANTE: Disponibilizar todos os documentos contabeis necessarios.
+CLAUSULA 10 - SIGILO: As informacoes compartilhadas sao de natureza estritamente confidencial.
+CLAUSULA 11 - MULTA POR ATRASO: Multa de 2% sobre a parcela em atraso, mais juros legais.
+CLAUSULA 12 - RESCISAO IMOTIVADA: Rescisao sem justa causa exige aviso previo de 15 dias e multa de 20% do saldo devedor.
+CLAUSULA 13 - DIREITOS AUTORAIS: Os relatorios gerados pertencem a CONTRATANTE apos a quitacao.
+CLAUSULA 14 - INDEPENDENCIA: Nao ha vinculo empregaticio entre os consultores e a CONTRATANTE.
+CLAUSULA 15 - COMUNICACAO: Todas as notificacoes deverao ser feitas por escrito ou e-mail corporativo.
+CLAUSULA 16 - DESPESAS DE VIAGEM: Caso necessarias viagens, a CONTRATANTE arcara com transporte e hospedagem.
+CLAUSULA 17 - CASO FORTUITO: Nenhuma parte sera penalizada por atrasos decorrentes de forca maior.
+CLAUSULA 18 - ALTERACOES: Qualquer mudanca de escopo devera ser formalizada por aditivo contratual.
+CLAUSULA 19 - SUCESSAO: O contrato obriga as partes e seus sucessores legais.
+CLAUSULA 20 - FORO: Elege-se o foro da Comarca de Campinas/SP para eventuais disputas.

@@ -1,0 +1,25 @@
+CONTRATO 002 - LOCACAO COMERCIAL (COM PROBLEMAS E CONTRADICOES)
+
+CONTRATANTE: Locadora Gamma S.A., CNPJ 33.444.555/0001-66, com sede na Rua das Arvores, 789, Belo Horizonte/MG, CEP 30000-000, doravante CONTRATANTE.
+CONTRATADA: Loja Delta Ltda, CNPJ 44.555.666/0001-77, com sede na Praca Central, 10, Curitiba/PR, CEP 80000-000, doravante CONTRATADA.
+
+CLAUSULA 1 - OBJETO: Locacao de imovel comercial situado na Praca Central, 10.
+CLAUSULA 2 - DESTINACAO: O imovel destina-se exclusivamente para uso comercial da CONTRATADA.
+CLAUSULA 3 - PRAZO: A locacao tera prazo de 36 meses, com inicio na data da assinatura.
+CLAUSULA 4 - VALOR DO ALUGUEL: O valor do aluguel mensal e de R$ 5.000,00 (cinco mil reais).
+CLAUSULA 5 - VENCIMENTO: O aluguel devera ser pago impreterivelmente ate o dia 05 de cada mes.
+CLAUSULA 6 - REAJUSTE: O valor do aluguel sera reajustado anualmente pelo IGPM.
+CLAUSULA 7 - OBRIGACOES DA CONTRATADA: Manter o imovel em perfeitas condicoes de uso.
+CLAUSULA 8 - CONTRADICAO DE VALOR: As partes acordam que a CONTRATADA pagara o valor fixo mensal de R$ 3.500,00, a ser pago todo dia 15.
+CLAUSULA 9 - IPTU: O pagamento do IPTU sera de responsabilidade exclusiva da CONTRATADA.
+CLAUSULA 10 - CONDOMINIO: As taxas condominiais serao pagas pela CONTRATANTE.
+CLAUSULA 11 - AMBIGUIDADE DE MANUTENCAO: A CONTRATADA devera realizar reparos no imovel num prazo razoavel, sempre que achar que a situacao exige.
+CLAUSULA 12 - BENFEITORIAS: Qualquer benfeitoria dependera de autorizacao por escrito da CONTRATANTE.
+CLAUSULA 13 - SUBLOCACAO: Fica expressamente proibida a sublocacao do imovel.
+CLAUSULA 14 - VISTORIA: O imovel e entregue conforme laudo de vistoria em anexo.
+CLAUSULA 15 - GARANTIA: A garantia locaticia e prestada na modalidade de fiador.
+CLAUSULA 16 - MULTA MORATORIA: O atraso no pagamento gerera multa de 10%.
+CLAUSULA 17 - RESCISAO: A devolucao antecipada gerera multa de 3 alugueis.
+CLAUSULA 18 - RENOVACAO: O contrato sera renovado automaticamente caso nao haja manifestacao.
+CLAUSULA 19 - SEGURO INCENDIO: A CONTRATADA deve contratar seguro contra incendio.
+CLAUSULA 20 - FORO DUBIO: Elege-se o foro de Belo Horizonte/MG para dirimir duvidas. Fica tambem eleito o foro de Curitiba/PR com exclusividade, renunciando a qualquer outro.

@@ -55,3 +55,4 @@ Thumbs.db
 # Project specific
 data/results/*.json
 *.log
+.env

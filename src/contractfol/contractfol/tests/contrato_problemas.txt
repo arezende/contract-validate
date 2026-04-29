@@ -1,0 +1,29 @@
+CONTRATO DE PRESTAÇÃO DE SERVIÇOS Nº 001/2026
+
+CLÁUSULA PRIMEIRA - DO OBJETO
+O presente contrato tem por objeto a prestação de serviços de consultoria técnica entre a Empresa Contratante ACME Consultoria Ltda. e a Empresa Contratada Soluções Digitais S.A. para desenvolvimento de plataforma de gerenciamento de projetos.
+
+CLÁUSULA SEGUNDA - DAS OBRIGAÇÕES DA ACME CONSULTORIA LTDA.
+2.1 A ACME deverá repassar os recursos financeiros em até 30 dias após a aprovação da prestação de contas parcial.
+2.2 A ACME deverá disponibilizar infraestrutura tecnológica adequada para os testes da plataforma.
+2.3 A ACME fornecerá suporte técnico em requisitos de negócio para a equipe de desenvolvimento.
+
+CLÁUSULA TERCEIRA - DAS OBRIGAÇÕES DA SOLUÇÕES DIGITAIS S.A.
+3.1 A Soluções Digitais deverá apresentar relatório de progresso a cada 90 dias.
+3.2 A Soluções Digitais deverá selecionar profissionais conforme critérios técnicos do anexo de perfis.
+3.3 É vedado à Soluções Digitais utilizar os recursos do contrato para pagamento de despesas com pessoal permanente não alocado ao projeto.
+
+CLÁUSULA QUARTA - DOS RECURSOS
+4.1 A ACME repassará o valor total de R$ 500.000,00 em parcelas mensais.
+4.2 A Soluções Digitais poderá utilizar os recursos para contratação de profissionais temporários e permanentes alocados exclusivamente ao projeto.
+
+CLÁUSULA QUINTA - DOS PRAZOS
+5.1 O presente contrato terá vigência de 24 meses a partir da data de assinatura.
+5.2 O prazo para prestação de contas final é de 60 dias após o encerramento da vigência.
+
+CLÁUSULA SEXTA - DAS PENALIDADES
+6.1 O descumprimento das obrigações pela Soluções Digitais sujeitará à suspensão dos repasses.
+6.2 Caso a Soluções Digitais não apresente o relatório no prazo, a ACME poderá rescindir o contrato.
+
+CLÁUSULA SÉTIMA - DA RESCISÃO
+7.1 O contrato poderá ser rescindido por acordo entre as partes ou descumprimento de cláusulas.

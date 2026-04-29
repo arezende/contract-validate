@@ -1,0 +1,25 @@
+CONTRATO 001 - PRESTACAO DE SERVICOS DE TI (CONTRATO NORMAL)
+
+CONTRATANTE: Empresa Alpha Ltda, CNPJ 11.222.333/0001-44, com sede na Rua das Flores, 123, Sao Paulo/SP, CEP 01000-000, doravante denominada CONTRATANTE.
+CONTRATADA: Servicos Beta ME, CNPJ 22.333.444/0001-55, com sede na Av. Brasil, 456, Rio de Janeiro/RJ, CEP 20000-000, doravante denominada CONTRATADA.
+
+CLAUSULA 1 - OBJETO: O presente instrumento tem por objeto a prestacao de servicos de suporte tecnico em TI pela CONTRATADA a CONTRATANTE.
+CLAUSULA 2 - ESCOPO: Os servicos incluem a manutencao preventiva e corretiva de 50 computadores e 2 servidores.
+CLAUSULA 3 - LOCAL: Os servicos serao executados na sede da CONTRATANTE.
+CLAUSULA 4 - VIGENCIA: O prazo de vigencia deste contrato e de 12 (doze) meses.
+CLAUSULA 5 - INICIO: Este contrato entra em vigor na data de sua assinatura.
+CLAUSULA 6 - VALOR: O valor total do presente contrato e de R$ 24.000,00 (vinte e quatro mil reais).
+CLAUSULA 7 - PAGAMENTO: O pagamento sera realizado em 12 parcelas mensais de R$ 2.000,00.
+CLAUSULA 8 - VENCIMENTO: O vencimento de cada parcela ocorrera ate o 5º dia util de cada mes.
+CLAUSULA 9 - REAJUSTE: Apos 12 meses, o valor sera reajustado com base na variacao do IPCA.
+CLAUSULA 10 - OBRIGACOES DA CONTRATADA: Executar os servicos com zelo, utilizando profissionais qualificados.
+CLAUSULA 11 - OBRIGACOES DA CONTRATANTE: Fornecer acesso as dependencias e aos equipamentos necessarios para o trabalho.
+CLAUSULA 12 - DESPESAS: Despesas com pecas de reposicao serao arcadas pela CONTRATANTE, mediante aprovacao previa.
+CLAUSULA 13 - CONFIDENCIALIDADE: As partes comprometem-se a manter absoluto sigilo sobre dados acessados durante o servico.
+CLAUSULA 14 - MULTA MORATORIA: Em caso de atraso no pagamento, incidera multa de 2% e juros de 1% ao mes.
+CLAUSULA 15 - RESCISAO: O contrato podera ser rescindido por qualquer das partes mediante aviso previo de 30 dias.
+CLAUSULA 16 - JUSTA CAUSA: O descumprimento de qualquer clausula enseja a rescisao imediata do contrato.
+CLAUSULA 17 - MULTA RESCISORIA: A rescisao por justa causa implicara em multa equivalente a 10% do valor total do contrato.
+CLAUSULA 18 - CESSAO: E vedada a cessao ou transferencia deste contrato a terceiros sem previa anuencia.
+CLAUSULA 19 - TOLERANCIA: A abstencao do exercicio de qualquer direito nao implicara em novacao ou renuncia.
+CLAUSULA 20 - FORO: Fica eleito o foro da Comarca de Sao Paulo/SP para dirimir quaisquer controversias.
