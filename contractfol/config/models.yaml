@@ -1,0 +1,70 @@
+models:
+  gpt-4o-mini:
+    adapter: openai_compatible
+    model_id: gpt-4o-mini-2024-07-18
+    base_url: https://api.openai.com/v1
+    temperature: 0.2
+    top_p: 1.0
+    max_tokens: 8192
+    is_reasoning: false
+
+  gemini-2.0-flash:
+    adapter: gemini
+    model_id: gemini-2.0-flash-exp
+    temperature: 0.2
+    top_p: 0.95
+    max_tokens: 8192
+    is_reasoning: false
+
+  gemini-2.5-flash:
+    adapter: gemini
+    model_id: gemini-2.5-flash-002
+    temperature: 0.2
+    top_p: 0.95
+    max_tokens: 8192
+    is_reasoning: false
+
+  llama-3.3-70b:
+    adapter: openai_compatible
+    model_id: meta-llama/llama-3.3-70b-instruct
+    base_url: https://api.groq.com/openai/v1
+    temperature: 0.2
+    top_p: 1.0
+    max_tokens: 8192
+    is_reasoning: false
+
+  qwen:
+    adapter: openai_compatible
+    model_id: qwen-max
+    base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+    temperature: 0.2
+    top_p: 0.95
+    max_tokens: 8192
+    is_reasoning: false
+
+  deepseek:
+    adapter: openai_compatible
+    model_id: deepseek-chat
+    base_url: https://api.deepseek.com/v1
+    temperature: 0.2
+    top_p: 0.95
+    max_tokens: 8192
+    is_reasoning: false
+
+  deepseek-reasoner:
+    adapter: openai_compatible
+    model_id: deepseek-reasoner
+    base_url: https://api.deepseek.com/v1
+    temperature: 0.2
+    top_p: 0.95
+    max_tokens: 8192
+    is_reasoning: true
+
+  kimi:
+    adapter: openai_compatible
+    model_id: moonshot-v1-128k
+    base_url: https://api.moonshot.cn/v1
+    temperature: 0.2
+    top_p: 0.95
+    max_tokens: 8192
+    is_reasoning: false
