@@ -1,14 +1,47 @@
 """CLAUSE dataset JSON ingestor for ContractFOL corpus.
 
-Converts CLAUSE metadata JSON records into validated DiscrepancyInstance objects.
-The FIELD_MAP at the top of this file is the single point of maintenance: update
-the values (CLAUSE field names) when the actual CLAUSE JSON schema is confirmed.
+Real CLAUSE JSON structure (confirmed from dataset inspection):
+
+  [                                      ← array of contract objects
+    {
+      "file_name": "COMPANY_DATE.txt",   ← source contract filename
+      "perturbation": [                  ← one or more perturbations per contract
+        {
+          "type": "Ambiguities - In Text Contradiction",
+          "original_text": "...",
+          "changed_text":  "...",
+          "explanation":   "...",        ← description of what changed
+          "justification": "...",        ← why this is a contradiction
+          "location":               "Section X.Y",
+          "contradicted_location":  "Section A.B",   (optional)
+          "contradicted_text":      "...",            (optional)
+          "contradiction_exists":   "YES",
+          -- legal-dimension only --
+          "contradicted_law":   "...",
+          "law_citation":       "...",
+          "law_url1":           "...",
+          "law_url2":           "...",
+          "scraped_snippet_1":  "...",
+          "scraped_snippet_2":  "...",
+        },
+        ...
+      ]
+    },
+    ...
+  ]
+
+One DiscrepancyInstance is created per perturbation entry.
+instance_id  = "<file_stem>_p<index>"
+source_dataset is inferred from the directory path
+               (CUAD_Dataset → "cuad", NLI_Dataset → "nli").
+perturb_type + dimension are parsed from the "type" field.
 """
 
 from __future__ import annotations
 
 import json
 import logging
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -19,134 +52,159 @@ from contractfol.corpus.schema import DiscrepancyInstance
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
-# Field mapping — update these when the actual CLAUSE JSON schema is confirmed.
-# Keys   = DiscrepancyInstance field names
-# Values = CLAUSE JSON field names
+# Type-field parser
+# Maps CLAUSE "type" strings → (perturb_type, dimension)
+# "Ambiguities - In Text Contradiction" → ("ambiguity", "in_text")
+# "Inconsistency - Legal"               → ("inconsistency", "legal")
 # ---------------------------------------------------------------------------
-FIELD_MAP: dict[str, str] = {
-    "instance_id":            "id",
-    "source_dataset":         "dataset",           # expected: "cuad" | "nli"
-    "perturb_type":           "perturbation_type",
-    "dimension":              "dimension",          # expected: "in_text" | "legal"
-    "original_text":          "original_text",
-    "changed_text":           "changed_text",
-    "explanation":            "explanation",
-    "location":               "location",
-    "contradicted_location":  "contradicted_location",
-    "contradicted_text":      "contradicted_text",
-    "contradicted_law":       "contradicted_law",
-    "law_citation":           "law_citation",
-    "law_url1":               "law_url1",
-    "law_url2":               "law_url2",
-    "scraped_snippet_1":      "scraped_snippet_1",
-    "scraped_snippet_2":      "scraped_snippet_2",
-}
 
-# Fields that require normalization before Pydantic validation.
-# Normalization: lowercase + replace spaces with underscores.
-_NORMALIZE_FIELDS = {"source_dataset", "perturb_type", "dimension"}
+_TYPE_KEYWORDS: list[tuple[str, str]] = [
+    ("ambiguit",     "ambiguity"),
+    ("inconsistenc", "inconsistency"),
+    ("misaligned",   "misaligned_terminology"),
+    ("terminology",  "misaligned_terminology"),
+    ("omission",     "omission"),
+    ("structural",   "structural_flaw"),
+]
 
 
-def _normalize(value: object) -> str:
-    """Lowercase string and replace spaces with underscores."""
-    return str(value).lower().replace(" ", "_")
+def _parse_type_field(type_str: str) -> tuple[str, str]:
+    """Return (perturb_type, dimension) from a CLAUSE 'type' string."""
+    lower = type_str.lower()
+
+    dimension = "legal" if "legal" in lower else "in_text"
+
+    perturb_type = "ambiguity"  # default fallback
+    for keyword, mapped in _TYPE_KEYWORDS:
+        if keyword in lower:
+            perturb_type = mapped
+            break
+    else:
+        logger.warning("Unknown perturbation type string %r — defaulting to 'ambiguity'", type_str)
+
+    return perturb_type, dimension
 
 
-def _map_record(raw: dict) -> dict:
-    """Apply FIELD_MAP and normalization to a raw CLAUSE JSON record."""
-    mapped: dict = {}
-    for dest_field, src_field in FIELD_MAP.items():
-        value = raw.get(src_field)
-        if value is not None:
-            mapped[dest_field] = _normalize(value) if dest_field in _NORMALIZE_FIELDS else value
-    return mapped
+# ---------------------------------------------------------------------------
+# Source-dataset inference from directory path
+# ---------------------------------------------------------------------------
+
+def _infer_source_dataset(file_path: Path) -> str:
+    """Return 'cuad' or 'nli' based on a parent directory name."""
+    parts_lower = [p.lower() for p in file_path.parts]
+    if any("nli" in p for p in parts_lower):
+        return "nli"
+    return "cuad"
 
 
-def _load_json_file(path: Path) -> list[dict]:
-    """Read a JSON file and return a list of records.
+# ---------------------------------------------------------------------------
+# Single perturbation → DiscrepancyInstance
+# ---------------------------------------------------------------------------
 
-    Accepts both a JSON array at the top level and a single object (wrapped
-    into a list automatically).
-    """
-    with path.open("r", encoding="utf-8") as fh:
-        data = json.load(fh)
-    if isinstance(data, dict):
-        return [data]
-    if isinstance(data, list):
-        return data
-    raise ValueError(f"Unexpected JSON structure in {path}: {type(data)}")
+def _perturbation_to_instance(
+    file_name: str,
+    perturb_idx: int,
+    perturb: dict,
+    source_dataset: str,
+) -> DiscrepancyInstance:
+    """Convert one perturbation dict to a DiscrepancyInstance."""
+    file_stem = Path(file_name).stem
+    instance_id = f"{file_stem}_p{perturb_idx}"
 
+    perturb_type, dimension = _parse_type_field(perturb.get("type", ""))
+
+    return DiscrepancyInstance(
+        instance_id=instance_id,
+        source_dataset=source_dataset,
+        perturb_type=perturb_type,
+        dimension=dimension,
+        original_text=perturb["original_text"],
+        changed_text=perturb["changed_text"],
+        explanation=perturb.get("explanation") or perturb.get("justification") or "",
+        location=perturb.get("location"),
+        contradicted_location=perturb.get("contradicted_location"),
+        contradicted_text=perturb.get("contradicted_text"),
+        contradicted_law=perturb.get("contradicted_law"),
+        law_citation=perturb.get("law_citation"),
+        law_url1=perturb.get("law_url1"),
+        law_url2=perturb.get("law_url2"),
+        scraped_snippet_1=perturb.get("scraped_snippet_1"),
+        scraped_snippet_2=perturb.get("scraped_snippet_2"),
+        gold_label=True,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
 
 def load_instances(path: str | Path) -> list[DiscrepancyInstance]:
-    """Load DiscrepancyInstance objects from a JSON file or directory of JSON files.
+    """Load DiscrepancyInstance objects from the CLAUSE dataset.
 
-    Validation failures are logged and skipped; the ingest continues for all
-    remaining records.  A summary (total loaded, total skipped, breakdown by
-    source_dataset × perturb_type × dimension) is emitted at INFO level.
+    Accepts:
+    - A single ``.json`` file
+    - A directory of ``.json`` files (non-recursive)
+    - A root directory that is walked recursively for all ``.json`` files
 
-    Parameters
-    ----------
-    path:
-        Path to a single ``.json`` file or a directory containing ``.json``
-        files (non-recursive).
+    Each JSON file must follow the CLAUSE format: a top-level array of objects,
+    each with a ``file_name`` and a ``perturbation`` array.
 
-    Returns
-    -------
-    list[DiscrepancyInstance]
-        All successfully validated instances.
+    Validation failures are logged and skipped.
+    A summary is emitted at INFO level.
     """
     path = Path(path)
 
-    # Collect candidate files.
-    if path.is_dir():
-        json_files = sorted(path.glob("*.json"))
-        if not json_files:
-            logger.warning("No .json files found in directory: %s", path)
-            return []
-    elif path.is_file():
+    if path.is_file():
         json_files = [path]
+    elif path.is_dir():
+        json_files = sorted(path.rglob("*.json"))
+        if not json_files:
+            logger.warning("No .json files found under: %s", path)
+            return []
     else:
         raise FileNotFoundError(f"Path does not exist: {path}")
 
     instances: list[DiscrepancyInstance] = []
     skipped = 0
-    breakdown: dict[tuple[str, str, str], int] = defaultdict(int)
+    breakdown: defaultdict[tuple[str, str, str], int] = defaultdict(int)
 
     for json_file in json_files:
+        source_dataset = _infer_source_dataset(json_file)
         try:
-            raw_records = _load_json_file(json_file)
+            with json_file.open("r", encoding="utf-8") as fh:
+                data = json.load(fh)
         except Exception as exc:
             logger.error("Failed to read %s: %s", json_file, exc)
             continue
 
-        for raw in raw_records:
-            mapped = _map_record(raw)
-            instance_id = mapped.get("instance_id", raw.get("id", "<unknown>"))
-            try:
-                inst = DiscrepancyInstance(**mapped)
-            except ValidationError as exc:
-                logger.error(
-                    "Validation failed for instance_id=%r — skipping.\n"
-                    "  Raw record: %r\n"
-                    "  Errors: %s",
-                    instance_id,
-                    raw,
-                    exc,
-                )
-                skipped += 1
-                continue
+        if isinstance(data, dict):
+            data = [data]
+        if not isinstance(data, list):
+            logger.error("Unexpected top-level JSON type in %s: %s", json_file, type(data))
+            continue
 
-            instances.append(inst)
-            key = (inst.source_dataset, inst.perturb_type, inst.dimension)
-            breakdown[key] += 1
+        for contract_obj in data:
+            file_name = contract_obj.get("file_name", json_file.name)
+            perturbations = contract_obj.get("perturbation", [])
 
-    total = len(instances)
-    logger.info(
-        "Ingest complete — loaded: %d, skipped: %d", total, skipped
-    )
+            for idx, perturb in enumerate(perturbations):
+                try:
+                    inst = _perturbation_to_instance(file_name, idx, perturb, source_dataset)
+                except (KeyError, ValidationError) as exc:
+                    logger.error(
+                        "Skipping perturbation %d of %r: %s",
+                        idx, file_name, exc,
+                    )
+                    skipped += 1
+                    continue
+
+                instances.append(inst)
+                breakdown[(inst.source_dataset, inst.perturb_type, inst.dimension)] += 1
+
+    logger.info("Ingest complete — loaded: %d, skipped: %d", len(instances), skipped)
     if breakdown:
-        logger.info("Breakdown by (source_dataset, perturb_type, dimension):")
+        logger.info("Breakdown by (dataset, perturb_type, dimension):")
         for (ds, pt, dim), count in sorted(breakdown.items()):
-            logger.info("  %-6s | %-24s | %-8s : %d", ds, pt, dim, count)
+            logger.info("  %-6s | %-26s | %-8s : %d", ds, pt, dim, count)
 
     return instances
