@@ -61,6 +61,7 @@ logger = logging.getLogger(__name__)
 _TYPE_KEYWORDS: list[tuple[str, str]] = [
     ("ambiguit",     "ambiguity"),
     ("inconsistenc", "inconsistency"),
+    ("inconsenc",    "inconsistency"),   # dataset typo: "Inconsencies"
     ("misaligned",   "misaligned_terminology"),
     ("terminology",  "misaligned_terminology"),
     ("omission",     "omission"),
@@ -116,20 +117,26 @@ def _coerce_url(value: object) -> str | None:
 
 def _perturbation_to_instance(
     file_name: str,
+    contract_idx: int,
     perturb_idx: int,
     perturb: dict,
     source_dataset: str,
     category: str = "",
+    json_stem: str = "",
 ) -> DiscrepancyInstance:
     """Convert one perturbation dict to a DiscrepancyInstance.
 
-    ``category`` is the immediate parent directory name of the JSON file
-    (e.g. "Ambiguities", "Inconsistency") and is prepended to the
-    instance_id so that IDs remain unique across category directories.
+    ``json_stem`` is the stem of the actual JSON file on disk; it is used
+    instead of ``Path(file_name).stem`` because ``file_name`` (the field
+    inside the JSON) is not unique within a category directory.
+    ``contract_idx`` disambiguates JSON files that contain multiple
+    contract objects (rare but present in the dataset).
+    ``category`` is the immediate parent directory name.
     """
-    file_stem = Path(file_name).stem
+    stem = json_stem if json_stem else Path(file_name).stem
     prefix = f"{category}_" if category else ""
-    instance_id = f"{prefix}{file_stem}_p{perturb_idx}"
+    contract_part = f"_c{contract_idx}" if contract_idx else ""
+    instance_id = f"{prefix}{stem}{contract_part}_p{perturb_idx}"
 
     perturb_type, dimension = _parse_type_field(perturb.get("type", ""))
 
@@ -204,18 +211,21 @@ def load_instances(path: str | Path) -> list[DiscrepancyInstance]:
             continue
 
         category = json_file.parent.name
+        json_stem = json_file.stem
 
-        for contract_obj in data:
+        for ci, contract_obj in enumerate(data):
             file_name = contract_obj.get("file_name", json_file.name)
             perturbations = contract_obj.get("perturbation", [])
 
-            for idx, perturb in enumerate(perturbations):
+            for pi, perturb in enumerate(perturbations):
                 try:
-                    inst = _perturbation_to_instance(file_name, idx, perturb, source_dataset, category)
+                    inst = _perturbation_to_instance(
+                        file_name, ci, pi, perturb, source_dataset, category, json_stem
+                    )
                 except (KeyError, ValidationError) as exc:
                     logger.error(
-                        "Skipping perturbation %d of %r: %s",
-                        idx, file_name, exc,
+                        "Skipping perturbation c%d/p%d of %r: %s",
+                        ci, pi, file_name, exc,
                     )
                     skipped += 1
                     continue
