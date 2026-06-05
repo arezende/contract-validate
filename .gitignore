@@ -44,6 +44,9 @@ Thumbs.db
 # LLM response cache
 cache/
 
+# Dataset — access-controlled, never commit
+data/
+
 # Experiment outputs
 outputs/
 results/
