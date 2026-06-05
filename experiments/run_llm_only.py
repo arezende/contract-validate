@@ -269,28 +269,34 @@ def build_parser() -> argparse.ArgumentParser:
     return p
 
 
-def _merge(cfg: dict, args: argparse.Namespace) -> argparse.Namespace:
-    """Apply config values where CLI arg is None (not provided)."""
-    mapping = {
-        "data":           ("data",           str),
-        "splits":         ("splits",         str),
-        "output":         ("output",         str),
-        "models":         ("models",         list),
-        "tasks":          ("tasks",          list),
-        "levels":         ("levels",         list),
-        "split":          ("split",          str),
-        "n_per_cell":     ("n_per_cell",     int),
-        "test_fraction":  ("test_fraction",  float),
-        "seed":           ("seed",           int),
-        "max_concurrent": ("max_concurrent", int),
-    }
-    for attr, (key, cast) in mapping.items():
-        if getattr(args, attr, None) is None and key in cfg:
-            val = cfg[key]
-            setattr(args, attr, cast(val) if not isinstance(val, cast) else val)
+def _env_overrides() -> dict:
+    """Read CONTRACTFOL_* env vars that affect experiment-level config."""
+    import os
+    overrides: dict = {}
+    if (llm := os.getenv("CONTRACTFOL_LLM")):
+        overrides["models"] = [llm]
+    return overrides
 
-    # hard defaults when neither CLI nor config provided
-    defaults = {
+
+def _merge(cfg: dict, args: argparse.Namespace) -> argparse.Namespace:
+    """Merge values in priority order (lowest→highest): defaults → YAML → env → CLI."""
+    # Attrs that map 1:1 to YAML keys; cast used when YAML gives a plain scalar
+    _fields: list[tuple[str, type]] = [
+        ("data",           str),
+        ("splits",         str),
+        ("output",         str),
+        ("models",         list),
+        ("tasks",          list),
+        ("levels",         list),
+        ("split",          str),
+        ("n_per_cell",     int),
+        ("test_fraction",  float),
+        ("seed",           int),
+        ("max_concurrent", int),
+    ]
+
+    # Layer 1 — hard defaults
+    resolved: dict = {
         "splits":         "data/splits/",
         "output":         "outputs/llm_only/",
         "tasks":          ["eval1", "eval2"],
@@ -301,9 +307,25 @@ def _merge(cfg: dict, args: argparse.Namespace) -> argparse.Namespace:
         "seed":           42,
         "max_concurrent": 5,
     }
-    for attr, default in defaults.items():
-        if getattr(args, attr, None) is None:
-            setattr(args, attr, default)
+
+    # Layer 2 — YAML
+    for attr, cast in _fields:
+        if attr in cfg:
+            val = cfg[attr]
+            resolved[attr] = cast(val) if not isinstance(val, cast) else val
+
+    # Layer 3 — env vars (beat YAML)
+    for attr, val in _env_overrides().items():
+        resolved[attr] = val
+
+    # Layer 4 — CLI (beat everything; only if the user actually passed the flag)
+    for attr, _ in _fields:
+        cli_val = getattr(args, attr, None)
+        if cli_val is not None:
+            resolved[attr] = cli_val
+
+    for attr, val in resolved.items():
+        setattr(args, attr, val)
 
     return args
 
