@@ -1,0 +1,413 @@
+{
+  "timestamp": "20260429_150630",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "obrigacao",
+      "agente": "prestador",
+      "acao": "prestar servicos de limpeza e conservacao",
+      "objeto": "areas comuns do condominio",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.75,
+      "ambiguidades": [
+        "Agente nao especificado explicitamente",
+        "Prazo nao definido",
+        "Nao ha penalidade associada"
+      ]
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer funcionarios",
+      "objeto": "2 funcionarios trabalhando 8 horas por dia",
+      "condicao": null,
+      "prazo": {
+        "valor": 8,
+        "unidade": "horas"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "proibicao",
+      "agente": "partes",
+      "acao": "rescindir antecipadamente",
+      "objeto": "contrato",
+      "condicao": null,
+      "prazo": {
+        "valor": 24,
+        "unidade": "meses"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "obrigacao",
+      "agente": "pagador",
+      "acao": "pagar",
+      "objeto": "via boleto bancario",
+      "condicao": null,
+      "prazo": {
+        "valor": 10,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem é o pagador",
+        "Não especifica o beneficiário"
+      ]
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "ser responsável pelos direitos trabalhistas",
+      "objeto": "funcionários",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer produtos de limpeza",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica prazo, condições ou penalidades. A frase pode ser interpretada como definição de responsabilidade ou obrigação implícita."
+      ]
+    },
+    {
+      "id": "CL_8",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "usar apenas materiais",
+      "objeto": "materiais que sejam mais ou menos bons e de cheiro agradavel",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.6,
+      "ambiguidades": [
+        "'mais ou menos bons' é vago e subjetivo",
+        "'cheiro agradavel' é subjetivo e não mensurável"
+      ]
+    },
+    {
+      "id": "CL_9",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "substituir funcionarios em falta",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 2,
+        "unidade": "horas"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_10",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATANTE",
+      "acao": "reter pagamentos",
+      "objeto": null,
+      "condicao": "se a CONTRATADA nao comprovar o pagamento de salarios",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_11",
+      "tipo_deontico": "obrigacao",
+      "agente": "sindico do CONTRATANTE",
+      "acao": "fiscalizar a qualidade do servico",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_12",
+      "tipo_deontico": "obrigacao",
+      "agente": "funcionarios",
+      "acao": "trabalhar uniformizados",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_13",
+      "tipo_deontico": "obrigacao",
+      "agente": "funcionário",
+      "acao": "trabalhar",
+      "objeto": "das 08:00 às 17:00, de segunda a sexta",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_14",
+      "tipo_deontico": "permissao",
+      "agente": "Qualquer das partes",
+      "acao": "rescindir este contrato",
+      "objeto": null,
+      "condicao": "mediante simples aviso pelo WhatsApp",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_15",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "reajustar anualmente",
+      "objeto": "salário",
+      "condicao": "convenção coletiva da categoria",
+      "prazo": {
+        "valor": 1,
+        "unidade": "ano"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.7,
+      "ambiguidades": [
+        "Não especifica claramente se é obrigação, permissão ou direito; assume-se obrigação implícita.",
+        "Não define quem é responsável pelo reajuste; assume-se 'partes' genérico."
+      ]
+    },
+    {
+      "id": "CL_16",
+      "tipo_deontico": "penalidade",
+      "agente": "parte infratora",
+      "acao": "pagar multa",
+      "objeto": null,
+      "condicao": "em caso de quebra de contrato",
+      "prazo": null,
+      "valor": {
+        "montante": null,
+        "descricao": "valor razoável a ser discutido depois"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.6,
+      "ambiguidades": [
+        "valor da multa não especificado",
+        "critério de razoabilidade subjetivo",
+        "momento de discussão futuro"
+      ]
+    },
+    {
+      "id": "CL_17",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer Equipamentos de Protecao Individual",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_18",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "responsabilizar-se por acidentes de trabalho",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se a responsabilidade é total ou parcial",
+        "Não define o que constitui acidente de trabalho"
+      ]
+    },
+    {
+      "id": "CL_19",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "manter seguro de vida",
+      "objeto": "para os funcionarios",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_20",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Porto Alegre/RS",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    }
+  ],
+  "mapa_deontico": {
+    "prestador": {
+      "obrigacoes": [
+        "CL_1"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATADA": {
+      "obrigacoes": [
+        "CL_2",
+        "CL_6",
+        "CL_8",
+        "CL_9",
+        "CL_17",
+        "CL_19"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes": {
+      "obrigacoes": [],
+      "proibicoes": [
+        "CL_3"
+      ],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "—": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "pagador": {
+      "obrigacoes": [
+        "CL_5"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATANTE": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_10"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "sindico do CONTRATANTE": {
+      "obrigacoes": [
+        "CL_11"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "funcionarios": {
+      "obrigacoes": [
+        "CL_12"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "funcionário": {
+      "obrigacoes": [
+        "CL_13"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "Qualquer das partes": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_14"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "parte infratora": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_16"
+      ]
+    }
+  },
+  "confianca_media": 0.8244999999999999
+}

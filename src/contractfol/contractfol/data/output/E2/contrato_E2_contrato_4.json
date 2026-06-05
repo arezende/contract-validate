@@ -1,0 +1,443 @@
+{
+  "timestamp": "20260429_150332",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer peças automotivas",
+      "objeto": "continuamente",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.6,
+      "ambiguidades": [
+        "O termo 'continuo' não especifica prazos ou periodicidade; não há obrigação explícita, apenas definição do objeto."
+      ]
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer pecas",
+      "objeto": "500 pecas por semana a CONTRATANTE",
+      "condicao": null,
+      "prazo": {
+        "valor": 7,
+        "unidade": "dias"
+      },
+      "valor": {
+        "montante": 500.0,
+        "descricao": "pecas por semana"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "condicao",
+      "agente": "fornecedor",
+      "acao": "entregar",
+      "objeto": "100 peças por mês",
+      "condicao": "em caráter de exclusividade",
+      "prazo": {
+        "valor": 1,
+        "unidade": "mês"
+      },
+      "valor": {
+        "montante": 100.0,
+        "descricao": "volume máximo de entregas"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O agente não está explicitamente definido; assumiu-se 'fornecedor'",
+        "Não há sujeito claro; pode ser interpretado como obrigação do fornecedor"
+      ]
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "ter vigência",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 12,
+        "unidade": "meses"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "obrigacao",
+      "agente": "pagador",
+      "acao": "realizar pagamentos",
+      "objeto": null,
+      "condicao": "após o faturamento",
+      "prazo": {
+        "valor": 30,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "arcar com custo e responsabilidade do frete",
+      "objeto": "frete para envio das pecas",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_8",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "pagar todos os custos relativos ao frete de envio",
+      "objeto": "à transportadora",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_9",
+      "tipo_deontico": "obrigacao",
+      "agente": "produtos",
+      "acao": "seguir normas do Inmetro",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quais normas do Inmetro."
+      ]
+    },
+    {
+      "id": "CL_10",
+      "tipo_deontico": "permissao",
+      "agente": "cliente",
+      "acao": "devolver produtos",
+      "objeto": "produtos com defeito",
+      "condicao": null,
+      "prazo": {
+        "valor": 7,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_11",
+      "tipo_deontico": "penalidade",
+      "agente": "parte atrasada",
+      "acao": "pagar multa por atraso na entrega de peças",
+      "objeto": null,
+      "condicao": "atraso na entrega das peças",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": "Cláusula 28",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica valor da multa, remete a outra cláusula",
+        "Agente não explícito (quem paga a multa)"
+      ]
+    },
+    {
+      "id": "CL_12",
+      "tipo_deontico": "obrigacao",
+      "agente": "fornecedor",
+      "acao": "garantir produtos",
+      "objeto": "contra defeitos de fabricacao",
+      "condicao": null,
+      "prazo": {
+        "valor": 90,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Agente nao especificado explicitamente, assumido como fornecedor"
+      ]
+    },
+    {
+      "id": "CL_13",
+      "tipo_deontico": "obrigacao",
+      "agente": "destinatário",
+      "acao": "receber mercadorias",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 0,
+        "unidade": "horário comercial"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.7,
+      "ambiguidades": [
+        "agente não especificado",
+        "horário comercial não definido"
+      ]
+    },
+    {
+      "id": "CL_14",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte omitida",
+      "acao": "emitir Notas Fiscais Eletrônicas",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.7,
+      "ambiguidades": [
+        "agente não especificado",
+        "prazo não especificado"
+      ]
+    },
+    {
+      "id": "CL_15",
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "acao": "cancelar o contrato",
+      "objeto": null,
+      "condicao": "mediante aviso previo de 60 dias",
+      "prazo": {
+        "valor": 60,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_16",
+      "tipo_deontico": "penalidade",
+      "agente": "parte infratora",
+      "acao": "pagar multa",
+      "objeto": null,
+      "condicao": "rescisão imediata",
+      "prazo": null,
+      "valor": {
+        "montante": 10000.0,
+        "descricao": "multa por rescisão imediata"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_17",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "acao": "alterar preco unitario dos produtos",
+      "objeto": null,
+      "condicao": "sempre que a CONTRATADA quiser",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Condicao 'sempre que quiser' é subjetiva e sem restrições objetivas"
+      ]
+    },
+    {
+      "id": "CL_18",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "acao": "subcontratar",
+      "objeto": "serviço de fabricação",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_19",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "manter sigilo",
+      "objeto": "sobre o modelo de negocios",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_20",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Salvador/BA",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    }
+  ],
+  "mapa_deontico": {
+    "CONTRATADA": {
+      "obrigacoes": [
+        "CL_2",
+        "CL_7"
+      ],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_17",
+        "CL_18"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "fornecedor": {
+      "obrigacoes": [
+        "CL_12"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "contrato": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "—": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "pagador": {
+      "obrigacoes": [
+        "CL_6"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATANTE": {
+      "obrigacoes": [
+        "CL_8"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "produtos": {
+      "obrigacoes": [
+        "CL_9"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "cliente": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_10"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "parte atrasada": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_11"
+      ]
+    },
+    "destinatário": {
+      "obrigacoes": [
+        "CL_13"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "parte omitida": {
+      "obrigacoes": [
+        "CL_14"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes": {
+      "obrigacoes": [
+        "CL_19"
+      ],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_15"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "parte infratora": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_16"
+      ]
+    }
+  },
+  "confianca_media": 0.8299999999999998
+}

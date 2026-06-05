@@ -1,0 +1,297 @@
+{
+  "timestamp": "20260429_150033",
+  "contrato": "contrato_2",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "Locacao de imovel comercial situado na Praca Central, 10.",
+      "tipo_deontico": "definicao",
+      "agente": "Locador",
+      "acao": "locar imóvel comercial",
+      "objeto": "imóvel na Praça Central, 10",
+      "condicao": null,
+      "formula_fol": "∃x [ImovelComercial(x) ∧ Localizacao(x, PracaCentral10) ∧ Locacao(x)]",
+      "codigo_z3": "imovel = Bool('imovel')\ns.add(imovel == True)",
+      "confianca": 0.5,
+      "ambiguidades": [
+        "Cláusula não possui verbo deôntico explícito; interpretada como definição do objeto da locação."
+      ]
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "O imovel destina-se exclusivamente para uso comercial da CONTRATADA.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "utilizar imóvel exclusivamente para uso comercial",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Imovel(x) → Obrigacao(CONTRATADA, UsoComercial(x))]",
+      "codigo_z3": "uso_comercial = Bool('uso_comercial')\ns.add(uso_comercial == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica sanção para uso não comercial"
+      ]
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "A locacao tera prazo de 36 meses, com inicio na data da assinatura.",
+      "tipo_deontico": "definicao",
+      "agente": "locação",
+      "acao": "ter prazo de 36 meses",
+      "objeto": null,
+      "condicao": "início na data da assinatura",
+      "formula_fol": "Prazo(Locacao, 36meses, DataAssinatura)",
+      "codigo_z3": "prazo_locacao = Int('pz_locacao')\ns.add(prazo_locacao == 36)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "O valor do aluguel mensal e de R$ 5.000,00 (cinco mil reais).",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "O aluguel devera ser pago impreterivelmente ate o dia 05 de cada mes.",
+      "tipo_deontico": "obrigacao",
+      "agente": "locatário",
+      "acao": "pagar aluguel",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀m [Obrigacao(Locatario, PagarAluguel(m)) ∧ Prazo(Pagar, dia5(m))]",
+      "codigo_z3": "obrigacao_aluguel = Bool('ob_aluguel')\ndia_pagamento = Int('dia_pgto')\ns.add(obrigacao_aluguel == True)\ns.add(dia_pagamento == 5)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "O valor do aluguel sera reajustado anualmente pelo IGPM.",
+      "tipo_deontico": "obrigacao",
+      "agente": "locador",
+      "acao": "reajustar valor do aluguel",
+      "objeto": "pelo IGPM",
+      "condicao": null,
+      "formula_fol": "∀t [Obrigacao(Locador, ReajustarAluguel(t, IGPM)) ∧ Periodo(Reajuste, 1ano)]",
+      "codigo_z3": "obrigacao_reajuste = Bool('ob_reajuste')\nperiodo_reajuste = Int('pd_reajuste')\ns.add(obrigacao_reajuste == True)\ns.add(periodo_reajuste == 1)",
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "Manter o imovel em perfeitas condicoes de uso.",
+      "tipo_deontico": "obrigacao",
+      "agente": "locatário",
+      "acao": "manter o imóvel em perfeitas condições de uso",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Locatario(x) → Obrigacao(x, ManterImovelPerfeitasCondicoes)]",
+      "codigo_z3": "locatario = Bool('locatario')\nmanter_imovel = Bool('manter_imovel')\ns.add(locatario == True)\ns.add(manter_imovel == True)",
+      "confianca": 0.8,
+      "ambiguidades": [
+        "agente não especificado, assumindo locatário; 'perfeitas condições' é subjetivo"
+      ]
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "As partes acordam que a CONTRATADA pagara o valor fixo mensal de R$ 3.500,00, a ser pago todo dia 15.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "pagar valor fixo mensal",
+      "objeto": "R$ 3.500,00",
+      "condicao": null,
+      "formula_fol": "∀t [Dia(t, 15) → Obrigacao(CONTRATADA, Pagar(t, 3500.00))]",
+      "codigo_z3": "obrigacao_contratada_pagar = Bool('ob_contratada_pagar')\ndia_pagamento = Int('dia_pagamento')\ns.add(obrigacao_contratada_pagar == True)\ns.add(dia_pagamento == 15)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "O pagamento do IPTU sera de responsabilidade exclusiva da CONTRATADA.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "pagar IPTU",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "Obrigacao(CONTRATADA, PagarIPTU)",
+      "codigo_z3": "ob_pagar_iptu = Bool('ob_pagar_iptu')\ns.add(ob_pagar_iptu == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "As taxas condominiais serao pagas pela CONTRATANTE.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "pagar taxas condominiais",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(CONTRATANTE, Pagar(x)) ∧ TaxaCondominial(x)]",
+      "codigo_z3": "obrigacao_contratante_pagar = Bool('ob_contratante_pagar')\ns.add(obrigacao_contratante_pagar == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O prazo para pagamento não foi especificado",
+        "Não está claro se há penalidade por atraso"
+      ]
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "A CONTRATADA devera realizar reparos no imovel num prazo razoavel, sempre que achar que a situacao exige.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for Prazo\nvalor\n  Input should be a valid integer [type=int_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/int_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "Qualquer benfeitoria dependera de autorizacao por escrito da CONTRATANTE.",
+      "tipo_deontico": "condicao",
+      "agente": "CONTRATADA",
+      "acao": "realizar benfeitoria",
+      "objeto": "benfeitoria",
+      "condicao": "autorização por escrita da CONTRATANTE",
+      "formula_fol": "∀b [Benfeitoria(b) → (Realizar(b) ∧ Autorizacao(CONTRATANTE, b))]",
+      "codigo_z3": "benfeitoria = Bool('benfeitoria')\nautorizacao = Bool('autorizacao')\ns.add(benfeitoria == autorizacao)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se a ausência de autorização invalida a benfeitoria ou gera penalidade"
+      ]
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "Fica expressamente proibida a sublocacao do imovel.",
+      "tipo_deontico": "proibicao",
+      "agente": "locatário",
+      "acao": "sublocar o imóvel",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "¬∃x [Sublocacao(x)]",
+      "codigo_z3": "sublocacao = Bool('sublocacao')\ns.add(sublocacao == False)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "O imovel e entregue conforme laudo de vistoria em anexo.",
+      "tipo_deontico": "definicao",
+      "agente": "locador",
+      "acao": "entregar imovel",
+      "objeto": "conforme laudo de vistoria em anexo",
+      "condicao": null,
+      "formula_fol": "∃x [LaudoVistoria(x) ∧ EstadoImovel(imovel, x)]",
+      "codigo_z3": "estado_imovel = Bool('estado_imovel')\nlaudo_vistoria = Bool('laudo_vistoria')\ns.add(estado_imovel == laudo_vistoria)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "A cláusula não especifica quem entrega o imóvel; assume-se locador.",
+        "Não há prazo ou condição explícita."
+      ]
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "A garantia locaticia e prestada na modalidade de fiador.",
+      "tipo_deontico": "definicao",
+      "agente": "locatário",
+      "acao": "prestar garantia",
+      "objeto": "na modalidade de fiador",
+      "condicao": null,
+      "formula_fol": "∃x [Garantia(x) ∧ Modalidade(x, Fiador)]",
+      "codigo_z3": "garantia_fiador = Bool('garantia_fiador')\ns.add(garantia_fiador == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem é o agente (locatário ou locador)",
+        "Não define obrigações ou prazos"
+      ]
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "O atraso no pagamento gerera multa de 10%.",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "pagar multa",
+      "objeto": "multa de 10%",
+      "condicao": "atraso no pagamento",
+      "formula_fol": "∀x [AtrasoPagamento(x) → Obrigacao(Devedor, PagarMulta(x, 10%))]",
+      "codigo_z3": "atraso = Bool('atraso')\nmulta = Bool('multa')\ns.add(Implies(atraso, multa))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica sobre qual valor incide a multa"
+      ]
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "A devolucao antecipada gerera multa de 3 alugueis.",
+      "tipo_deontico": "penalidade",
+      "agente": "inquilino",
+      "acao": "devolver antecipadamente",
+      "objeto": "imóvel",
+      "condicao": null,
+      "formula_fol": "∀x [DevolucaoAntecipada(x) → Multa(x, 3_alugueis)]",
+      "codigo_z3": "devolucao_antecipada = Bool('dev_ant')\nmulta = Int('multa')\ns.add(Implies(devolucao_antecipada, multa == 3))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Valor da multa: 3 aluguéis refere-se ao valor mensal do aluguel, mas não especifica se é o valor atual ou outro"
+      ]
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "O contrato sera renovado automaticamente caso nao haja manifestacao.",
+      "tipo_deontico": "condicao",
+      "agente": "partes",
+      "acao": "renovar contrato automaticamente",
+      "objeto": null,
+      "condicao": "caso não haja manifestação em contrário",
+      "formula_fol": "∀x [¬ManifestacaoContrario(x) → RenovacaoAutomatica(x)]",
+      "codigo_z3": "renovacao = Bool('renovacao')\nmanifestacao = Bool('manifestacao')\ns.add(Implies(Not(manifestacao), renovacao))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "'manifestacao' não especifica prazo ou forma"
+      ]
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "A CONTRATADA deve contratar seguro contra incendio.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "contratar seguro",
+      "objeto": "contra incendio",
+      "condicao": null,
+      "formula_fol": "Obrigacao(CONTRATADA, ContratarSeguroIncendio)",
+      "codigo_z3": "ob_contratada_seguro = Bool('ob_contratada_seguro')\ns.add(ob_contratada_seguro == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "Elege-se o foro de Belo Horizonte/MG para dirimir duvidas. Fica tambem eleito o foro de Curitiba/PR com exclusividade, renunciando a qualquer outro.",
+      "tipo_deontico": "condicao",
+      "agente": "partes",
+      "acao": "dirimir duvidas",
+      "objeto": "foro de Belo Horizonte/MG e foro de Curitiba/PR",
+      "condicao": "em caso de duvidas",
+      "formula_fol": "∀d [Duvida(d) → ForoElegivel(BH, d) ∧ ForoExclusivo(Curitiba, d)]",
+      "codigo_z3": "foro_bh = Bool('foro_bh')\nforo_curitiba = Bool('foro_curitiba')\nduvida = Bool('duvida')\ns.add(Implies(duvida, foro_bh))\ns.add(Implies(duvida, foro_curitiba))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Conflito entre foros: Belo Horizonte para dirimir duvidas e Curitiba com exclusividade"
+      ]
+    }
+  ],
+  "total_formulas": 20
+}

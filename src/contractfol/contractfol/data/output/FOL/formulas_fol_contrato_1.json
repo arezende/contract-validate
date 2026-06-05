@@ -1,0 +1,289 @@
+{
+  "timestamp": "20260429_145707",
+  "contrato": "contrato_1",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "O presente instrumento tem por objeto a prestacao de servicos de suporte tecnico em TI pela CONTRATADA a CONTRATANTE.",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "prestar servicos de suporte tecnico em TI",
+      "objeto": "a CONTRATANTE",
+      "condicao": null,
+      "formula_fol": "∃x [ServicoSuporteTI(x) ∧ PrestadoPor(x, CONTRATADA) ∧ PrestadoA(x, CONTRATANTE)]",
+      "codigo_z3": "servico_suporte = Bool('servico_suporte')\ncontratada = Bool('contratada')\ncontratante = Bool('contratante')\ns.add(servico_suporte == True)\ns.add(contratada == True)\ns.add(contratante == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "Os servicos incluem a manutencao preventiva e corretiva de 50 computadores e 2 servidores.",
+      "tipo_deontico": "definicao",
+      "agente": "contratada",
+      "acao": "incluir manutencao preventiva e corretiva",
+      "objeto": "50 computadores e 2 servidores",
+      "condicao": null,
+      "formula_fol": "ServicosIncluem(manutencao_preventiva_corretiva, 50_computadores, 2_servidores)",
+      "codigo_z3": "servicos_incluem = Bool('servicos_incluem')\ncomputadores = Int('computadores')\nservidores = Int('servidores')\ns.add(servicos_incluem == True)\ns.add(computadores == 50)\ns.add(servidores == 2)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "Os servicos serao executados na sede da CONTRATANTE.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "executar servicos na sede",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Servico(x) → Local(x, Sede(CONTRATANTE))]",
+      "codigo_z3": "sede_contratante = Bool('sede_contratante')\ns.add(sede_contratante == True)",
+      "confianca": 0.7,
+      "ambiguidades": [
+        "Sujeito implícito: quem executa os serviços? 'Serão executados' sugere passiva, agente não especificado. Assumindo CONTRATANTE como local, mas executor pode ser outro."
+      ]
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "O prazo de vigencia deste contrato e de 12 (doze) meses.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "definir prazo de vigência",
+      "objeto": "contrato",
+      "condicao": null,
+      "formula_fol": "Vigencia(contrato, 12meses)",
+      "codigo_z3": "vigencia = Int('vigencia')\ns.add(vigencia == 12)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "Este contrato entra em vigor na data de sua assinatura.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "entrar em vigor",
+      "objeto": "contrato",
+      "condicao": "na data de sua assinatura",
+      "formula_fol": "∀x [Contrato(x) → Vigor(x, data_assinatura)]",
+      "codigo_z3": "contrato_vigor = Bool('ct_vigor')\ns.add(contrato_vigor == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "O valor total do presente contrato e de R$ 24.000,00 (vinte e quatro mil reais).",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "definir valor total",
+      "objeto": "R$ 24.000,00",
+      "condicao": null,
+      "formula_fol": "ValorTotalContrato = 24000",
+      "codigo_z3": "valor_total = Int('valor_total')\ns.add(valor_total == 24000)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "O pagamento sera realizado em 12 parcelas mensais de R$ 2.000,00.",
+      "tipo_deontico": "obrigacao",
+      "agente": "pagador",
+      "acao": "realizar pagamento",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Pagamento(x) → Parcelas(x, 12) ∧ ValorParcela(x, 2000.00)]",
+      "codigo_z3": "parcelas = Int('parcelas')\nvalor_parcela = Int('valor_parcela')\ns.add(parcelas == 12)\ns.add(valor_parcela == 2000)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "O vencimento de cada parcela ocorrera ate o 5º dia util de cada mes.",
+      "tipo_deontico": "obrigacao",
+      "agente": "devedor",
+      "acao": "pagar parcela",
+      "objeto": "parcela",
+      "condicao": null,
+      "formula_fol": "∀p [Parcela(p) ∧ Mes(m) → Obrigacao(Devedor, PagarAte(p, 5ºDiaUtil(m)))]",
+      "codigo_z3": "parcela = Bool('parcela')\ndia_vencimento = Int('dia_vencimento')\ns.add(dia_vencimento <= 5)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem é o agente obrigado (devedor genérico)",
+        "Não define qual parcela ou mês"
+      ]
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "Apos 12 meses, o valor sera reajustado com base na variacao do IPCA.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "reajustar valor",
+      "objeto": "com base na variação do IPCA",
+      "condicao": "após 12 meses",
+      "formula_fol": "∀t [TempoDecorrido(t, 12meses) → Obrigacao(Partes, Reajustar(t, IPCA))]",
+      "codigo_z3": "obrigacao_reajuste = Bool('ob_reajuste')\ntempo = Int('tm')\ns.add(obrigacao_reajuste == True)\ns.add(tempo == 12)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "referência temporal não clara"
+      ]
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "Executar os servicos com zelo, utilizando profissionais qualificados.",
+      "tipo_deontico": "obrigacao",
+      "agente": "contratado",
+      "acao": "executar servicos com zelo",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Servico(x) → Obrigacao(Contratado, ExecutarComZelo(x))]",
+      "codigo_z3": "obrigacao_exec_zel = Bool('ob_exec_zel')\ns.add(obrigacao_exec_zel == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente nao especificado",
+        "criterios de zelo nao definidos"
+      ]
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "Fornecer acesso as dependencias e aos equipamentos necessarios para o trabalho.",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte contratada",
+      "acao": "fornecer acesso",
+      "objeto": "as dependencias e aos equipamentos necessarios para o trabalho",
+      "condicao": null,
+      "formula_fol": "∀x [Trabalho(x) → Obrigacao(Contratado, FornecerAcesso(x))]",
+      "codigo_z3": "ob_fornecer_acesso = Bool('ob_fornecer_acesso')\ns.add(ob_fornecer_acesso == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado explicitamente",
+        "escopo de dependências e equipamentos não definido"
+      ]
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "Despesas com pecas de reposicao serao arcadas pela CONTRATANTE, mediante aprovacao previa.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "arcar com despesas",
+      "objeto": "com pecas de reposicao",
+      "condicao": "mediante aprovacao previa",
+      "formula_fol": "∀x [PecaReposicao(x) ∧ AprovacaoPrevia(x) → Obrigacao(CONTRATANTE, ArcarDespesas(x))]",
+      "codigo_z3": "obrig_contratante_arcar = Bool('ob_contratante_arcar')\naprovacao_previa = Bool('aprovacao_previa')\ns.add(obrig_contratante_arcar == True)\ns.add(aprovacao_previa == True)",
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "As partes comprometem-se a manter absoluto sigilo sobre dados acessados durante o servico.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "manter sigilo sobre dados acessados",
+      "objeto": "dados acessados durante o serviço",
+      "condicao": null,
+      "formula_fol": "∀x [DadosAcessados(x) → Obrigacao(Partes, ManterSigilo(x))]",
+      "codigo_z3": "obrigacao_sigilo = Bool('ob_sigilo')\ns.add(obrigacao_sigilo == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "Em caso de atraso no pagamento, incidera multa de 2% e juros de 1% ao mes.",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "pagar multa e juros",
+      "objeto": null,
+      "condicao": "atraso no pagamento",
+      "formula_fol": "∀x [Atraso(x) → Obrigacao(Devedor, PagarMultaJuros(x))]",
+      "codigo_z3": "atraso = Bool('atraso')\nmulta_juros = Real('multa_juros')\ns.add(Implies(atraso, multa_juros == 2.0))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "base de cálculo não especificada"
+      ]
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "O contrato podera ser rescindido por qualquer das partes mediante aviso previo de 30 dias.",
+      "tipo_deontico": "permissao",
+      "agente": "qualquer das partes",
+      "acao": "rescindir contrato",
+      "objeto": null,
+      "condicao": "mediante aviso prévio de 30 dias",
+      "formula_fol": "∀p [ParteContratante(p) → Permissao(p, RescindirContrato) ∧ Condicao(Rescindir, AvisoPrevio(30dias))]",
+      "codigo_z3": "parte = Int('parte')\npermissao_rescindir = Bool('perm_rescindir')\ncondicao_aviso = Bool('cond_aviso')\ns.add(permissao_rescindir == True)\ns.add(condicao_aviso == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "O descumprimento de qualquer clausula enseja a rescisao imediata do contrato.",
+      "tipo_deontico": "penalidade",
+      "agente": "partes",
+      "acao": "rescindir contrato",
+      "objeto": null,
+      "condicao": "descumprimento de qualquer cláusula",
+      "formula_fol": "∀x [Descumprimento(x) → RescisaoImediata(Contrato)]",
+      "codigo_z3": "descumprimento = Bool('descumprimento')\nrescisao = Bool('rescisao')\ns.add(descumprimento == True)\ns.add(Implies(descumprimento, rescisao))",
+      "confianca": 0.85,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "A rescisao por justa causa implicara em multa equivalente a 10% do valor total do contrato.",
+      "tipo_deontico": "penalidade",
+      "agente": "partes",
+      "acao": "pagar multa",
+      "objeto": "rescisão por justa causa",
+      "condicao": "rescisão por justa causa",
+      "formula_fol": "∀x [RescisaoJustaCausa(x) → Obrigacao(Partes, PagarMulta(x, 10%))]",
+      "codigo_z3": "rescisao = Bool('rescisao')\nmulta = Real('multa')\ns.add(rescisao == True)\ns.add(multa == 0.1)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "E vedada a cessao ou transferencia deste contrato a terceiros sem previa anuencia.",
+      "tipo_deontico": "proibicao",
+      "agente": "partes contratantes",
+      "acao": "ceder ou transferir contrato",
+      "objeto": "a terceiros",
+      "condicao": "sem prévia anuência",
+      "formula_fol": "∀x,y [Contrato(x) ∧ Terceiro(y) ∧ ¬Anuencia(x) → ¬Permitido(CederTransferir(x,y))]",
+      "codigo_z3": "proib_cessao_transf = Bool('pr_cessao_transf')\nprevia_anuencia = Bool('pr_anuencia')\ns.add(proib_cessao_transf == True)\ns.add(Not(previa_anuencia))",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "A abstencao do exercicio de qualquer direito nao implicara em novacao ou renuncia.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "abster-se do exercício de qualquer direito",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [AbstencaoDireito(x) → ¬(Novacao(x) ∨ Renuncia(x))]",
+      "codigo_z3": "abstencao = Bool('abstencao')\nnovacao = Bool('novacao')\nrenuncia = Bool('renuncia')\ns.add(abstencao == True)\ns.add(Not(novacao))\ns.add(Not(renuncia))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem se abstém",
+        "Conceito de 'exercicio de qualquer direito' pode ser amplo"
+      ]
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "Fica eleito o foro da Comarca de Sao Paulo/SP para dirimir quaisquer controversias.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "dirimir controversias no foro da Comarca de Sao Paulo/SP",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Controversia(x) → Obrigacao(Partes, DirimirNoForoSP(x))]",
+      "codigo_z3": "foro_sp = Bool('foro_sp')\ns.add(foro_sp == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Agente não explícito; considerou-se 'partes' como agente."
+      ]
+    }
+  ],
+  "total_formulas": 20
+}

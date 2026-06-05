@@ -1,0 +1,312 @@
+{
+  "timestamp": "20260429_145707",
+  "contrato": "contrato_1",
+  "descricao": "Mapeamento deôntico com rastreabilidade às cláusulas originais",
+  "mapa": {
+    "definicao_CONTRATADA": {
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_1",
+          "texto_original": "O presente instrumento tem por objeto a prestacao de servicos de suporte tecnico em TI pela CONTRATADA a CONTRATANTE.",
+          "acao": "prestar servicos de suporte tecnico em TI",
+          "objeto": "a CONTRATANTE",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_contratada": {
+      "tipo_deontico": "definicao",
+      "agente": "contratada",
+      "sentencas": [
+        {
+          "clausula_id": "CL_2",
+          "texto_original": "Os servicos incluem a manutencao preventiva e corretiva de 50 computadores e 2 servidores.",
+          "acao": "incluir manutencao preventiva e corretiva",
+          "objeto": "50 computadores e 2 servidores",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATANTE": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_3",
+          "texto_original": "Os servicos serao executados na sede da CONTRATANTE.",
+          "acao": "executar servicos na sede",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.7,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_12",
+          "texto_original": "Despesas com pecas de reposicao serao arcadas pela CONTRATANTE, mediante aprovacao previa.",
+          "acao": "arcar com despesas",
+          "objeto": "com pecas de reposicao",
+          "condicao": "mediante aprovacao previa",
+          "confianca": 0.92,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_partes": {
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_4",
+          "texto_original": "O prazo de vigencia deste contrato e de 12 (doze) meses.",
+          "acao": "definir prazo de vigência",
+          "objeto": "contrato",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 12,
+            "unidade": "meses"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_5",
+          "texto_original": "Este contrato entra em vigor na data de sua assinatura.",
+          "acao": "entrar em vigor",
+          "objeto": "contrato",
+          "condicao": "na data de sua assinatura",
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_6",
+          "texto_original": "O valor total do presente contrato e de R$ 24.000,00 (vinte e quatro mil reais).",
+          "acao": "definir valor total",
+          "objeto": "R$ 24.000,00",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": {
+            "montante": 24000.0,
+            "descricao": "vinte e quatro mil reais"
+          }
+        },
+        {
+          "clausula_id": "CL_19",
+          "texto_original": "A abstencao do exercicio de qualquer direito nao implicara em novacao ou renuncia.",
+          "acao": "abster-se do exercício de qualquer direito",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_pagador": {
+      "tipo_deontico": "obrigacao",
+      "agente": "pagador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_7",
+          "texto_original": "O pagamento sera realizado em 12 parcelas mensais de R$ 2.000,00.",
+          "acao": "realizar pagamento",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 12,
+            "unidade": "meses"
+          },
+          "valor": {
+            "montante": 2000.0,
+            "descricao": "valor de cada parcela"
+          }
+        }
+      ]
+    },
+    "obrigacao_devedor": {
+      "tipo_deontico": "obrigacao",
+      "agente": "devedor",
+      "sentencas": [
+        {
+          "clausula_id": "CL_8",
+          "texto_original": "O vencimento de cada parcela ocorrera ate o 5º dia util de cada mes.",
+          "acao": "pagar parcela",
+          "objeto": "parcela",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 5,
+            "unidade": "dias uteis"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_partes": {
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_9",
+          "texto_original": "Apos 12 meses, o valor sera reajustado com base na variacao do IPCA.",
+          "acao": "reajustar valor",
+          "objeto": "com base na variação do IPCA",
+          "condicao": "após 12 meses",
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 12,
+            "unidade": "meses"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_13",
+          "texto_original": "As partes comprometem-se a manter absoluto sigilo sobre dados acessados durante o servico.",
+          "acao": "manter sigilo sobre dados acessados",
+          "objeto": "dados acessados durante o serviço",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_20",
+          "texto_original": "Fica eleito o foro da Comarca de Sao Paulo/SP para dirimir quaisquer controversias.",
+          "acao": "dirimir controversias no foro da Comarca de Sao Paulo/SP",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_contratado": {
+      "tipo_deontico": "obrigacao",
+      "agente": "contratado",
+      "sentencas": [
+        {
+          "clausula_id": "CL_10",
+          "texto_original": "Executar os servicos com zelo, utilizando profissionais qualificados.",
+          "acao": "executar servicos com zelo",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_parte_contratada": {
+      "tipo_deontico": "obrigacao",
+      "agente": "parte contratada",
+      "sentencas": [
+        {
+          "clausula_id": "CL_11",
+          "texto_original": "Fornecer acesso as dependencias e aos equipamentos necessarios para o trabalho.",
+          "acao": "fornecer acesso",
+          "objeto": "as dependencias e aos equipamentos necessarios para o trabalho",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_devedor": {
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "sentencas": [
+        {
+          "clausula_id": "CL_14",
+          "texto_original": "Em caso de atraso no pagamento, incidera multa de 2% e juros de 1% ao mes.",
+          "acao": "pagar multa e juros",
+          "objeto": null,
+          "condicao": "atraso no pagamento",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": {
+            "montante": null,
+            "descricao": "multa de 2% e juros de 1% ao mes"
+          }
+        }
+      ]
+    },
+    "permissao_qualquer_das_partes": {
+      "tipo_deontico": "permissao",
+      "agente": "qualquer das partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_15",
+          "texto_original": "O contrato podera ser rescindido por qualquer das partes mediante aviso previo de 30 dias.",
+          "acao": "rescindir contrato",
+          "objeto": null,
+          "condicao": "mediante aviso prévio de 30 dias",
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 30,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_partes": {
+      "tipo_deontico": "penalidade",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_16",
+          "texto_original": "O descumprimento de qualquer clausula enseja a rescisao imediata do contrato.",
+          "acao": "rescindir contrato",
+          "objeto": null,
+          "condicao": "descumprimento de qualquer cláusula",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_17",
+          "texto_original": "A rescisao por justa causa implicara em multa equivalente a 10% do valor total do contrato.",
+          "acao": "pagar multa",
+          "objeto": "rescisão por justa causa",
+          "condicao": "rescisão por justa causa",
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": {
+            "montante": 10.0,
+            "descricao": "10% do valor total do contrato"
+          }
+        }
+      ]
+    },
+    "proibicao_partes_contratantes": {
+      "tipo_deontico": "proibicao",
+      "agente": "partes contratantes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_18",
+          "texto_original": "E vedada a cessao ou transferencia deste contrato a terceiros sem previa anuencia.",
+          "acao": "ceder ou transferir contrato",
+          "objeto": "a terceiros",
+          "condicao": "sem prévia anuência",
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    }
+  }
+}

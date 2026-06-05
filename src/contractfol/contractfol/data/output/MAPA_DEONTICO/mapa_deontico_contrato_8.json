@@ -1,0 +1,309 @@
+{
+  "timestamp": "20260429_150924",
+  "contrato": "contrato_8",
+  "descricao": "Mapeamento deôntico com rastreabilidade às cláusulas originais",
+  "mapa": {
+    "condicao_—": {
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "sentencas": [
+        {
+          "clausula_id": "CL_1",
+          "texto_original": "Transporte rodoviario de cargas secas.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATADA": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_2",
+          "texto_original": "A CONTRATADA realizara o transporte exclusivamente dentro do Estado de Goias.",
+          "acao": "realizar transporte",
+          "objeto": "dentro do Estado de Goiás",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_4",
+          "texto_original": "A CONTRATADA obriga-se a realizar entregas em todos os estados da regiao Nordeste e Sul do Brasil, sob pena de multa.",
+          "acao": "realizar entregas",
+          "objeto": "em todos os estados da região Nordeste e Sul do Brasil",
+          "condicao": null,
+          "confianca": 0.88,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_6",
+          "texto_original": "A CONTRATADA utilizara frota propria em perfeitas condicoes.",
+          "acao": "utilizar frota propria em perfeitas condicoes",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_9",
+          "texto_original": "Em caso de roubo ou perda da carga, a CONTRATADA e integralmente responsavel por reembolsar 100% dos prejuizos a CONTRATANTE.",
+          "acao": "reembolsar 100% dos prejuízos",
+          "objeto": "à CONTRATANTE",
+          "condicao": "em caso de roubo ou perda da carga",
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_partes": {
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_3",
+          "texto_original": "O valor do frete sera calculado conforme tabela em anexo por quilometro rodado.",
+          "acao": "calcular valor do frete",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_partes": {
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_5",
+          "texto_original": "O faturamento sera quinzenal com vencimento para 15 dias corridos.",
+          "acao": "faturar quinzenalmente",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 15,
+            "unidade": "dias"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_20",
+          "texto_original": "Elege-se o foro de Goiania/GO para disputas legais.",
+          "acao": "eleger foro",
+          "objeto": "Goiânia/GO",
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "permissao_CONTRATADA": {
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_7",
+          "texto_original": "A CONTRATADA isenta-se de acidentes causados por forca maior.",
+          "acao": "isentar-se de responsabilidade",
+          "objeto": "por acidentes causados por força maior",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_19",
+          "texto_original": "E permitida a contratacao de motoristas autonomos pela CONTRATADA.",
+          "acao": "contratar motoristas autônomos",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATANTE": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_8",
+          "texto_original": "Fica acordado que a CONTRATANTE assume inteiramente os riscos por roubo, furto ou extravio da mercadoria durante o trajeto.",
+          "acao": "assumir riscos por roubo, furto ou extravio da mercadoria",
+          "objeto": "durante o trajeto",
+          "condicao": null,
+          "confianca": 0.92,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_parte_não_especificada": {
+      "tipo_deontico": "obrigacao",
+      "agente": "parte não especificada",
+      "sentencas": [
+        {
+          "clausula_id": "CL_10",
+          "texto_original": "E obrigatoria a emissao do seguro RCTR-C.",
+          "acao": "emitir seguro RCTR-C",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_partes_envolvidas": {
+      "tipo_deontico": "obrigacao",
+      "agente": "partes envolvidas",
+      "sentencas": [
+        {
+          "clausula_id": "CL_11",
+          "texto_original": "O prazo para a entrega de cada carga devera ser o mais rapido possivel, sem enrolacao.",
+          "acao": "entregar cada carga no menor prazo possível",
+          "objeto": "cada carga",
+          "condicao": null,
+          "confianca": 0.6,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "permissao_transportador": {
+      "tipo_deontico": "permissao",
+      "agente": "transportador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_12",
+          "texto_original": "Mercadorias avariadas serao descontadas do pagamento do frete correspondente.",
+          "acao": "descontar mercadorias avariadas",
+          "objeto": "do pagamento do frete correspondente",
+          "condicao": "mercadorias avariadas",
+          "confianca": 0.8,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "proibicao_motorista_da_CONTRATADA": {
+      "tipo_deontico": "proibicao",
+      "agente": "motorista da CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_13",
+          "texto_original": "Fica estritamente proibido que o motorista da CONTRATADA dirija no periodo noturno (das 22h as 05h).",
+          "acao": "dirigir",
+          "objeto": "no periodo noturno (das 22h as 05h)",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "direito_transportador": {
+      "tipo_deontico": "direito",
+      "agente": "transportador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_14",
+          "texto_original": "As viagens realizadas no periodo noturno terao um adicional de 20% no valor do frete pago.",
+          "acao": "receber adicional de 20% no valor do frete",
+          "objeto": "viagens noturnas",
+          "condicao": "se a viagem for realizada no período noturno",
+          "confianca": 0.75,
+          "prazo": null,
+          "valor": {
+            "montante": 20.0,
+            "descricao": "percentual adicional"
+          }
+        }
+      ]
+    },
+    "definicao_CONTRATANTE_e_cliente_final": {
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATANTE e cliente final",
+      "sentencas": [
+        {
+          "clausula_id": "CL_15",
+          "texto_original": "Responsabilidade da CONTRATANTE e do cliente final, respectivamente.",
+          "acao": "responsabilizar-se",
+          "objeto": "suas respectivas obrigações",
+          "condicao": null,
+          "confianca": 0.5,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_transportador": {
+      "tipo_deontico": "obrigacao",
+      "agente": "transportador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_16",
+          "texto_original": "O tempo maximo de espera para descarga e de 5 horas. Apos isso sera cobrada taxa de estadia.",
+          "acao": "aguardar descarga",
+          "objeto": "veiculo",
+          "condicao": "após 5 horas de espera",
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 5,
+            "unidade": "horas"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "definicao_contrato": {
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "sentencas": [
+        {
+          "clausula_id": "CL_17",
+          "texto_original": "O contrato e valido por tempo indeterminado.",
+          "acao": "ter validade",
+          "objeto": "por tempo indeterminado",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_parte_que_rescinde": {
+      "tipo_deontico": "obrigacao",
+      "agente": "parte que rescinde",
+      "sentencas": [
+        {
+          "clausula_id": "CL_18",
+          "texto_original": "Rescisao requer aviso de 10 dias.",
+          "acao": "dar aviso de rescisão",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 10,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    }
+  }
+}

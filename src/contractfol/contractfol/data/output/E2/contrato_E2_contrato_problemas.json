@@ -1,0 +1,161 @@
+{
+  "timestamp": "20260429_151140",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "definicao",
+      "agente": "Empresa Contratante ACME Consultoria Ltda. e Empresa Contratada Soluções Digitais S.A.",
+      "acao": "prestar serviços de consultoria técnica",
+      "objeto": "desenvolvimento de plataforma de gerenciamento de projetos",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.5,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "'list' object has no attribute 'get'"
+      ]
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "obrigacao",
+      "agente": "ACME",
+      "acao": "repassar valor total",
+      "objeto": "R$ 500.000,00 em parcelas mensais",
+      "condicao": null,
+      "prazo": {
+        "valor": 1,
+        "unidade": "mês"
+      },
+      "valor": {
+        "montante": 500000.0,
+        "descricao": "total"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes contratantes",
+      "acao": "cumprir vigência e prestar contas final",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 60,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "objeto da prestação de contas não definido"
+      ]
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "penalidade",
+      "agente": "ACME",
+      "acao": "suspender repasses ou rescindir contrato",
+      "objeto": null,
+      "condicao": "descumprimento das obrigações ou não apresentação de relatório no prazo",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'descumprimento das obrigações' é genérico, não especifica quais obrigações."
+      ]
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "acao": "rescindir contrato",
+      "objeto": null,
+      "condicao": "por acordo entre as partes ou descumprimento de cláusulas",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica qual parte pode rescindir em caso de descumprimento"
+      ]
+    }
+  ],
+  "mapa_deontico": {
+    "Empresa Contratante ACME Consultoria Ltda. e Empresa Contratada Soluções Digitais S.A.": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "—": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "ACME": {
+      "obrigacoes": [
+        "CL_4"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_6"
+      ]
+    },
+    "partes contratantes": {
+      "obrigacoes": [
+        "CL_5"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_7"
+      ],
+      "direitos": [],
+      "penalidades": []
+    }
+  },
+  "confianca_media": 0.7028571428571428
+}

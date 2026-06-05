@@ -1,0 +1,57 @@
+{
+  "timestamp": "20260429_151140",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_problemas.txt",
+  "titulo": "contrato_problemas",
+  "partes": [
+    "ACME Consultoria Ltda.",
+    "Soluções Digitais S.A."
+  ],
+  "contratante": "ACME Consultoria Ltda.",
+  "contratado": "Soluções Digitais S.A.",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "DO OBJETO",
+      "texto": "O presente contrato tem por objeto a prestação de serviços de consultoria técnica entre a Empresa Contratante ACME Consultoria Ltda. e a Empresa Contratada Soluções Digitais S.A. para desenvolvimento de plataforma de gerenciamento de projetos."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "DAS OBRIGAÇÕES DA ACME CONSULTORIA LTDA.",
+      "texto": "2.1 A ACME deverá repassar os recursos financeiros em até 30 dias após a aprovação da prestação de contas parcial. 2.2 A ACME deverá disponibilizar infraestrutura tecnológica adequada para os testes da plataforma. 2.3 A ACME fornecerá suporte técnico em requisitos de negócio para a equipe de desenvolvimento."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "DAS OBRIGAÇÕES DA SOLUÇÕES DIGITAIS S.A.",
+      "texto": "3.1 A Soluções Digitais deverá apresentar relatório de progresso a cada 90 dias. 3.2 A Soluções Digitais deverá selecionar profissionais conforme critérios técnicos do anexo de perfis. 3.3 É vedado à Soluções Digitais utilizar os recursos do contrato para pagamento de despesas com pessoal permanente não alocado ao projeto."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "DOS RECURSOS",
+      "texto": "4.1 A ACME repassará o valor total de R$ 500.000,00 em parcelas mensais. 4.2 A Soluções Digitais poderá utilizar os recursos para contratação de profissionais temporários e permanentes alocados exclusivamente ao projeto."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "DOS PRAZOS",
+      "texto": "5.1 O presente contrato terá vigência de 24 meses a partir da data de assinatura. 5.2 O prazo para prestação de contas final é de 60 dias após o encerramento da vigência."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "DAS PENALIDADES",
+      "texto": "6.1 O descumprimento das obrigações pela Soluções Digitais sujeitará à suspensão dos repasses. 6.2 Caso a Soluções Digitais não apresente o relatório no prazo, a ACME poderá rescindir o contrato."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "DA RESCISÃO",
+      "texto": "7.1 O contrato poderá ser rescindido por acordo entre as partes ou descumprimento de cláusulas."
+    }
+  ],
+  "total_clausulas": 7
+}

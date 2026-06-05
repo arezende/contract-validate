@@ -1,0 +1,443 @@
+{
+  "timestamp": "20260429_150756",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "obrigacao",
+      "agente": "Gestor",
+      "acao": "gerir contas no Google Ads e Instagram e criar artes mensais",
+      "objeto": "12 artes mensais",
+      "condicao": null,
+      "prazo": {
+        "valor": 1,
+        "unidade": "mês"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica o agente",
+        "não especifica o destinatário das artes",
+        "não define prazo exato"
+      ]
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "pagar diretamente às plataformas",
+      "objeto": "o valor a ser investido nas plataformas (Google/Facebook)",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se há prazo para pagamento",
+        "Não define o que ocorre em caso de inadimplemento"
+      ]
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "obrigacao",
+      "agente": "agência",
+      "acao": "pagar fee mensal",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 1,
+        "unidade": "mês"
+      },
+      "valor": {
+        "montante": 3000.0,
+        "descricao": "tres mil reais"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "obrigacao",
+      "agente": "contratante",
+      "acao": "realizar pagamento via PIX",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 5,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": [
+        "agente não explicitamente definido, assumido como contratante"
+      ]
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "obrigacao",
+      "agente": "não especificado",
+      "acao": "otimizar campanhas",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 7,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.7,
+      "ambiguidades": [
+        "agente não especificado",
+        "sentença composta com duas obrigações não separadas"
+      ]
+    },
+    {
+      "id": "CL_8",
+      "tipo_deontico": "obrigacao",
+      "agente": "não especificado",
+      "acao": "aprovar as artes",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 48,
+        "unidade": "horas"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.75,
+      "ambiguidades": [
+        "agente não especificado"
+      ]
+    },
+    {
+      "id": "CL_9",
+      "tipo_deontico": "direito",
+      "agente": "CONTRATANTE",
+      "acao": "possuir as artes criadas",
+      "objeto": "artes criadas",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_10",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "nao garantir volume fixo de vendas",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.75,
+      "ambiguidades": [
+        "A frase 'atua como atividade de meio e nao de resultado' é explicativa, não normativa."
+      ]
+    },
+    {
+      "id": "CL_11",
+      "tipo_deontico": "condicao",
+      "agente": "agencia",
+      "acao": "atrasar pagamentos",
+      "objeto": null,
+      "condicao": "após 5 dias de atraso",
+      "prazo": {
+        "valor": 5,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se a suspensão é automática ou depende de notificação"
+      ]
+    },
+    {
+      "id": "CL_12",
+      "tipo_deontico": "direito",
+      "agente": "qualquer parte",
+      "acao": "rescindir",
+      "objeto": "contrato",
+      "condicao": "com aviso prévio de 30 dias",
+      "prazo": {
+        "valor": 30,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica se é direito de ambas as partes ou apenas uma",
+        "não define consequências da rescisão"
+      ]
+    },
+    {
+      "id": "CL_13",
+      "tipo_deontico": "penalidade",
+      "agente": "parte infratora",
+      "acao": "rescindir contrato",
+      "objeto": null,
+      "condicao": "quebra de sigilo ou falta de pagamento",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.8,
+      "ambiguidades": [
+        "quem é o agente? 'parte infratora' é genérico",
+        "a rescisão é automática ou depende de notificação?"
+      ]
+    },
+    {
+      "id": "CL_14",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_15",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "realizar reuniao mensal de alinhamento via videoconferencia",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 1,
+        "unidade": "mês"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": [
+        "não especifica quem convoca",
+        "não especifica duração"
+      ]
+    },
+    {
+      "id": "CL_16",
+      "tipo_deontico": "definicao",
+      "agente": "agencia",
+      "acao": "funcionar em horario comercial",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_17",
+      "tipo_deontico": "obrigacao",
+      "agente": "cliente",
+      "acao": "pagar",
+      "objeto": "artes extras",
+      "condicao": "artes extras fora do pacote",
+      "prazo": null,
+      "valor": {
+        "montante": 100.0,
+        "descricao": "por unidade"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem cobra",
+        "Não define prazo de pagamento"
+      ]
+    },
+    {
+      "id": "CL_18",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "fornecer niveis de acesso de administrador",
+      "objeto": "nas contas de anuncios",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_19",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "ser entidades independentes",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Natureza jurídica da independência não especificada"
+      ]
+    },
+    {
+      "id": "CL_20",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Comarca de Curitiba/PR",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    }
+  ],
+  "mapa_deontico": {
+    "—": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "Gestor": {
+      "obrigacoes": [
+        "CL_2"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATANTE": {
+      "obrigacoes": [
+        "CL_3",
+        "CL_18"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [
+        "CL_9"
+      ],
+      "penalidades": []
+    },
+    "agência": {
+      "obrigacoes": [
+        "CL_4"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "contratante": {
+      "obrigacoes": [
+        "CL_5"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "não especificado": {
+      "obrigacoes": [
+        "CL_7",
+        "CL_8"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATADA": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "agencia": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "qualquer parte": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [
+        "CL_12"
+      ],
+      "penalidades": []
+    },
+    "parte infratora": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_13"
+      ]
+    },
+    "partes": {
+      "obrigacoes": [
+        "CL_15"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "cliente": {
+      "obrigacoes": [
+        "CL_17"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    }
+  },
+  "confianca_media": 0.7285
+}

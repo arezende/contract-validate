@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_150924",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_8.txt",
+  "titulo": "contrato_8",
+  "partes": [
+    "Distribuidora Omicron S.A.",
+    "Transportes Pi Ltda"
+  ],
+  "contratante": "Distribuidora Omicron S.A.",
+  "contratado": "Transportes Pi Ltda",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "Transporte rodoviario de cargas secas."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "LIMITACAO DE ROTA",
+      "texto": "A CONTRATADA realizara o transporte exclusivamente dentro do Estado de Goias."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "VALOR DO FRETE",
+      "texto": "O valor do frete sera calculado conforme tabela em anexo por quilometro rodado."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "CONTRADICAO DE ROTA",
+      "texto": "A CONTRATADA obriga-se a realizar entregas em todos os estados da regiao Nordeste e Sul do Brasil, sob pena de multa."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "PAGAMENTO",
+      "texto": "O faturamento sera quinzenal com vencimento para 15 dias corridos."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "VEICULOS",
+      "texto": "A CONTRATADA utilizara frota propria em perfeitas condicoes."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "RESPONSABILIDADE CIVIL",
+      "texto": "A CONTRATADA isenta-se de acidentes causados por forca maior."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "RISCO DE CARGA",
+      "texto": "Fica acordado que a CONTRATANTE assume inteiramente os riscos por roubo, furto ou extravio da mercadoria durante o trajeto."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "CONTRADICAO DE RISCO",
+      "texto": "Em caso de roubo ou perda da carga, a CONTRATADA e integralmente responsavel por reembolsar 100% dos prejuizos a CONTRATANTE."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "SEGURO",
+      "texto": "E obrigatoria a emissao do seguro RCTR-C."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "AMBIGUIDADE NO PRAZO",
+      "texto": "O prazo para a entrega de cada carga devera ser o mais rapido possivel, sem enrolacao."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "AVARIAS",
+      "texto": "Mercadorias avariadas serao descontadas do pagamento do frete correspondente."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "RESTRICAO DE HORARIO",
+      "texto": "Fica estritamente proibido que o motorista da CONTRATADA dirija no periodo noturno (das 22h as 05h)."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "CONTRADICAO DE HORARIO",
+      "texto": "As viagens realizadas no periodo noturno terao um adicional de 20% no valor do frete pago."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "CARGA E DESCARGA",
+      "texto": "Responsabilidade da CONTRATANTE e do cliente final, respectivamente."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "ESTADIA",
+      "texto": "O tempo maximo de espera para descarga e de 5 horas. Apos isso sera cobrada taxa de estadia."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "VIGENCIA",
+      "texto": "O contrato e valido por tempo indeterminado."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "RESCISAO",
+      "texto": "Rescisao requer aviso de 10 dias."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "SUBCONTRATACAO",
+      "texto": "E permitida a contratacao de motoristas autonomos pela CONTRATADA."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO",
+      "texto": "Elege-se o foro de Goiania/GO para disputas legais."
+    }
+  ],
+  "total_clausulas": 20
+}

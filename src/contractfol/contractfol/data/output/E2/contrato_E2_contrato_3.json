@@ -1,0 +1,453 @@
+{
+  "timestamp": "20260429_150205",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "prestar servicos de consultoria financeira e reestruturacao de processos",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.5,
+      "ambiguidades": [
+        "Cláusula não expressa obrigação, proibição, permissão ou condição; apenas descreve o objeto do serviço."
+      ]
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "analisar fluxo de caixa, redução de custos e auditoria interna",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.5,
+      "ambiguidades": [
+        "Não especifica agente, ação deôntica ou condição; parece descritivo, não normativo"
+      ]
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "realizar reunioes quinzenais na sede",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 15,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se a obrigação é da CONTRATANTE ou do contratado"
+      ]
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "ter validade",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 6,
+        "unidade": "meses"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.97,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "obrigacao",
+      "agente": "devedor",
+      "acao": "pagar",
+      "objeto": "R$ 10.000,00 em 6 parcelas mensais e iguais",
+      "condicao": null,
+      "prazo": {
+        "valor": 6,
+        "unidade": "meses"
+      },
+      "valor": {
+        "montante": 10000.0,
+        "descricao": "valor de cada parcela"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Agente não especificado, assumido como 'devedor'"
+      ]
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte pagadora",
+      "acao": "realizar pagamentos",
+      "objeto": null,
+      "condicao": "mediante emissao de Nota Fiscal",
+      "prazo": {
+        "valor": 10,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente nao explicitamente definido",
+        "periodicidade mensal inferida"
+      ]
+    },
+    {
+      "id": "CL_8",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte não especificada",
+      "acao": "entregar relatorios mensais de desempenho e recomendacoes",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 1,
+        "unidade": "mes"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.75,
+      "ambiguidades": [
+        "agente não especificado",
+        "destinatário não especificado"
+      ]
+    },
+    {
+      "id": "CL_9",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte contratante",
+      "acao": "disponibilizar todos os documentos contábeis necessários",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "falta especificar agente",
+        "falta prazo"
+      ]
+    },
+    {
+      "id": "CL_10",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "tratar informacoes como confidenciais",
+      "objeto": "informacoes compartilhadas",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "natureza da obrigação implícita"
+      ]
+    },
+    {
+      "id": "CL_11",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "pagar multa e juros",
+      "objeto": "sobre a parcela em atraso",
+      "condicao": "atraso no pagamento",
+      "prazo": null,
+      "valor": {
+        "montante": 2.0,
+        "descricao": "percentual sobre parcela em atraso mais juros legais"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "juros legais não especificados"
+      ]
+    },
+    {
+      "id": "CL_12",
+      "tipo_deontico": "condicao",
+      "agente": "empregador",
+      "acao": "rescindir sem justa causa",
+      "objeto": "contrato",
+      "condicao": "se rescisão sem justa causa",
+      "prazo": {
+        "valor": 15,
+        "unidade": "dias"
+      },
+      "valor": {
+        "montante": 20.0,
+        "descricao": "multa sobre saldo devedor"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não explicitamente nomeado",
+        "saldo devedor não definido"
+      ]
+    },
+    {
+      "id": "CL_13",
+      "tipo_deontico": "direito",
+      "agente": "CONTRATANTE",
+      "acao": "ter posse",
+      "objeto": "relatórios gerados",
+      "condicao": "após a quitação",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'pertencem' pode indicar propriedade ou posse, o que é ambíguo no contexto contratual."
+      ]
+    },
+    {
+      "id": "CL_14",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATANTE",
+      "acao": "não constituir vínculo empregatício",
+      "objeto": "com os consultores",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_15",
+      "tipo_deontico": "obrigacao",
+      "agente": "todas as partes",
+      "acao": "fazer notificacoes por escrito ou e-mail corporativo",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.92,
+      "ambiguidades": [
+        "não especifica quem recebe a notificação"
+      ]
+    },
+    {
+      "id": "CL_16",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "arcar com transporte e hospedagem",
+      "objeto": null,
+      "condicao": "caso necessarias viagens",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica o que inclui 'transporte e hospedagem'",
+        "Não define o que são 'viagens necessarias'"
+      ]
+    },
+    {
+      "id": "CL_17",
+      "tipo_deontico": "permissao",
+      "agente": "nenhuma parte",
+      "acao": "não ser penalizada por atrasos",
+      "objeto": null,
+      "condicao": "decorrentes de força maior",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "o que constitui força maior não está definido"
+      ]
+    },
+    {
+      "id": "CL_18",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes contratantes",
+      "acao": "formalizar mudanca de escopo",
+      "objeto": "aditivo contratual",
+      "condicao": "qualquer mudanca de escopo",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_19",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes e seus sucessores legais",
+      "acao": "cumprir o contrato",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_20",
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Comarca de Campinas/SP",
+      "condicao": "eventuais disputas",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'elege-se' pode ser interpretado como obrigação ou permissão; aqui tratado como permissão.",
+        "Não especifica quem elege (todas as partes?)."
+      ]
+    }
+  ],
+  "mapa_deontico": {
+    "partes": {
+      "obrigacoes": [
+        "CL_10"
+      ],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_20"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATANTE": {
+      "obrigacoes": [
+        "CL_3",
+        "CL_16"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [
+        "CL_13"
+      ],
+      "penalidades": []
+    },
+    "contrato": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "—": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "devedor": {
+      "obrigacoes": [
+        "CL_6"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_11"
+      ]
+    },
+    "parte pagadora": {
+      "obrigacoes": [
+        "CL_7"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "parte não especificada": {
+      "obrigacoes": [
+        "CL_8"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "parte contratante": {
+      "obrigacoes": [
+        "CL_9"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "empregador": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "todas as partes": {
+      "obrigacoes": [
+        "CL_15"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "nenhuma parte": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_17"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes contratantes": {
+      "obrigacoes": [
+        "CL_18"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes e seus sucessores legais": {
+      "obrigacoes": [
+        "CL_19"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    }
+  },
+  "confianca_media": 0.7895
+}

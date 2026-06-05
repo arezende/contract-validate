@@ -1,0 +1,306 @@
+{
+  "timestamp": "20260429_151051",
+  "contrato": "contrato_9",
+  "descricao": "Mapeamento deôntico com rastreabilidade às cláusulas originais",
+  "mapa": {
+    "condicao_—": {
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "sentencas": [
+        {
+          "clausula_id": "CL_1",
+          "texto_original": "Prestacao de servicos de manutencao preventiva e corretiva nas instalacoes eletricas e hidraulicas do condominio.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_13",
+          "texto_original": "O descumprimento do tempo de resposta gera desconto de 5% no valor mensal por ocorrencia.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_prestador": {
+      "tipo_deontico": "obrigacao",
+      "agente": "prestador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_2",
+          "texto_original": "Visitas mensais preventivas e atendimento a chamados emergenciais.",
+          "acao": "realizar visitas preventivas e atender chamados emergenciais",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 1,
+            "unidade": "mes"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_Chamados_emergenciais": {
+      "tipo_deontico": "obrigacao",
+      "agente": "Chamados emergenciais",
+      "sentencas": [
+        {
+          "clausula_id": "CL_3",
+          "texto_original": "Chamados emergenciais devem ser atendidos em ate 4 horas uteis.",
+          "acao": "atendidos",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": {
+            "valor": 4,
+            "unidade": "horas uteis"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "definicao_partes": {
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_4",
+          "texto_original": "Contrato de 12 (doze) meses.",
+          "acao": "vigorar por 12 meses",
+          "objeto": "contrato",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 12,
+            "unidade": "meses"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_18",
+          "texto_original": "Protecao de dados referentes aos moradores e rotinas do predio.",
+          "acao": "proteger dados",
+          "objeto": "dados referentes aos moradores e rotinas do prédio",
+          "condicao": null,
+          "confianca": 0.6,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_19",
+          "texto_original": "Sem vinculo empregaticio.",
+          "acao": "definir ausência de vínculo empregatício",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_20",
+          "texto_original": "Fica eleito o foro da Comarca de Fortaleza/CE.",
+          "acao": "eleger foro",
+          "objeto": "Comarca de Fortaleza/CE",
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_contrato": {
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "sentencas": [
+        {
+          "clausula_id": "CL_5",
+          "texto_original": "O valor mensal do contrato e de R$ 4.500,00.",
+          "acao": "definir valor mensal",
+          "objeto": "R$ 4.500,00",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 1,
+            "unidade": "mês"
+          },
+          "valor": {
+            "montante": 4500.0,
+            "descricao": "valor mensal do contrato"
+          }
+        }
+      ]
+    },
+    "obrigacao_devedor": {
+      "tipo_deontico": "obrigacao",
+      "agente": "devedor",
+      "sentencas": [
+        {
+          "clausula_id": "CL_6",
+          "texto_original": "Pagamento a ser efetuado todo dia 20 de cada mes.",
+          "acao": "efetuar pagamento",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 20,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATANTE": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_7",
+          "texto_original": "Pecas de reposicao serao adquiridas pela CONTRATADA e reembolsadas pela CONTRATANTE mediante apresentacao de cupom fiscal.",
+          "acao": "reembolsar",
+          "objeto": "pecas de reposicao adquiridas pela CONTRATADA",
+          "condicao": "mediante apresentacao de cupom fiscal",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_17",
+          "texto_original": "A CONTRATANTE providenciara a autorizacao de acesso dos tecnicos.",
+          "acao": "providenciar autorizacao de acesso",
+          "objeto": "dos tecnicos",
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATADA": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_8",
+          "texto_original": "A CONTRATADA devera utilizar ferramentas proprias.",
+          "acao": "utilizar ferramentas proprias",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_10",
+          "texto_original": "A CONTRATADA respondera por eventuais danos causados por imperieia ou negligencia.",
+          "acao": "responder por danos causados",
+          "objeto": "danos causados por imperícia ou negligência",
+          "condicao": null,
+          "confianca": 0.7,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_15",
+          "texto_original": "A CONTRATADA devera entregar laudo tecnico a cada visita preventiva.",
+          "acao": "entregar laudo tecnico",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 1,
+            "unidade": "visita"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_partes": {
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_9",
+          "texto_original": "Cumprir rigorosamente as normas de seguranca do trabalho (NR-10 e NR-35).",
+          "acao": "cumprir normas de segurança do trabalho",
+          "objeto": "NR-10 e NR-35",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_16",
+          "texto_original": "As manutencoes preventivas ocorrerao em horario comercial.",
+          "acao": "realizar manutencoes preventivas",
+          "objeto": null,
+          "condicao": "em horario comercial",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_devedor": {
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "sentencas": [
+        {
+          "clausula_id": "CL_11",
+          "texto_original": "Atraso no pagamento gera multa de 2% sobre o valor devido.",
+          "acao": "pagar multa",
+          "objeto": "multa de 2% sobre valor devido",
+          "condicao": "atraso no pagamento",
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": {
+            "montante": 0.02,
+            "descricao": "2% sobre o valor devido"
+          }
+        }
+      ]
+    },
+    "permissao_partes": {
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_12",
+          "texto_original": "Pode ser rescindido mediante aviso previo de 30 dias de antecedencia.",
+          "acao": "rescindir",
+          "objeto": "contrato",
+          "condicao": "mediante aviso prévio de 30 dias de antecedência",
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 30,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_todos_os_trabalhadores": {
+      "tipo_deontico": "obrigacao",
+      "agente": "todos os trabalhadores",
+      "sentencas": [
+        {
+          "clausula_id": "CL_14",
+          "texto_original": "Uso obrigatorio de Equipamentos de Protecao Individual.",
+          "acao": "usar Equipamentos de Proteção Individual",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    }
+  }
+}

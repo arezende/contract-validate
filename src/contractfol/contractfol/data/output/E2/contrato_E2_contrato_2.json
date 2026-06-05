@@ -1,0 +1,407 @@
+{
+  "timestamp": "20260429_150033",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "definicao",
+      "agente": "Locador",
+      "acao": "locar imóvel comercial",
+      "objeto": "imóvel na Praça Central, 10",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.5,
+      "ambiguidades": [
+        "Cláusula não possui verbo deôntico explícito; interpretada como definição do objeto da locação."
+      ]
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "utilizar imóvel exclusivamente para uso comercial",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica sanção para uso não comercial"
+      ]
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "definicao",
+      "agente": "locação",
+      "acao": "ter prazo de 36 meses",
+      "objeto": null,
+      "condicao": "início na data da assinatura",
+      "prazo": {
+        "valor": 36,
+        "unidade": "meses"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "obrigacao",
+      "agente": "locatário",
+      "acao": "pagar aluguel",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 5,
+        "unidade": "dia"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "obrigacao",
+      "agente": "locador",
+      "acao": "reajustar valor do aluguel",
+      "objeto": "pelo IGPM",
+      "condicao": null,
+      "prazo": {
+        "valor": 1,
+        "unidade": "ano"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "obrigacao",
+      "agente": "locatário",
+      "acao": "manter o imóvel em perfeitas condições de uso",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.8,
+      "ambiguidades": [
+        "agente não especificado, assumindo locatário; 'perfeitas condições' é subjetivo"
+      ]
+    },
+    {
+      "id": "CL_8",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "pagar valor fixo mensal",
+      "objeto": "R$ 3.500,00",
+      "condicao": null,
+      "prazo": {
+        "valor": 15,
+        "unidade": "dias"
+      },
+      "valor": {
+        "montante": 3500.0,
+        "descricao": "valor fixo mensal"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_9",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "pagar IPTU",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_10",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "pagar taxas condominiais",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O prazo para pagamento não foi especificado",
+        "Não está claro se há penalidade por atraso"
+      ]
+    },
+    {
+      "id": "CL_11",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for Prazo\nvalor\n  Input should be a valid integer [type=int_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/int_type"
+      ]
+    },
+    {
+      "id": "CL_12",
+      "tipo_deontico": "condicao",
+      "agente": "CONTRATADA",
+      "acao": "realizar benfeitoria",
+      "objeto": "benfeitoria",
+      "condicao": "autorização por escrita da CONTRATANTE",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se a ausência de autorização invalida a benfeitoria ou gera penalidade"
+      ]
+    },
+    {
+      "id": "CL_13",
+      "tipo_deontico": "proibicao",
+      "agente": "locatário",
+      "acao": "sublocar o imóvel",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_14",
+      "tipo_deontico": "definicao",
+      "agente": "locador",
+      "acao": "entregar imovel",
+      "objeto": "conforme laudo de vistoria em anexo",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "A cláusula não especifica quem entrega o imóvel; assume-se locador.",
+        "Não há prazo ou condição explícita."
+      ]
+    },
+    {
+      "id": "CL_15",
+      "tipo_deontico": "definicao",
+      "agente": "locatário",
+      "acao": "prestar garantia",
+      "objeto": "na modalidade de fiador",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem é o agente (locatário ou locador)",
+        "Não define obrigações ou prazos"
+      ]
+    },
+    {
+      "id": "CL_16",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "pagar multa",
+      "objeto": "multa de 10%",
+      "condicao": "atraso no pagamento",
+      "prazo": null,
+      "valor": {
+        "montante": 10.0,
+        "descricao": "percentual"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica sobre qual valor incide a multa"
+      ]
+    },
+    {
+      "id": "CL_17",
+      "tipo_deontico": "penalidade",
+      "agente": "inquilino",
+      "acao": "devolver antecipadamente",
+      "objeto": "imóvel",
+      "condicao": null,
+      "prazo": null,
+      "valor": {
+        "montante": 3.0,
+        "descricao": "aluguéis"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Valor da multa: 3 aluguéis refere-se ao valor mensal do aluguel, mas não especifica se é o valor atual ou outro"
+      ]
+    },
+    {
+      "id": "CL_18",
+      "tipo_deontico": "condicao",
+      "agente": "partes",
+      "acao": "renovar contrato automaticamente",
+      "objeto": null,
+      "condicao": "caso não haja manifestação em contrário",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "'manifestacao' não especifica prazo ou forma"
+      ]
+    },
+    {
+      "id": "CL_19",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "contratar seguro",
+      "objeto": "contra incendio",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_20",
+      "tipo_deontico": "condicao",
+      "agente": "partes",
+      "acao": "dirimir duvidas",
+      "objeto": "foro de Belo Horizonte/MG e foro de Curitiba/PR",
+      "condicao": "em caso de duvidas",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Conflito entre foros: Belo Horizonte para dirimir duvidas e Curitiba com exclusividade"
+      ]
+    }
+  ],
+  "mapa_deontico": {
+    "Locador": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATADA": {
+      "obrigacoes": [
+        "CL_2",
+        "CL_8",
+        "CL_9",
+        "CL_19"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "locação": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "—": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "locatário": {
+      "obrigacoes": [
+        "CL_5",
+        "CL_7"
+      ],
+      "proibicoes": [
+        "CL_13"
+      ],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "locador": {
+      "obrigacoes": [
+        "CL_6"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATANTE": {
+      "obrigacoes": [
+        "CL_10"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "devedor": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_16"
+      ]
+    },
+    "inquilino": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_17"
+      ]
+    },
+    "partes": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    }
+  },
+  "confianca_media": 0.7775
+}

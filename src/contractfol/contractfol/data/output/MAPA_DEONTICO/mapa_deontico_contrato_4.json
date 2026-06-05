@@ -1,0 +1,348 @@
+{
+  "timestamp": "20260429_150332",
+  "contrato": "contrato_4",
+  "descricao": "Mapeamento deôntico com rastreabilidade às cláusulas originais",
+  "mapa": {
+    "definicao_CONTRATADA": {
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_1",
+          "texto_original": "Fornecimento continuo de pecas automotivas pela CONTRATADA.",
+          "acao": "fornecer peças automotivas",
+          "objeto": "continuamente",
+          "condicao": null,
+          "confianca": 0.6,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATADA": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_2",
+          "texto_original": "A CONTRATADA se compromete a fornecer 500 pecas por semana a CONTRATANTE.",
+          "acao": "fornecer pecas",
+          "objeto": "500 pecas por semana a CONTRATANTE",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 7,
+            "unidade": "dias"
+          },
+          "valor": {
+            "montante": 500.0,
+            "descricao": "pecas por semana"
+          }
+        },
+        {
+          "clausula_id": "CL_7",
+          "texto_original": "O frete para envio das pecas e de inteira responsabilidade e custo da CONTRATADA.",
+          "acao": "arcar com custo e responsabilidade do frete",
+          "objeto": "frete para envio das pecas",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "condicao_fornecedor": {
+      "tipo_deontico": "condicao",
+      "agente": "fornecedor",
+      "sentencas": [
+        {
+          "clausula_id": "CL_3",
+          "texto_original": "Fica estipulado que o volume maximo de entregas sera de 100 pecas por mes em carater de exclusividade.",
+          "acao": "entregar",
+          "objeto": "100 peças por mês",
+          "condicao": "em caráter de exclusividade",
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 1,
+            "unidade": "mês"
+          },
+          "valor": {
+            "montante": 100.0,
+            "descricao": "volume máximo de entregas"
+          }
+        }
+      ]
+    },
+    "definicao_contrato": {
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "sentencas": [
+        {
+          "clausula_id": "CL_4",
+          "texto_original": "O contrato tem vigencia de 12 meses.",
+          "acao": "ter vigência",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 12,
+            "unidade": "meses"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "condicao_—": {
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "sentencas": [
+        {
+          "clausula_id": "CL_5",
+          "texto_original": "O preco unitario de cada peca e de R$ 50,00.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_pagador": {
+      "tipo_deontico": "obrigacao",
+      "agente": "pagador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_6",
+          "texto_original": "Os pagamentos serao realizados em ate 30 dias apos o faturamento.",
+          "acao": "realizar pagamentos",
+          "objeto": null,
+          "condicao": "após o faturamento",
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 30,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATANTE": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_8",
+          "texto_original": "A CONTRATANTE obriga-se a pagar a transportadora todos os custos relativos ao frete de envio.",
+          "acao": "pagar todos os custos relativos ao frete de envio",
+          "objeto": "à transportadora",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_produtos": {
+      "tipo_deontico": "obrigacao",
+      "agente": "produtos",
+      "sentencas": [
+        {
+          "clausula_id": "CL_9",
+          "texto_original": "Os produtos devem seguir as normas do Inmetro.",
+          "acao": "seguir normas do Inmetro",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "permissao_cliente": {
+      "tipo_deontico": "permissao",
+      "agente": "cliente",
+      "sentencas": [
+        {
+          "clausula_id": "CL_10",
+          "texto_original": "Produtos com defeito poderao ser devolvidos em ate 7 dias.",
+          "acao": "devolver produtos",
+          "objeto": "produtos com defeito",
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": {
+            "valor": 7,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_parte_atrasada": {
+      "tipo_deontico": "penalidade",
+      "agente": "parte atrasada",
+      "sentencas": [
+        {
+          "clausula_id": "CL_11",
+          "texto_original": "A multa por atraso na entrega das pecas sera regida e calculada exclusivamente pelas regras descritas na Clausula 28 deste instrumento.",
+          "acao": "pagar multa por atraso na entrega de peças",
+          "objeto": null,
+          "condicao": "atraso na entrega das peças",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_fornecedor": {
+      "tipo_deontico": "obrigacao",
+      "agente": "fornecedor",
+      "sentencas": [
+        {
+          "clausula_id": "CL_12",
+          "texto_original": "A garantia dos produtos e de 90 dias contra defeitos de fabricacao.",
+          "acao": "garantir produtos",
+          "objeto": "contra defeitos de fabricacao",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 90,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_destinatário": {
+      "tipo_deontico": "obrigacao",
+      "agente": "destinatário",
+      "sentencas": [
+        {
+          "clausula_id": "CL_13",
+          "texto_original": "Receber as mercadorias no horario comercial.",
+          "acao": "receber mercadorias",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.7,
+          "prazo": {
+            "valor": 0,
+            "unidade": "horário comercial"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_parte_omitida": {
+      "tipo_deontico": "obrigacao",
+      "agente": "parte omitida",
+      "sentencas": [
+        {
+          "clausula_id": "CL_14",
+          "texto_original": "Emitir as respectivas Notas Fiscais Eletronicas.",
+          "acao": "emitir Notas Fiscais Eletrônicas",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.7,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "permissao_partes": {
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_15",
+          "texto_original": "O contrato podera ser cancelado mediante aviso previo de 60 dias.",
+          "acao": "cancelar o contrato",
+          "objeto": null,
+          "condicao": "mediante aviso previo de 60 dias",
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 60,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_parte_infratora": {
+      "tipo_deontico": "penalidade",
+      "agente": "parte infratora",
+      "sentencas": [
+        {
+          "clausula_id": "CL_16",
+          "texto_original": "A rescisao imediata gera multa de R$ 10.000,00.",
+          "acao": "pagar multa",
+          "objeto": null,
+          "condicao": "rescisão imediata",
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": {
+            "montante": 10000.0,
+            "descricao": "multa por rescisão imediata"
+          }
+        }
+      ]
+    },
+    "permissao_CONTRATADA": {
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_17",
+          "texto_original": "O preco unitario dos produtos podera sofrer alteracoes sempre que a CONTRATADA quiser.",
+          "acao": "alterar preco unitario dos produtos",
+          "objeto": null,
+          "condicao": "sempre que a CONTRATADA quiser",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_18",
+          "texto_original": "A CONTRATADA podera subcontratar o servico de fabricacao.",
+          "acao": "subcontratar",
+          "objeto": "serviço de fabricação",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_partes": {
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_19",
+          "texto_original": "As partes manterao sigilo sobre o modelo de negocios.",
+          "acao": "manter sigilo",
+          "objeto": "sobre o modelo de negocios",
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_partes": {
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_20",
+          "texto_original": "Elege-se o foro de Salvador/BA.",
+          "acao": "eleger foro",
+          "objeto": "Salvador/BA",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    }
+  }
+}

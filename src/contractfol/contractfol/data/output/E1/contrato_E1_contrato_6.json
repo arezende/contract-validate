@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_150630",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_6.txt",
+  "titulo": "contrato_6",
+  "partes": [
+    "Condominio Lambda",
+    "Mu Limpezas Ltda"
+  ],
+  "contratante": "Condominio Lambda",
+  "contratado": "Mu Limpezas Ltda",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "Prestacao de servicos de limpeza e conservacao das areas comuns do condominio."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "POSTOS DE TRABALHO",
+      "texto": "A CONTRATADA fornecera 2 (dois) funcionarios trabalhando 8 horas por dia."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "IRREVOGABILIDADE",
+      "texto": "O presente contrato tem vigencia de 24 meses e possui carater irrevogavel e irretratavel, nao podendo ser rescindido antecipadamente."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "VALOR",
+      "texto": "O custo mensal do servico e de R$ 6.000,00."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "PAGAMENTO",
+      "texto": "Pagamento via boleto bancario com vencimento no dia 10 de cada mes."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "ENCARGOS TRABALHISTAS",
+      "texto": "A CONTRATADA e a unica responsavel pelos direitos trabalhistas dos funcionarios."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "MATERIAL DE LIMPEZA",
+      "texto": "O fornecimento de produtos de limpeza e de responsabilidade da CONTRATADA."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "AMBIGUIDADE DE MATERIAL",
+      "texto": "A CONTRATADA compromete-se a usar apenas materiais que sejam mais ou menos bons e de cheiro agradavel."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "SUBSTITUICAO",
+      "texto": "A CONTRATADA deve substituir funcionarios em falta em ate 2 horas."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "MULTA TRABALHISTA",
+      "texto": "A CONTRATANTE podera reter pagamentos se a CONTRATADA nao comprovar o pagamento de salarios."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "FISCALIZACAO",
+      "texto": "O sindico do CONTRATANTE fiscalizara a qualidade do servico."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "UNIFORMES",
+      "texto": "Os funcionarios devem trabalhar devidamente uniformizados."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "HORARIO",
+      "texto": "O horario de trabalho sera das 08:00 as 17:00, de segunda a sexta."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "CONTRADICAO DE RESCISAO",
+      "texto": "Qualquer das partes podera rescindir este contrato a qualquer momento, por qualquer motivo, mediante simples aviso pelo WhatsApp sem nenhuma multa."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "REAJUSTE",
+      "texto": "Reajuste anual pela convencao coletiva da categoria."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "AMBIGUIDADE DE MULTA",
+      "texto": "Em caso de quebra de contrato, a parte infratora pagara uma multa de um valor razoavel a ser discutido depois."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "EPI",
+      "texto": "A CONTRATADA deve fornecer os Equipamentos de Protecao Individual."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "ACIDENTES",
+      "texto": "Responsabilidade exclusiva da CONTRATADA em acidentes de trabalho."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "SEGURO",
+      "texto": "A CONTRATADA deve manter seguro de vida para os funcionarios."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO",
+      "texto": "Elege-se o foro de Porto Alegre/RS."
+    }
+  ],
+  "total_clausulas": 20
+}

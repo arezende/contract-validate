@@ -1,0 +1,122 @@
+{
+  "timestamp": "20260429_151140",
+  "contrato": "contrato_problemas",
+  "descricao": "Mapeamento deôntico com rastreabilidade às cláusulas originais",
+  "mapa": {
+    "definicao_Empresa_Contratante_ACME_Consultoria_Ltda_e_Empresa_Contratada_Soluções_Digitais_SA": {
+      "tipo_deontico": "definicao",
+      "agente": "Empresa Contratante ACME Consultoria Ltda. e Empresa Contratada Soluções Digitais S.A.",
+      "sentencas": [
+        {
+          "clausula_id": "CL_1",
+          "texto_original": "O presente contrato tem por objeto a prestação de serviços de consultoria técnica entre a Empresa Contratante ACME Consultoria Ltda. e a Empresa Contratada Soluções Digitais S.A. para desenvolvimento de plataforma de gerenciamento de projetos.",
+          "acao": "prestar serviços de consultoria técnica",
+          "objeto": "desenvolvimento de plataforma de gerenciamento de projetos",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "condicao_—": {
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "sentencas": [
+        {
+          "clausula_id": "CL_2",
+          "texto_original": "2.1 A ACME deverá repassar os recursos financeiros em até 30 dias após a aprovação da prestação de contas parcial. 2.2 A ACME deverá disponibilizar infraestrutura tecnológica adequada para os testes da plataforma. 2.3 A ACME fornecerá suporte técnico em requisitos de negócio para a equipe de desenvolvimento.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.5,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_3",
+          "texto_original": "3.1 A Soluções Digitais deverá apresentar relatório de progresso a cada 90 dias. 3.2 A Soluções Digitais deverá selecionar profissionais conforme critérios técnicos do anexo de perfis. 3.3 É vedado à Soluções Digitais utilizar os recursos do contrato para pagamento de despesas com pessoal permanente não alocado ao projeto.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_ACME": {
+      "tipo_deontico": "obrigacao",
+      "agente": "ACME",
+      "sentencas": [
+        {
+          "clausula_id": "CL_4",
+          "texto_original": "4.1 A ACME repassará o valor total de R$ 500.000,00 em parcelas mensais. 4.2 A Soluções Digitais poderá utilizar os recursos para contratação de profissionais temporários e permanentes alocados exclusivamente ao projeto.",
+          "acao": "repassar valor total",
+          "objeto": "R$ 500.000,00 em parcelas mensais",
+          "condicao": null,
+          "confianca": 0.92,
+          "prazo": {
+            "valor": 1,
+            "unidade": "mês"
+          },
+          "valor": {
+            "montante": 500000.0,
+            "descricao": "total"
+          }
+        }
+      ]
+    },
+    "obrigacao_partes_contratantes": {
+      "tipo_deontico": "obrigacao",
+      "agente": "partes contratantes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_5",
+          "texto_original": "5.1 O presente contrato terá vigência de 24 meses a partir da data de assinatura. 5.2 O prazo para prestação de contas final é de 60 dias após o encerramento da vigência.",
+          "acao": "cumprir vigência e prestar contas final",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 60,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_ACME": {
+      "tipo_deontico": "penalidade",
+      "agente": "ACME",
+      "sentencas": [
+        {
+          "clausula_id": "CL_6",
+          "texto_original": "6.1 O descumprimento das obrigações pela Soluções Digitais sujeitará à suspensão dos repasses. 6.2 Caso a Soluções Digitais não apresente o relatório no prazo, a ACME poderá rescindir o contrato.",
+          "acao": "suspender repasses ou rescindir contrato",
+          "objeto": null,
+          "condicao": "descumprimento das obrigações ou não apresentação de relatório no prazo",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "permissao_partes": {
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_7",
+          "texto_original": "7.1 O contrato poderá ser rescindido por acordo entre as partes ou descumprimento de cláusulas.",
+          "acao": "rescindir contrato",
+          "objeto": null,
+          "condicao": "por acordo entre as partes ou descumprimento de cláusulas",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    }
+  }
+}

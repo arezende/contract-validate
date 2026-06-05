@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_151051",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_9.txt",
+  "titulo": "contrato_9",
+  "partes": [
+    "Edificio Rho",
+    "Manutencoes Sigma ME"
+  ],
+  "contratante": "Edificio Rho",
+  "contratado": "Manutencoes Sigma ME",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "Prestacao de servicos de manutencao preventiva e corretiva nas instalacoes eletricas e hidraulicas do condominio."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "ESCOPO",
+      "texto": "Visitas mensais preventivas e atendimento a chamados emergenciais."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "TEMPO DE RESPOSTA",
+      "texto": "Chamados emergenciais devem ser atendidos em ate 4 horas uteis."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "VIGENCIA",
+      "texto": "Contrato de 12 (doze) meses."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "VALOR",
+      "texto": "O valor mensal do contrato e de R$ 4.500,00."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "PAGAMENTO",
+      "texto": "Pagamento a ser efetuado todo dia 20 de cada mes."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "MATERIAIS",
+      "texto": "Pecas de reposicao serao adquiridas pela CONTRATADA e reembolsadas pela CONTRATANTE mediante apresentacao de cupom fiscal."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "EQUIPAMENTOS",
+      "texto": "A CONTRATADA devera utilizar ferramentas proprias."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "OBRIGACOES DA CONTRATADA",
+      "texto": "Cumprir rigorosamente as normas de seguranca do trabalho (NR-10 e NR-35)."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "RESPONSABILIDADE CIVIL",
+      "texto": "A CONTRATADA respondera por eventuais danos causados por imperieia ou negligencia."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "MULTA DE MORA",
+      "texto": "Atraso no pagamento gera multa de 2% sobre o valor devido."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "RESCISAO",
+      "texto": "Pode ser rescindido mediante aviso previo de 30 dias de antecedencia."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "DESCUMPRIMENTO",
+      "texto": "O descumprimento do tempo de resposta gera desconto de 5% no valor mensal por ocorrencia."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "EPI",
+      "texto": "Uso obrigatorio de Equipamentos de Protecao Individual."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "RELATORIOS",
+      "texto": "A CONTRATADA devera entregar laudo tecnico a cada visita preventiva."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "HORARIO",
+      "texto": "As manutencoes preventivas ocorrerao em horario comercial."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "ACESSO",
+      "texto": "A CONTRATANTE providenciara a autorizacao de acesso dos tecnicos."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "SIGILO",
+      "texto": "Protecao de dados referentes aos moradores e rotinas do predio."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "INDEPENDENCIA",
+      "texto": "Sem vinculo empregaticio."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO",
+      "texto": "Fica eleito o foro da Comarca de Fortaleza/CE."
+    }
+  ],
+  "total_clausulas": 20
+}

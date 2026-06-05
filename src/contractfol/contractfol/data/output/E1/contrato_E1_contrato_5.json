@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_150503",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_5.txt",
+  "titulo": "contrato_5",
+  "partes": [
+    "Iota Logistica S.A.",
+    "Kappa Tech ME"
+  ],
+  "contratante": "Iota Logistica S.A.",
+  "contratado": "Kappa Tech ME",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "Desenvolvimento de um sistema web personalizado para gestao de frotas."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "ESCOPO",
+      "texto": "O sistema devera conter modulos de cadastro, rastreamento e relatorios financeiros."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "PRAZO DE ENTREGA",
+      "texto": "O prazo total para desenvolvimento e entrega e de 180 dias."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "CRONOGRAMA",
+      "texto": "As entregas serao fracionadas em 4 fases mensais, conforme anexo tecnico."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "VALOR",
+      "texto": "O valor total do projeto e de R$ 80.000,00 (oitenta mil reais)."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "PAGAMENTO",
+      "texto": "O valor sera pago em 4 parcelas de R$ 20.000,00, vinculadas a aprovacao de cada fase."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "APROVACAO",
+      "texto": "A CONTRATANTE tera 5 dias uteis para homologar cada entrega."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "PROPRIEDADE INTELECTUAL",
+      "texto": "O codigo-fonte sera de propriedade exclusiva da CONTRATANTE apos a quitacao total."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "SUPORTE",
+      "texto": "A CONTRATADA fornecera suporte tecnico gratuito por 90 dias apos a entrega final."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "MANUTENCAO",
+      "texto": "Apos o periodo de suporte, eventuais manutencoes serao cobradas a parte."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "CONFIDENCIALIDADE",
+      "texto": "E vedado a CONTRATADA utilizar dados da CONTRATANTE para outros fins."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "MULTA MORATORIA",
+      "texto": "Atraso nos pagamentos gera multa de 2% e juros de 1% a.m."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "PENALIDADE POR ATRASO NA ENTREGA",
+      "texto": "Atraso nas fases do projeto gera desconto de 1% do valor da parcela por dia util."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "MUDANCA DE ESCOPO",
+      "texto": "Novas funcionalidades deverao ser orcadas em termo aditivo."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "RESCISAO",
+      "texto": "Em caso de rescisao antecipada, serao pagos os valores proporcionais as fases concluidas."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "VINCULO",
+      "texto": "Este contrato nao estabelece vinculo empregaticio."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "CESSAO",
+      "texto": "Nenhuma das partes podera ceder o contrato sem anuencia."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "COMUNICACAO",
+      "texto": "Toda comunicacao oficial sera realizada via e-mail dos gestores do projeto."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "CODIGO ABERTO",
+      "texto": "A CONTRATADA garante nao utilizar bibliotecas com licencas restritivas que prejudiquem a comercializacao."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO",
+      "texto": "Elege-se o foro de Brasilia/DF."
+    }
+  ],
+  "total_clausulas": 20
+}

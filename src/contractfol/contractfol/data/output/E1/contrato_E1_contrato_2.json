@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_150033",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_2.txt",
+  "titulo": "contrato_2",
+  "partes": [
+    "Locadora Gamma S.A.",
+    "Loja Delta Ltda"
+  ],
+  "contratante": "Locadora Gamma S.A.",
+  "contratado": "Loja Delta Ltda",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "Locacao de imovel comercial situado na Praca Central, 10."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "DESTINACAO",
+      "texto": "O imovel destina-se exclusivamente para uso comercial da CONTRATADA."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "PRAZO",
+      "texto": "A locacao tera prazo de 36 meses, com inicio na data da assinatura."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "VALOR DO ALUGUEL",
+      "texto": "O valor do aluguel mensal e de R$ 5.000,00 (cinco mil reais)."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "VENCIMENTO",
+      "texto": "O aluguel devera ser pago impreterivelmente ate o dia 05 de cada mes."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "REAJUSTE",
+      "texto": "O valor do aluguel sera reajustado anualmente pelo IGPM."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "OBRIGACOES DA CONTRATADA",
+      "texto": "Manter o imovel em perfeitas condicoes de uso."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "CONTRADICAO DE VALOR",
+      "texto": "As partes acordam que a CONTRATADA pagara o valor fixo mensal de R$ 3.500,00, a ser pago todo dia 15."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "IPTU",
+      "texto": "O pagamento do IPTU sera de responsabilidade exclusiva da CONTRATADA."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "CONDOMINIO",
+      "texto": "As taxas condominiais serao pagas pela CONTRATANTE."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "AMBIGUIDADE DE MANUTENCAO",
+      "texto": "A CONTRATADA devera realizar reparos no imovel num prazo razoavel, sempre que achar que a situacao exige."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "BENFEITORIAS",
+      "texto": "Qualquer benfeitoria dependera de autorizacao por escrito da CONTRATANTE."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "SUBLOCACAO",
+      "texto": "Fica expressamente proibida a sublocacao do imovel."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "VISTORIA",
+      "texto": "O imovel e entregue conforme laudo de vistoria em anexo."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "GARANTIA",
+      "texto": "A garantia locaticia e prestada na modalidade de fiador."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "MULTA MORATORIA",
+      "texto": "O atraso no pagamento gerera multa de 10%."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "RESCISAO",
+      "texto": "A devolucao antecipada gerera multa de 3 alugueis."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "RENOVACAO",
+      "texto": "O contrato sera renovado automaticamente caso nao haja manifestacao."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "SEGURO INCENDIO",
+      "texto": "A CONTRATADA deve contratar seguro contra incendio."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO DUBIO",
+      "texto": "Elege-se o foro de Belo Horizonte/MG para dirimir duvidas. Fica tambem eleito o foro de Curitiba/PR com exclusividade, renunciando a qualquer outro."
+    }
+  ],
+  "total_clausulas": 20
+}

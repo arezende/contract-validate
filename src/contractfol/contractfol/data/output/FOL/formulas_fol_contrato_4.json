@@ -1,0 +1,290 @@
+{
+  "timestamp": "20260429_150332",
+  "contrato": "contrato_4",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "Fornecimento continuo de pecas automotivas pela CONTRATADA.",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer peças automotivas",
+      "objeto": "continuamente",
+      "condicao": null,
+      "formula_fol": "FornecimentoContinuo(CONTRATADA, PecasAutomotivas)",
+      "codigo_z3": "fornecimento = Bool('fornecimento')\ns.add(fornecimento == True)",
+      "confianca": 0.6,
+      "ambiguidades": [
+        "O termo 'continuo' não especifica prazos ou periodicidade; não há obrigação explícita, apenas definição do objeto."
+      ]
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "A CONTRATADA se compromete a fornecer 500 pecas por semana a CONTRATANTE.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer pecas",
+      "objeto": "500 pecas por semana a CONTRATANTE",
+      "condicao": null,
+      "formula_fol": "∀s [Obrigacao(CONTRATADA, Fornecer(s, 500)) ∧ Periodo(s, semanal)]",
+      "codigo_z3": "ob_fornecer = Bool('ob_fornecer')\nquantidade = Int('qtd')\ns.add(ob_fornecer == True)\ns.add(quantidade == 500)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "Fica estipulado que o volume maximo de entregas sera de 100 pecas por mes em carater de exclusividade.",
+      "tipo_deontico": "condicao",
+      "agente": "fornecedor",
+      "acao": "entregar",
+      "objeto": "100 peças por mês",
+      "condicao": "em caráter de exclusividade",
+      "formula_fol": "∀m [Exclusividade(m) → VolumeMaximo(m, 100)]",
+      "codigo_z3": "volume_maximo = Int('volume_maximo')\nexclusividade = Bool('exclusividade')\ns.add(volume_maximo == 100)\ns.add(exclusividade == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O agente não está explicitamente definido; assumiu-se 'fornecedor'",
+        "Não há sujeito claro; pode ser interpretado como obrigação do fornecedor"
+      ]
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "O contrato tem vigencia de 12 meses.",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "ter vigência",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "VigenciaContrato(12meses)",
+      "codigo_z3": "vigencia = Int('vigencia')\ns.add(vigencia == 12)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "O preco unitario de cada peca e de R$ 50,00.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "Os pagamentos serao realizados em ate 30 dias apos o faturamento.",
+      "tipo_deontico": "obrigacao",
+      "agente": "pagador",
+      "acao": "realizar pagamentos",
+      "objeto": null,
+      "condicao": "após o faturamento",
+      "formula_fol": "∀x [Faturamento(x) → Obrigacao(Pagador, RealizarPagamento(x)) ∧ Prazo(Pagamento, 30dias)]",
+      "codigo_z3": "obrigacao_pag = Bool('ob_pag')\nprazo_pag = Int('pz_pag')\ns.add(obrigacao_pag == True)\ns.add(prazo_pag == 30)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "O frete para envio das pecas e de inteira responsabilidade e custo da CONTRATADA.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "arcar com custo e responsabilidade do frete",
+      "objeto": "frete para envio das pecas",
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(CONTRATADA, ArcarFrete(x))]",
+      "codigo_z3": "obrigacao_frete = Bool('ob_frete')\ns.add(obrigacao_frete == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "A CONTRATANTE obriga-se a pagar a transportadora todos os custos relativos ao frete de envio.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "pagar todos os custos relativos ao frete de envio",
+      "objeto": "à transportadora",
+      "condicao": null,
+      "formula_fol": "∀x [CustoFrete(x) → Obrigacao(CONTRATANTE, Pagar(x, Transportadora))]",
+      "codigo_z3": "obrigacao_contratante_pagar = Bool('ob_contratante_pagar')\ns.add(obrigacao_contratante_pagar == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "Os produtos devem seguir as normas do Inmetro.",
+      "tipo_deontico": "obrigacao",
+      "agente": "produtos",
+      "acao": "seguir normas do Inmetro",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀p [Produto(p) → Obrigacao(p, SeguirNormasInmetro)]",
+      "codigo_z3": "p = Bool('p')\nnorma = Bool('norma')\ns.add(Implies(p, norma))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quais normas do Inmetro."
+      ]
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "Produtos com defeito poderao ser devolvidos em ate 7 dias.",
+      "tipo_deontico": "permissao",
+      "agente": "cliente",
+      "acao": "devolver produtos",
+      "objeto": "produtos com defeito",
+      "condicao": null,
+      "formula_fol": "∀x [ProdutoDefeito(x) → Permissao(Cliente, Devolver(x)) ∧ Prazo(Devolver, 7dias)]",
+      "codigo_z3": "permissao_devolver = Bool('per_devolver')\nprazo_devolver = Int('pz_devolver')\ns.add(permissao_devolver == True)\ns.add(prazo_devolver == 7)",
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "A multa por atraso na entrega das pecas sera regida e calculada exclusivamente pelas regras descritas na Clausula 28 deste instrumento.",
+      "tipo_deontico": "penalidade",
+      "agente": "parte atrasada",
+      "acao": "pagar multa por atraso na entrega de peças",
+      "objeto": null,
+      "condicao": "atraso na entrega das peças",
+      "formula_fol": "∀x [AtrasoEntrega(x) → Penalidade(Multa, x, Clausula28)]",
+      "codigo_z3": "atraso_entrega = Bool('atraso_entrega')\nmulta_clausula28 = Bool('multa_clausula28')\ns.add(atraso_entrega == multa_clausula28)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica valor da multa, remete a outra cláusula",
+        "Agente não explícito (quem paga a multa)"
+      ]
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "A garantia dos produtos e de 90 dias contra defeitos de fabricacao.",
+      "tipo_deontico": "obrigacao",
+      "agente": "fornecedor",
+      "acao": "garantir produtos",
+      "objeto": "contra defeitos de fabricacao",
+      "condicao": null,
+      "formula_fol": "∀x [Produto(x) → Obrigacao(Fornecedor, Garantir(x, 90dias))]",
+      "codigo_z3": "garantia = Bool('garantia')\nprazo_garantia = Int('pz_garantia')\ns.add(garantia == True)\ns.add(prazo_garantia == 90)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Agente nao especificado explicitamente, assumido como fornecedor"
+      ]
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "Receber as mercadorias no horario comercial.",
+      "tipo_deontico": "obrigacao",
+      "agente": "destinatário",
+      "acao": "receber mercadorias",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀m [Mercadoria(m) → Obrigacao(Destinatario, Receber(m)) ∧ Horario(Receber, Comercial)]",
+      "codigo_z3": "obrigacao_receber = Bool('ob_receber')\nhorario_comercial = Bool('hor_comercial')\ns.add(obrigacao_receber == True)\ns.add(horario_comercial == True)",
+      "confianca": 0.7,
+      "ambiguidades": [
+        "agente não especificado",
+        "horário comercial não definido"
+      ]
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "Emitir as respectivas Notas Fiscais Eletronicas.",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte omitida",
+      "acao": "emitir Notas Fiscais Eletrônicas",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∃x [Obrigacao(Agente, EmitirNF(x))]",
+      "codigo_z3": "emitir_nf = Bool('emitir_nf')\ns.add(emitir_nf == True)",
+      "confianca": 0.7,
+      "ambiguidades": [
+        "agente não especificado",
+        "prazo não especificado"
+      ]
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "O contrato podera ser cancelado mediante aviso previo de 60 dias.",
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "acao": "cancelar o contrato",
+      "objeto": null,
+      "condicao": "mediante aviso previo de 60 dias",
+      "formula_fol": "∀x [Contrato(x) → Permissao(Partes, Cancelar(x)) ∧ Prazo(Aviso, 60dias)]",
+      "codigo_z3": "permissao_cancelar = Bool('per_cancelar')\nprazo_aviso = Int('pz_aviso')\ns.add(permissao_cancelar == True)\ns.add(prazo_aviso == 60)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "A rescisao imediata gera multa de R$ 10.000,00.",
+      "tipo_deontico": "penalidade",
+      "agente": "parte infratora",
+      "acao": "pagar multa",
+      "objeto": null,
+      "condicao": "rescisão imediata",
+      "formula_fol": "∀x [RescisaoImediata(x) → Obrigacao(ParteInfratora, PagarMulta(x, 10000))]",
+      "codigo_z3": "rescisao = Bool('rescisao')\nmulta = Int('multa')\ns.add(Implies(rescisao, multa == 10000))",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "O preco unitario dos produtos podera sofrer alteracoes sempre que a CONTRATADA quiser.",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "acao": "alterar preco unitario dos produtos",
+      "objeto": null,
+      "condicao": "sempre que a CONTRATADA quiser",
+      "formula_fol": "∀x [Permissao(CONTRATADA, AlterarPreco(x))]",
+      "codigo_z3": "perm_alterar_preco = Bool('perm_alterar_preco')\ns.add(perm_alterar_preco == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Condicao 'sempre que quiser' é subjetiva e sem restrições objetivas"
+      ]
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "A CONTRATADA podera subcontratar o servico de fabricacao.",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "acao": "subcontratar",
+      "objeto": "serviço de fabricação",
+      "condicao": null,
+      "formula_fol": "∃x [Subcontratar(CONTRATADA, x) ∧ ServicoFabricacao(x)]",
+      "codigo_z3": "permissao_subcontratar = Bool('perm_subcontratar')\ns.add(permissao_subcontratar == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "As partes manterao sigilo sobre o modelo de negocios.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "manter sigilo",
+      "objeto": "sobre o modelo de negocios",
+      "condicao": null,
+      "formula_fol": "∀x [Parte(x) → Obrigacao(x, ManterSigilo(x, ModeloNegocios))]",
+      "codigo_z3": "obrig_sigilo = Bool('ob_sigilo')\ns.add(obrig_sigilo == True)",
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "Elege-se o foro de Salvador/BA.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Salvador/BA",
+      "condicao": null,
+      "formula_fol": "Foro(Salvador)",
+      "codigo_z3": "foro_salvador = Bool('foro_salvador')\ns.add(foro_salvador == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    }
+  ],
+  "total_formulas": 20
+}

@@ -1,0 +1,300 @@
+{
+  "timestamp": "20260429_150924",
+  "contrato": "contrato_8",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "Transporte rodoviario de cargas secas.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "A CONTRATADA realizara o transporte exclusivamente dentro do Estado de Goias.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "realizar transporte",
+      "objeto": "dentro do Estado de Goiás",
+      "condicao": null,
+      "formula_fol": "∀x [Transporte(x) → Local(x, Goias)]",
+      "codigo_z3": "obrigacao_transporte = Bool('ob_transporte')\nlocal_goias = Bool('loc_goias')\ns.add(obrigacao_transporte == True)\ns.add(Implies(obrigacao_transporte, local_goias))",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "O valor do frete sera calculado conforme tabela em anexo por quilometro rodado.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "calcular valor do frete",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Frete(x) → Valor(x) = TabelaAnexo * Quilometragem(x)]",
+      "codigo_z3": "frete_valor = Real('frete_valor')\nkm = Real('km')\ntabela = Real('tabela')\ns.add(frete_valor == tabela * km)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "tabela em anexo não especificada",
+        "unidade de quilometro rodado não definida"
+      ]
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "A CONTRATADA obriga-se a realizar entregas em todos os estados da regiao Nordeste e Sul do Brasil, sob pena de multa.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "realizar entregas",
+      "objeto": "em todos os estados da região Nordeste e Sul do Brasil",
+      "condicao": null,
+      "formula_fol": "∀s [EstadoNordesteSul(s) → Obrigacao(CONTRATADA, RealizarEntrega(s))]",
+      "codigo_z3": "obrigacao_entregas = Bool('ob_entregas')\nestados = [Bool('estado_%d' % i) for i in range(9)]\ns.add(obrigacao_entregas == True)\nfor e in estados:\n    s.add(e == True)",
+      "confianca": 0.88,
+      "ambiguidades": [
+        "A cláusula menciona 'sob pena de multa' mas não especifica o valor ou referência a uma cláusula de penalidade."
+      ]
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "O faturamento sera quinzenal com vencimento para 15 dias corridos.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "faturar quinzenalmente",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(Partes, FaturarQuinzenal(x)) ∧ Prazo(Vencimento, 15dias)]",
+      "codigo_z3": "ob_faturamento = Bool('ob_faturamento')\npz_vencimento = Int('pz_vencimento')\ns.add(ob_faturamento == True)\ns.add(pz_vencimento == 15)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "periodicidade exata não detalhada"
+      ]
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "A CONTRATADA utilizara frota propria em perfeitas condicoes.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "utilizar frota propria em perfeitas condicoes",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Contratada(x) → Obrigacao(Contratada, UtilizarFrotaPropriaPerfeitasCondicoes(x))]",
+      "codigo_z3": "obrigacao_contratada_frota = Bool('ob_contratada_frota')\ns.add(obrigacao_contratada_frota == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'perfeitas condicoes' é subjetivo e pode gerar interpretações diversas"
+      ]
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "A CONTRATADA isenta-se de acidentes causados por forca maior.",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "acao": "isentar-se de responsabilidade",
+      "objeto": "por acidentes causados por força maior",
+      "condicao": null,
+      "formula_fol": "∀a [ForcaMaior(a) → Permissao(CONTRATADA, Isentar(a))]",
+      "codigo_z3": "permissao_contratada_isentar = Bool('per_contratada_isentar')\nforca_maior = Bool('forca_maior')\ns.add(Implies(forca_maior, permissao_contratada_isentar))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'força maior' não é definido no texto."
+      ]
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "Fica acordado que a CONTRATANTE assume inteiramente os riscos por roubo, furto ou extravio da mercadoria durante o trajeto.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "assumir riscos por roubo, furto ou extravio da mercadoria",
+      "objeto": "durante o trajeto",
+      "condicao": null,
+      "formula_fol": "∀m [MercadoriaEmTrajeto(m) → Obrigacao(CONTRATANTE, AssumeRisco(m, roubo∨furto∨extravio))]",
+      "codigo_z3": "obrigacao_assumir_risco = Bool('ob_assumir_risco')\ns.add(obrigacao_assumir_risco == True)",
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "Em caso de roubo ou perda da carga, a CONTRATADA e integralmente responsavel por reembolsar 100% dos prejuizos a CONTRATANTE.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "reembolsar 100% dos prejuízos",
+      "objeto": "à CONTRATANTE",
+      "condicao": "em caso de roubo ou perda da carga",
+      "formula_fol": "∀x [RouboOuPerda(x) → Obrigacao(CONTRATADA, Reembolsar(x))]",
+      "codigo_z3": "roubo_perda = Bool('roubo_perda')\nobrigacao_reembolso = Bool('ob_reembolso')\ns.add(roubo_perda == True)\ns.add(obrigacao_reembolso == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "E obrigatoria a emissao do seguro RCTR-C.",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte não especificada",
+      "acao": "emitir seguro RCTR-C",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(x, EmitirSeguroRCTRC)]",
+      "codigo_z3": "obrig_emitir = Bool('ob_emitir')\ns.add(obrig_emitir == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado"
+      ]
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "O prazo para a entrega de cada carga devera ser o mais rapido possivel, sem enrolacao.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes envolvidas",
+      "acao": "entregar cada carga no menor prazo possível",
+      "objeto": "cada carga",
+      "condicao": null,
+      "formula_fol": "∀c [Carga(c) → Obrigacao(EntregarRapido(c))]",
+      "codigo_z3": "obrig_entrega_rapida = Bool('ob_entrega_rapida')\ns.add(obrig_entrega_rapida == True)",
+      "confianca": 0.6,
+      "ambiguidades": [
+        "O termo 'mais rapido possivel' é vago e não especifica prazo objetivo",
+        "'sem enrolacao' é subjetivo e de difícil verificação"
+      ]
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "Mercadorias avariadas serao descontadas do pagamento do frete correspondente.",
+      "tipo_deontico": "permissao",
+      "agente": "transportador",
+      "acao": "descontar mercadorias avariadas",
+      "objeto": "do pagamento do frete correspondente",
+      "condicao": "mercadorias avariadas",
+      "formula_fol": "∀x [MercadoriaAvariada(x) → Permissao(Transportador, Descontar(x, Frete))]",
+      "codigo_z3": "merc_avariada = Bool('m_avariada')\nperm_desconto = Bool('p_desconto')\ns.add(merc_avariada == True)\ns.add(perm_desconto == True)",
+      "confianca": 0.8,
+      "ambiguidades": [
+        "agente não explícito",
+        "natureza deôntica ambígua entre permissão e obrigação"
+      ]
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "Fica estritamente proibido que o motorista da CONTRATADA dirija no periodo noturno (das 22h as 05h).",
+      "tipo_deontico": "proibicao",
+      "agente": "motorista da CONTRATADA",
+      "acao": "dirigir",
+      "objeto": "no periodo noturno (das 22h as 05h)",
+      "condicao": null,
+      "formula_fol": "∀x [MotoristaContratada(x) → ¬DirigirNoturno(x)]",
+      "codigo_z3": "motorista = Bool('motorista')\ndirigir_noturno = Bool('dirigir_noturno')\ns.add(motorista == True)\ns.add(Not(dirigir_noturno))",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "As viagens realizadas no periodo noturno terao um adicional de 20% no valor do frete pago.",
+      "tipo_deontico": "direito",
+      "agente": "transportador",
+      "acao": "receber adicional de 20% no valor do frete",
+      "objeto": "viagens noturnas",
+      "condicao": "se a viagem for realizada no período noturno",
+      "formula_fol": "∀x [ViagemNoturna(x) → Direito(Transportador, AdicionalFrete(x, 20%))]",
+      "codigo_z3": "viagem_noturna = Bool('viagem_noturna')\nadicional = Bool('adicional')\ns.add(viagem_noturna == True)\ns.add(adicional == True)",
+      "confianca": 0.75,
+      "ambiguidades": [
+        "não especifica quem é o transportador",
+        "não define o que é período noturno"
+      ]
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "Responsabilidade da CONTRATANTE e do cliente final, respectivamente.",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATANTE e cliente final",
+      "acao": "responsabilizar-se",
+      "objeto": "suas respectivas obrigações",
+      "condicao": null,
+      "formula_fol": "Responsabilidade(CONTRATANTE) ∧ Responsabilidade(cliente_final)",
+      "codigo_z3": "responsabilidade_contratante = Bool('resp_contratante')\nresponsabilidade_cliente = Bool('resp_cliente')\ns.add(responsabilidade_contratante == True)\ns.add(responsabilidade_cliente == True)",
+      "confianca": 0.5,
+      "ambiguidades": [
+        "Cláusula genérica, sem especificação de ações, prazos ou condições. A palavra 'respectivamente' sugere que as responsabilidades são distintas, mas não são detalhadas."
+      ]
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "O tempo maximo de espera para descarga e de 5 horas. Apos isso sera cobrada taxa de estadia.",
+      "tipo_deontico": "obrigacao",
+      "agente": "transportador",
+      "acao": "aguardar descarga",
+      "objeto": "veiculo",
+      "condicao": "após 5 horas de espera",
+      "formula_fol": "∀t [Espera(t) > 5 → Obrigacao(Transportador, PagarTaxaEstadia(t))]",
+      "codigo_z3": "espera = Int('espera')\ntaxa = Bool('taxa')\ns.add(espera > 5)\ns.add(taxa == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica quem paga a taxa",
+        "não define o valor da taxa"
+      ]
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "O contrato e valido por tempo indeterminado.",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "ter validade",
+      "objeto": "por tempo indeterminado",
+      "condicao": null,
+      "formula_fol": "∀t [Valido(Contrato, t)]",
+      "codigo_z3": "valido_contrato = Bool('val_contrato')\ns.add(valido_contrato == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "Rescisao requer aviso de 10 dias.",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte que rescinde",
+      "acao": "dar aviso de rescisão",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Rescisao(x) → Obrigacao(Agente, Aviso(x)) ∧ Prazo(Aviso, 10dias)]",
+      "codigo_z3": "obrigacao_aviso = Bool('ob_aviso')\nprazo_aviso = Int('pz_aviso')\ns.add(obrigacao_aviso == True)\ns.add(prazo_aviso == 10)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O agente não é especificado explicitamente; assume-se a parte que rescinde."
+      ]
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "E permitida a contratacao de motoristas autonomos pela CONTRATADA.",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "acao": "contratar motoristas autônomos",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∃x [MotoristaAutonomo(x) → Permissao(CONTRATADA, Contratar(x))]",
+      "codigo_z3": "permissao_contratacao = Bool('pr_contratacao')\ns.add(permissao_contratacao == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "Elege-se o foro de Goiania/GO para disputas legais.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Goiânia/GO",
+      "condicao": null,
+      "formula_fol": "Foro(Goiania)",
+      "codigo_z3": "foro = String('foro')\ns.add(foro == 'Goiania')",
+      "confianca": 0.9,
+      "ambiguidades": []
+    }
+  ],
+  "total_formulas": 20
+}

@@ -1,0 +1,312 @@
+{
+  "timestamp": "20260429_150033",
+  "contrato": "contrato_2",
+  "descricao": "Mapeamento deôntico com rastreabilidade às cláusulas originais",
+  "mapa": {
+    "definicao_Locador": {
+      "tipo_deontico": "definicao",
+      "agente": "Locador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_1",
+          "texto_original": "Locacao de imovel comercial situado na Praca Central, 10.",
+          "acao": "locar imóvel comercial",
+          "objeto": "imóvel na Praça Central, 10",
+          "condicao": null,
+          "confianca": 0.5,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATADA": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_2",
+          "texto_original": "O imovel destina-se exclusivamente para uso comercial da CONTRATADA.",
+          "acao": "utilizar imóvel exclusivamente para uso comercial",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_8",
+          "texto_original": "As partes acordam que a CONTRATADA pagara o valor fixo mensal de R$ 3.500,00, a ser pago todo dia 15.",
+          "acao": "pagar valor fixo mensal",
+          "objeto": "R$ 3.500,00",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 15,
+            "unidade": "dias"
+          },
+          "valor": {
+            "montante": 3500.0,
+            "descricao": "valor fixo mensal"
+          }
+        },
+        {
+          "clausula_id": "CL_9",
+          "texto_original": "O pagamento do IPTU sera de responsabilidade exclusiva da CONTRATADA.",
+          "acao": "pagar IPTU",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_19",
+          "texto_original": "A CONTRATADA deve contratar seguro contra incendio.",
+          "acao": "contratar seguro",
+          "objeto": "contra incendio",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_locação": {
+      "tipo_deontico": "definicao",
+      "agente": "locação",
+      "sentencas": [
+        {
+          "clausula_id": "CL_3",
+          "texto_original": "A locacao tera prazo de 36 meses, com inicio na data da assinatura.",
+          "acao": "ter prazo de 36 meses",
+          "objeto": null,
+          "condicao": "início na data da assinatura",
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 36,
+            "unidade": "meses"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "condicao_—": {
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "sentencas": [
+        {
+          "clausula_id": "CL_4",
+          "texto_original": "O valor do aluguel mensal e de R$ 5.000,00 (cinco mil reais).",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_11",
+          "texto_original": "A CONTRATADA devera realizar reparos no imovel num prazo razoavel, sempre que achar que a situacao exige.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_locatário": {
+      "tipo_deontico": "obrigacao",
+      "agente": "locatário",
+      "sentencas": [
+        {
+          "clausula_id": "CL_5",
+          "texto_original": "O aluguel devera ser pago impreterivelmente ate o dia 05 de cada mes.",
+          "acao": "pagar aluguel",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 5,
+            "unidade": "dia"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_7",
+          "texto_original": "Manter o imovel em perfeitas condicoes de uso.",
+          "acao": "manter o imóvel em perfeitas condições de uso",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.8,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_locador": {
+      "tipo_deontico": "obrigacao",
+      "agente": "locador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_6",
+          "texto_original": "O valor do aluguel sera reajustado anualmente pelo IGPM.",
+          "acao": "reajustar valor do aluguel",
+          "objeto": "pelo IGPM",
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": {
+            "valor": 1,
+            "unidade": "ano"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATANTE": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_10",
+          "texto_original": "As taxas condominiais serao pagas pela CONTRATANTE.",
+          "acao": "pagar taxas condominiais",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "condicao_CONTRATADA": {
+      "tipo_deontico": "condicao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_12",
+          "texto_original": "Qualquer benfeitoria dependera de autorizacao por escrito da CONTRATANTE.",
+          "acao": "realizar benfeitoria",
+          "objeto": "benfeitoria",
+          "condicao": "autorização por escrita da CONTRATANTE",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "proibicao_locatário": {
+      "tipo_deontico": "proibicao",
+      "agente": "locatário",
+      "sentencas": [
+        {
+          "clausula_id": "CL_13",
+          "texto_original": "Fica expressamente proibida a sublocacao do imovel.",
+          "acao": "sublocar o imóvel",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_locador": {
+      "tipo_deontico": "definicao",
+      "agente": "locador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_14",
+          "texto_original": "O imovel e entregue conforme laudo de vistoria em anexo.",
+          "acao": "entregar imovel",
+          "objeto": "conforme laudo de vistoria em anexo",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_locatário": {
+      "tipo_deontico": "definicao",
+      "agente": "locatário",
+      "sentencas": [
+        {
+          "clausula_id": "CL_15",
+          "texto_original": "A garantia locaticia e prestada na modalidade de fiador.",
+          "acao": "prestar garantia",
+          "objeto": "na modalidade de fiador",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_devedor": {
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "sentencas": [
+        {
+          "clausula_id": "CL_16",
+          "texto_original": "O atraso no pagamento gerera multa de 10%.",
+          "acao": "pagar multa",
+          "objeto": "multa de 10%",
+          "condicao": "atraso no pagamento",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": {
+            "montante": 10.0,
+            "descricao": "percentual"
+          }
+        }
+      ]
+    },
+    "penalidade_inquilino": {
+      "tipo_deontico": "penalidade",
+      "agente": "inquilino",
+      "sentencas": [
+        {
+          "clausula_id": "CL_17",
+          "texto_original": "A devolucao antecipada gerera multa de 3 alugueis.",
+          "acao": "devolver antecipadamente",
+          "objeto": "imóvel",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": {
+            "montante": 3.0,
+            "descricao": "aluguéis"
+          }
+        }
+      ]
+    },
+    "condicao_partes": {
+      "tipo_deontico": "condicao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_18",
+          "texto_original": "O contrato sera renovado automaticamente caso nao haja manifestacao.",
+          "acao": "renovar contrato automaticamente",
+          "objeto": null,
+          "condicao": "caso não haja manifestação em contrário",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_20",
+          "texto_original": "Elege-se o foro de Belo Horizonte/MG para dirimir duvidas. Fica tambem eleito o foro de Curitiba/PR com exclusividade, renunciando a qualquer outro.",
+          "acao": "dirimir duvidas",
+          "objeto": "foro de Belo Horizonte/MG e foro de Curitiba/PR",
+          "condicao": "em caso de duvidas",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,432 @@
+{
+  "timestamp": "20260429_150503",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "desenvolver sistema web",
+      "objeto": "para gestão de frotas",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.5,
+      "ambiguidades": [
+        "A cláusula não especifica obrigação, permissão ou proibição, apenas descreve o objeto do convênio, resultando em baixa confiança."
+      ]
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "obrigacao",
+      "agente": "sistema",
+      "acao": "conter modulos de cadastro, rastreamento e relatorios financeiros",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "desenvolver e entregar",
+      "objeto": "produto ou serviço",
+      "condicao": null,
+      "prazo": {
+        "valor": 180,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "fracionar entregas",
+      "objeto": "em 4 fases mensais",
+      "condicao": "conforme anexo tecnico",
+      "prazo": {
+        "valor": 1,
+        "unidade": "mes"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica agente ativo, 'partes' é genérico"
+      ]
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "2 validation errors for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type\nacao\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "pagar",
+      "objeto": "valor total de R$ 80.000,00",
+      "condicao": "vinculado à aprovação de cada fase",
+      "prazo": null,
+      "valor": {
+        "montante": 80000.0,
+        "descricao": "4 parcelas de R$ 20.000,00"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "prazo não definido"
+      ]
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "homologar cada entrega",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 5,
+        "unidade": "dias uteis"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.92,
+      "ambiguidades": [
+        "ambiguidade: 'dias uteis' não é diretamente modelado como inteiro simples"
+      ]
+    },
+    {
+      "id": "CL_8",
+      "tipo_deontico": "direito",
+      "agente": "CONTRATANTE",
+      "acao": "ter propriedade exclusiva",
+      "objeto": "código-fonte",
+      "condicao": "após a quitação total",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica o que constitui 'quitacao total'",
+        "Não define se a propriedade inclui direitos de uso, modificação e distribuição"
+      ]
+    },
+    {
+      "id": "CL_9",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer suporte técnico gratuito",
+      "objeto": null,
+      "condicao": "após a entrega final",
+      "prazo": {
+        "valor": 90,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_10",
+      "tipo_deontico": "permissao",
+      "agente": "prestador de serviço",
+      "acao": "cobrar manutenções",
+      "objeto": "a parte",
+      "condicao": "após o período de suporte",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica quem cobra",
+        "não define o que são 'manutenções'"
+      ]
+    },
+    {
+      "id": "CL_11",
+      "tipo_deontico": "proibicao",
+      "agente": "CONTRATADA",
+      "acao": "utilizar dados da CONTRATANTE para outros fins",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_12",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "atrasar pagamentos",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": {
+        "montante": null,
+        "descricao": "multa de 2% e juros de 1% a.m."
+      },
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_13",
+      "tipo_deontico": "penalidade",
+      "agente": "executor do projeto",
+      "acao": "atrasar fases do projeto",
+      "objeto": null,
+      "condicao": "atraso nas fases do projeto",
+      "prazo": {
+        "valor": 1,
+        "unidade": "dia util"
+      },
+      "valor": {
+        "montante": 0.01,
+        "descricao": "1% do valor da parcela por dia util"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O agente não está explícito (quem sofre a penalidade?)",
+        "Valor da parcela não definido"
+      ]
+    },
+    {
+      "id": "CL_14",
+      "tipo_deontico": "obrigacao",
+      "agente": "não especificado",
+      "acao": "orçar novas funcionalidades",
+      "objeto": "em termo aditivo",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.8,
+      "ambiguidades": [
+        "agente não especificado"
+      ]
+    },
+    {
+      "id": "CL_15",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "pagar valores proporcionais",
+      "objeto": "às fases concluídas",
+      "condicao": "em caso de rescisão antecipada",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.88,
+      "ambiguidades": [
+        "não especifica quem paga a quem",
+        "não define como calcular o proporcional"
+      ]
+    },
+    {
+      "id": "CL_16",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "estabelecer vinculo empregaticio",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_17",
+      "tipo_deontico": "proibicao",
+      "agente": "nenhuma das partes",
+      "acao": "ceder o contrato",
+      "objeto": null,
+      "condicao": "sem anuência",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "'nenhuma das partes' refere-se a ambas as partes, mas não especifica se a proibição é conjunta ou individual"
+      ]
+    },
+    {
+      "id": "CL_18",
+      "tipo_deontico": "obrigacao",
+      "agente": "gestores do projeto",
+      "acao": "realizar comunicacao oficial",
+      "objeto": "via e-mail",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_19",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "não utilizar bibliotecas com licenças restritivas que prejudiquem a comercialização",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'garante' pode ser interpretado como obrigação ou declaração; assumi como obrigação."
+      ]
+    },
+    {
+      "id": "CL_20",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Brasília/DF",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    }
+  ],
+  "mapa_deontico": {
+    "partes": {
+      "obrigacoes": [
+        "CL_6",
+        "CL_15"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "sistema": {
+      "obrigacoes": [
+        "CL_2"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "—": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATANTE": {
+      "obrigacoes": [
+        "CL_7"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [
+        "CL_8"
+      ],
+      "penalidades": []
+    },
+    "CONTRATADA": {
+      "obrigacoes": [
+        "CL_9",
+        "CL_19"
+      ],
+      "proibicoes": [
+        "CL_11"
+      ],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "prestador de serviço": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_10"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "devedor": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_12"
+      ]
+    },
+    "executor do projeto": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_13"
+      ]
+    },
+    "não especificado": {
+      "obrigacoes": [
+        "CL_14"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "contrato": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "nenhuma das partes": {
+      "obrigacoes": [],
+      "proibicoes": [
+        "CL_17"
+      ],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "gestores do projeto": {
+      "obrigacoes": [
+        "CL_18"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    }
+  },
+  "confianca_media": 0.8300000000000001
+}

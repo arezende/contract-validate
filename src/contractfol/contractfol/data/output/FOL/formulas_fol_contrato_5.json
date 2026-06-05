@@ -1,0 +1,297 @@
+{
+  "timestamp": "20260429_150503",
+  "contrato": "contrato_5",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "Desenvolvimento de um sistema web personalizado para gestao de frotas.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "desenvolver sistema web",
+      "objeto": "para gestão de frotas",
+      "condicao": null,
+      "formula_fol": "∃s [SistemaWeb(s) ∧ GestaoFrotas(s)]",
+      "codigo_z3": "sistema_web = Bool('sistema_web')\ns.add(sistema_web == True)",
+      "confianca": 0.5,
+      "ambiguidades": [
+        "A cláusula não especifica obrigação, permissão ou proibição, apenas descreve o objeto do convênio, resultando em baixa confiança."
+      ]
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "O sistema devera conter modulos de cadastro, rastreamento e relatorios financeiros.",
+      "tipo_deontico": "obrigacao",
+      "agente": "sistema",
+      "acao": "conter modulos de cadastro, rastreamento e relatorios financeiros",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "Obrigacao(Sistema, ConterModulos(Cadastro, Rastreamento, RelatoriosFinanceiros))",
+      "codigo_z3": "sistema_modulos = Bool('sistema_modulos')\ns.add(sistema_modulos == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "O prazo total para desenvolvimento e entrega e de 180 dias.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "desenvolver e entregar",
+      "objeto": "produto ou serviço",
+      "condicao": null,
+      "formula_fol": "PrazoTotal(DesenvolvimentoEntrega, 180dias)",
+      "codigo_z3": "prazo_total = Int('prazo_total')\ns.add(prazo_total == 180)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "As entregas serao fracionadas em 4 fases mensais, conforme anexo tecnico.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "fracionar entregas",
+      "objeto": "em 4 fases mensais",
+      "condicao": "conforme anexo tecnico",
+      "formula_fol": "∀x [Fase(x) → (QuantidadeFases(x) = 4) ∧ Periodo(x, 1 mes)]",
+      "codigo_z3": "fases = Int('fases')\nperiodo_meses = Int('periodo_meses')\ns.add(fases == 4)\ns.add(periodo_meses == 1)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica agente ativo, 'partes' é genérico"
+      ]
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "O valor total do projeto e de R$ 80.000,00 (oitenta mil reais).",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "2 validation errors for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type\nacao\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "O valor sera pago em 4 parcelas de R$ 20.000,00, vinculadas a aprovacao de cada fase.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "pagar",
+      "objeto": "valor total de R$ 80.000,00",
+      "condicao": "vinculado à aprovação de cada fase",
+      "formula_fol": "∀fase [AprovacaoFase(fase) → Obrigacao(Partes, PagarParcela(20000))]",
+      "codigo_z3": "pago_parcela = Bool('pago_parcela')\naprovacao_fase = Bool('aprovacao_fase')\ns.add(aprovacao_fase == True)\ns.add(pago_parcela == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "prazo não definido"
+      ]
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "A CONTRATANTE tera 5 dias uteis para homologar cada entrega.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "homologar cada entrega",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀e [Obrigacao(CONTRATANTE, Homologar(e)) ∧ Prazo(Homologar, 5diasUteis)]",
+      "codigo_z3": "ob_contratante_homologar = Bool('ob_contratante_homologar')\nprazo_homologar = Int('prazo_homologar')\ns.add(ob_contratante_homologar == True)\ns.add(prazo_homologar == 5)",
+      "confianca": 0.92,
+      "ambiguidades": [
+        "ambiguidade: 'dias uteis' não é diretamente modelado como inteiro simples"
+      ]
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "O codigo-fonte sera de propriedade exclusiva da CONTRATANTE apos a quitacao total.",
+      "tipo_deontico": "direito",
+      "agente": "CONTRATANTE",
+      "acao": "ter propriedade exclusiva",
+      "objeto": "código-fonte",
+      "condicao": "após a quitação total",
+      "formula_fol": "∀x [QuitacaoTotal(x) → Direito(CONTRATANTE, PropriedadeExclusiva(x))]",
+      "codigo_z3": "quitacao = Bool('quitacao')\npropriedade = Bool('propriedade')\ns.add(Implies(quitacao, propriedade))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica o que constitui 'quitacao total'",
+        "Não define se a propriedade inclui direitos de uso, modificação e distribuição"
+      ]
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "A CONTRATADA fornecera suporte tecnico gratuito por 90 dias apos a entrega final.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer suporte técnico gratuito",
+      "objeto": null,
+      "condicao": "após a entrega final",
+      "formula_fol": "∀x [EntregaFinal(x) → Obrigacao(CONTRATADA, FornecerSuporte(x)) ∧ Prazo(Suporte, 90dias)]",
+      "codigo_z3": "obrigacao_contratada_suporte = Bool('ob_contratada_suporte')\nprazo_suporte = Int('pz_suporte')\ns.add(obrigacao_contratada_suporte == True)\ns.add(prazo_suporte == 90)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "Apos o periodo de suporte, eventuais manutencoes serao cobradas a parte.",
+      "tipo_deontico": "permissao",
+      "agente": "prestador de serviço",
+      "acao": "cobrar manutenções",
+      "objeto": "a parte",
+      "condicao": "após o período de suporte",
+      "formula_fol": "∀t [PeriodoSuporte(t) → ¬Permissao(Cobrar, Manutencao(t))] ∧ ∀t [¬PeriodoSuporte(t) → Permissao(Cobrar, Manutencao(t))]",
+      "codigo_z3": "periodo_suporte = Bool('periodo_suporte')\npermissao_cobrar = Bool('permissao_cobrar')\ns.add(permissao_cobrar == Not(periodo_suporte))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica quem cobra",
+        "não define o que são 'manutenções'"
+      ]
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "E vedado a CONTRATADA utilizar dados da CONTRATANTE para outros fins.",
+      "tipo_deontico": "proibicao",
+      "agente": "CONTRATADA",
+      "acao": "utilizar dados da CONTRATANTE para outros fins",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀d [DadoContratante(d) → ¬Permissao(CONTRATADA, UtilizarOutrosFins(d))]",
+      "codigo_z3": "proib_contratada_outros_fins = Bool('pr_contratada_outros_fins')\ns.add(proib_contratada_outros_fins == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "Atraso nos pagamentos gera multa de 2% e juros de 1% a.m.",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "atrasar pagamentos",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [AtrasoPagamento(x) → Penalidade(Multa2Porcento(x) ∧ Juros1PorcentoMes(x))]",
+      "codigo_z3": "atraso = Bool('atraso')\nmulta = Real('multa')\njuros = Real('juros')\ns.add(atraso == True)\ns.add(multa == 0.02)\ns.add(juros == 0.01)",
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "Atraso nas fases do projeto gera desconto de 1% do valor da parcela por dia util.",
+      "tipo_deontico": "penalidade",
+      "agente": "executor do projeto",
+      "acao": "atrasar fases do projeto",
+      "objeto": null,
+      "condicao": "atraso nas fases do projeto",
+      "formula_fol": "∀d [Atraso(d) → Penalidade(Desconto, 0.01 * ValorParcela)]",
+      "codigo_z3": "atraso = Bool('atraso')\ndesconto = Real('desconto')\nvalor_parcela = Real('valor_parcela')\ns.add(Implies(atraso, desconto == 0.01 * valor_parcela))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O agente não está explícito (quem sofre a penalidade?)",
+        "Valor da parcela não definido"
+      ]
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "Novas funcionalidades deverao ser orcadas em termo aditivo.",
+      "tipo_deontico": "obrigacao",
+      "agente": "não especificado",
+      "acao": "orçar novas funcionalidades",
+      "objeto": "em termo aditivo",
+      "condicao": null,
+      "formula_fol": "∀x [NovaFuncionalidade(x) → Obrigacao(Agente, OrcarEmTermoAditivo(x))]",
+      "codigo_z3": "obrigacao_orcar = Bool('ob_orcar')\ns.add(obrigacao_orcar == True)",
+      "confianca": 0.8,
+      "ambiguidades": [
+        "agente não especificado"
+      ]
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "Em caso de rescisao antecipada, serao pagos os valores proporcionais as fases concluidas.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "pagar valores proporcionais",
+      "objeto": "às fases concluídas",
+      "condicao": "em caso de rescisão antecipada",
+      "formula_fol": "∀x [RescisaoAntecipada(x) → Obrigacao(Partes, PagarProporcional(x))]",
+      "codigo_z3": "rescisao = Bool('rescisao')\npagamento = Bool('pagamento')\ns.add(Implies(rescisao, pagamento))",
+      "confianca": 0.88,
+      "ambiguidades": [
+        "não especifica quem paga a quem",
+        "não define como calcular o proporcional"
+      ]
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "Este contrato nao estabelece vinculo empregaticio.",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "estabelecer vinculo empregaticio",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "¬∃x [VinculoEmpregaticio(x)]",
+      "codigo_z3": "vinculo_empregaticio = Bool('vinc_emp')\ns.add(vinculo_empregaticio == False)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "Nenhuma das partes podera ceder o contrato sem anuencia.",
+      "tipo_deontico": "proibicao",
+      "agente": "nenhuma das partes",
+      "acao": "ceder o contrato",
+      "objeto": null,
+      "condicao": "sem anuência",
+      "formula_fol": "∀x [Parte(x) → ¬Permissao(Ceder(x))] ∧ ¬Anuencia → Proibicao(Ceder)",
+      "codigo_z3": "parte_a = Bool('parte_a')\nparte_b = Bool('parte_b')\nceder = Bool('ceder')\nanuencia = Bool('anuencia')\ns.add(If(parte_a, Not(ceder) == True))\ns.add(If(parte_b, Not(ceder) == True))\ns.add(Not(anuencia) == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "'nenhuma das partes' refere-se a ambas as partes, mas não especifica se a proibição é conjunta ou individual"
+      ]
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "Toda comunicacao oficial sera realizada via e-mail dos gestores do projeto.",
+      "tipo_deontico": "obrigacao",
+      "agente": "gestores do projeto",
+      "acao": "realizar comunicacao oficial",
+      "objeto": "via e-mail",
+      "condicao": null,
+      "formula_fol": "∀x [ComunicacaoOficial(x) → Obrigacao(GestorProjeto, RealizarViaEmail(x))]",
+      "codigo_z3": "comunicacao_oficial = Bool('com_oficial')\nvia_email = Bool('via_email')\ns.add(comunicacao_oficial == True)\ns.add(via_email == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "A CONTRATADA garante nao utilizar bibliotecas com licencas restritivas que prejudiquem a comercializacao.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "não utilizar bibliotecas com licenças restritivas que prejudiquem a comercialização",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [BibliotecaLicencaRestritiva(x) → ¬Obrigacao(CONTRATADA, Utilizar(x))]",
+      "codigo_z3": "obrigacao_contratada = Bool('ob_contratada')\ns.add(obrigacao_contratada == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'garante' pode ser interpretado como obrigação ou declaração; assumi como obrigação."
+      ]
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "Elege-se o foro de Brasilia/DF.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Brasília/DF",
+      "condicao": null,
+      "formula_fol": "Foro(Brasilia)",
+      "codigo_z3": "foro = String('foro')\ns.add(foro == 'Brasilia/DF')",
+      "confianca": 0.95,
+      "ambiguidades": []
+    }
+  ],
+  "total_formulas": 20
+}

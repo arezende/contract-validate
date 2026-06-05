@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_150756",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_7.txt",
+  "titulo": "contrato_7",
+  "partes": [
+    "Comercio Nu Ltda",
+    "Xi Marketing Digital ME"
+  ],
+  "contratante": "Comercio Nu Ltda",
+  "contratado": "Xi Marketing Digital ME",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "Gerenciamento de campanhas de trafego pago e redes sociais."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "ESCOPO",
+      "texto": "Gestao de contas no Google Ads e Instagram, com criacao de 12 artes mensais."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "VERBA DE MIDIA",
+      "texto": "O valor a ser investido nas plataformas (Google/Facebook) sera pago diretamente pela CONTRATANTE as plataformas."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "VALOR DO SERVICO",
+      "texto": "O fee mensal da agencia e de R$ 3.000,00 (tres mil reais)."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "PAGAMENTO",
+      "texto": "O pagamento ocorrera via PIX ate o dia 05 do mes vigente da prestacao do servico."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "VIGENCIA",
+      "texto": "Contrato com duracao inicial de 6 (seis) meses, renovado automaticamente."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "OBRIGACOES DA CONTRATADA",
+      "texto": "Otimizar campanhas semanalmente e enviar relatorios de performance no dia 01 de cada mes."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "OBRIGACOES DA CONTRATANTE",
+      "texto": "Aprovar as artes com no minimo 48 horas de antecedencia."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "DIREITOS AUTORAIS",
+      "texto": "As artes criadas pertencerao a CONTRATANTE."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "LIMITACAO DE RESPONSABILIDADE",
+      "texto": "A CONTRATADA nao garante volume fixo de vendas, visto que atua como atividade de meio e nao de resultado."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "MULTA MORATORIA",
+      "texto": "Atraso nos pagamentos da agencia implica em suspensao dos servicos apos 5 dias."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "RESCISAO",
+      "texto": "Rescisao por qualquer das partes com aviso previo de 30 dias."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "JUSTA CAUSA",
+      "texto": "Quebra de sigilo ou falta de pagamento ensejam rescisao imediata."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "CONFIDENCIALIDADE",
+      "texto": "Dados de leads e clientes sao sigilosos."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "REUNIOES",
+      "texto": "Fica estabelecida uma reuniao mensal de alinhamento via videoconferencia."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "HORARIO DE ATENDIMENTO",
+      "texto": "O suporte da agencia funciona em horario comercial (09h as 18h)."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "MATERIAIS ADICIONAIS",
+      "texto": "Artes extras fora do pacote serao cobradas a R$ 100,00 por unidade."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "ACESSO",
+      "texto": "A CONTRATANTE fornecera niveis de acesso de administrador nas contas de anuncios."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "INDEPENDENCIA",
+      "texto": "As partes sao entidades independentes."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO",
+      "texto": "Fica eleito o foro da Comarca de Curitiba/PR."
+    }
+  ],
+  "total_clausulas": 20
+}

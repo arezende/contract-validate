@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_150205",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_3.txt",
+  "titulo": "contrato_3",
+  "partes": [
+    "Industria Epsilon Ltda",
+    "Zeta Consultores S.A."
+  ],
+  "contratante": "Industria Epsilon Ltda",
+  "contratado": "Zeta Consultores S.A.",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "Prestacao de servicos de consultoria financeira e reestruturacao de processos."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "ESCOPO",
+      "texto": "Analise de fluxo de caixa, reducao de custos e auditoria interna."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "LOCAL",
+      "texto": "Os trabalhos serao remotos, com reunioes quinzenais na sede da CONTRATANTE."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "VIGENCIA",
+      "texto": "O contrato tera validade de 6 (seis) meses."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "VALOR",
+      "texto": "O valor global da consultoria e de R$ 60.000,00."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "PAGAMENTO",
+      "texto": "Sera pago em 6 parcelas mensais e iguais de R$ 10.000,00."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "VENCIMENTO",
+      "texto": "Os pagamentos ocorrerao no dia 10 de cada mes mediante emissao de Nota Fiscal."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "OBRIGACOES DA CONTRATADA",
+      "texto": "Entregar relatorios mensais de desempenho e recomendacoes."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "OBRIGACOES DA CONTRATANTE",
+      "texto": "Disponibilizar todos os documentos contabeis necessarios."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "SIGILO",
+      "texto": "As informacoes compartilhadas sao de natureza estritamente confidencial."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "MULTA POR ATRASO",
+      "texto": "Multa de 2% sobre a parcela em atraso, mais juros legais."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "RESCISAO IMOTIVADA",
+      "texto": "Rescisao sem justa causa exige aviso previo de 15 dias e multa de 20% do saldo devedor."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "DIREITOS AUTORAIS",
+      "texto": "Os relatorios gerados pertencem a CONTRATANTE apos a quitacao."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "INDEPENDENCIA",
+      "texto": "Nao ha vinculo empregaticio entre os consultores e a CONTRATANTE."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "COMUNICACAO",
+      "texto": "Todas as notificacoes deverao ser feitas por escrito ou e-mail corporativo."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "DESPESAS DE VIAGEM",
+      "texto": "Caso necessarias viagens, a CONTRATANTE arcara com transporte e hospedagem."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "CASO FORTUITO",
+      "texto": "Nenhuma parte sera penalizada por atrasos decorrentes de forca maior."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "ALTERACOES",
+      "texto": "Qualquer mudanca de escopo devera ser formalizada por aditivo contratual."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "SUCESSAO",
+      "texto": "O contrato obriga as partes e seus sucessores legais."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO",
+      "texto": "Elege-se o foro da Comarca de Campinas/SP para eventuais disputas."
+    }
+  ],
+  "total_clausulas": 20
+}

@@ -1,0 +1,107 @@
+{
+  "data_processamento": "2026-04-29T15:11:40.181168",
+  "total_contratos": 11,
+  "contratos_sucesso": 11,
+  "contratos_erro": 0,
+  "resumo": [
+    {
+      "contrato": "contrato_1.txt",
+      "contratante": "Empresa Alpha Ltda",
+      "contratado": "Servicos Beta ME",
+      "clausulas": 20,
+      "confianca": "90%",
+      "problemas": 3,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_10.txt",
+      "contratante": "Empresa Tau S.A.",
+      "contratado": "Upsilon RH Ltda",
+      "clausulas": 20,
+      "confianca": "78%",
+      "problemas": 3,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_2.txt",
+      "contratante": "Locadora Gamma S.A.",
+      "contratado": "Loja Delta Ltda",
+      "clausulas": 20,
+      "confianca": "78%",
+      "problemas": 3,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_3.txt",
+      "contratante": "Industria Epsilon Ltda",
+      "contratado": "Zeta Consultores S.A.",
+      "clausulas": 20,
+      "confianca": "79%",
+      "problemas": 3,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_4.txt",
+      "contratante": "Comercio Eta Ltda",
+      "contratado": "Fabrica Theta S.A.",
+      "clausulas": 20,
+      "confianca": "83%",
+      "problemas": 4,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_5.txt",
+      "contratante": "Iota Logistica S.A.",
+      "contratado": "Kappa Tech ME",
+      "clausulas": 20,
+      "confianca": "83%",
+      "problemas": 3,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_6.txt",
+      "contratante": "Condominio Lambda",
+      "contratado": "Mu Limpezas Ltda",
+      "clausulas": 20,
+      "confianca": "82%",
+      "problemas": 3,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_7.txt",
+      "contratante": "Comercio Nu Ltda",
+      "contratado": "Xi Marketing Digital ME",
+      "clausulas": 20,
+      "confianca": "73%",
+      "problemas": 3,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_8.txt",
+      "contratante": "Distribuidora Omicron S.A.",
+      "contratado": "Transportes Pi Ltda",
+      "clausulas": 20,
+      "confianca": "80%",
+      "problemas": 3,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_9.txt",
+      "contratante": "Edificio Rho",
+      "contratado": "Manutencoes Sigma ME",
+      "clausulas": 20,
+      "confianca": "78%",
+      "problemas": 3,
+      "status": "✅"
+    },
+    {
+      "contrato": "contrato_problemas.txt",
+      "contratante": "ACME Consultoria Ltda.",
+      "contratado": "Soluções Digitais S.A.",
+      "clausulas": 7,
+      "confianca": "70%",
+      "problemas": 2,
+      "status": "✅"
+    }
+  ]
+}

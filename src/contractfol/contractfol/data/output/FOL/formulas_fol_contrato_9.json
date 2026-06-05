@@ -1,0 +1,302 @@
+{
+  "timestamp": "20260429_151051",
+  "contrato": "contrato_9",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "Prestacao de servicos de manutencao preventiva e corretiva nas instalacoes eletricas e hidraulicas do condominio.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "2 validation errors for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type\nacao\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "Visitas mensais preventivas e atendimento a chamados emergenciais.",
+      "tipo_deontico": "obrigacao",
+      "agente": "prestador",
+      "acao": "realizar visitas preventivas e atender chamados emergenciais",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀t [Obrigacao(Prestador, VisitaPreventiva(t)) ∧ Obrigacao(Prestador, AtenderChamadoEmergencial(t))]",
+      "codigo_z3": "ob_visita = Bool('ob_visita')\nob_chamado = Bool('ob_chamado')\nprazo_visita = Int('pz_visita')\ns.add(ob_visita == True)\ns.add(ob_chamado == True)\ns.add(prazo_visita == 30)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado explicitamente",
+        "periodicidade de chamados emergenciais não definida"
+      ]
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "Chamados emergenciais devem ser atendidos em ate 4 horas uteis.",
+      "tipo_deontico": "obrigacao",
+      "agente": "Chamados emergenciais",
+      "acao": "atendidos",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [ChamadoEmergencial(x) → Obrigacao(Atender(x)) ∧ Prazo(Atender, 4horas_uteis)]",
+      "codigo_z3": "chamado_emergencial = Bool('ch_emergencial')\natender = Bool('atender')\nprazo_atendimento = Int('pz_atend')\ns.add(chamado_emergencial == True)\ns.add(atender == True)\ns.add(prazo_atendimento == 4)",
+      "confianca": 0.9,
+      "ambiguidades": [
+        "Não especifica quem deve atender os chamados emergenciais"
+      ]
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "Contrato de 12 (doze) meses.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "vigorar por 12 meses",
+      "objeto": "contrato",
+      "condicao": null,
+      "formula_fol": "∀t [Contrato(t) → Duracao(t, 12meses)]",
+      "codigo_z3": "vigencia = Int('vigencia')\ns.add(vigencia == 12)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "O valor mensal do contrato e de R$ 4.500,00.",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "definir valor mensal",
+      "objeto": "R$ 4.500,00",
+      "condicao": null,
+      "formula_fol": "ValorMensal(Contrato) = 4500",
+      "codigo_z3": "valor_mensal = Int('valor_mensal')\ns.add(valor_mensal == 4500)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "Pagamento a ser efetuado todo dia 20 de cada mes.",
+      "tipo_deontico": "obrigacao",
+      "agente": "devedor",
+      "acao": "efetuar pagamento",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀m [Obrigacao(Devedor, Pagar(m)) ∧ Dia(Pagar, 20, m)]",
+      "codigo_z3": "ob_pagar = Bool('ob_pagar')\ndia_pagamento = Int('dia_pagamento')\ns.add(ob_pagar == True)\ns.add(dia_pagamento == 20)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica quem é o devedor",
+        "não especifica o valor"
+      ]
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "Pecas de reposicao serao adquiridas pela CONTRATADA e reembolsadas pela CONTRATANTE mediante apresentacao de cupom fiscal.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "reembolsar",
+      "objeto": "pecas de reposicao adquiridas pela CONTRATADA",
+      "condicao": "mediante apresentacao de cupom fiscal",
+      "formula_fol": "∀x [CupomFiscal(x) → Obrigacao(CONTRATANTE, Reembolsar(CONTRATADA, x))]",
+      "codigo_z3": "obrigacao_contratante_reembolsar = Bool('ob_contratante_reembolsar')\ncupom_fiscal = Bool('cupom_fiscal')\ns.add(Implica(cupom_fiscal, obrigacao_contratante_reembolsar))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica prazo para reembolso",
+        "Não especifica valor a ser reembolsado"
+      ]
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "A CONTRATADA devera utilizar ferramentas proprias.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "utilizar ferramentas proprias",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(CONTRATADA, UtilizarFerramentasProprias(x))]",
+      "codigo_z3": "obrigacao_contratada_ferramentas = Bool('ob_contratada_ferramentas')\ns.add(obrigacao_contratada_ferramentas == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "Cumprir rigorosamente as normas de seguranca do trabalho (NR-10 e NR-35).",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "cumprir normas de segurança do trabalho",
+      "objeto": "NR-10 e NR-35",
+      "condicao": null,
+      "formula_fol": "∀n [NormaSeguranca(n) → Obrigacao(Partes, Cumprir(n))]",
+      "codigo_z3": "obrigacao_normas = Bool('ob_normas')\ns.add(obrigacao_normas == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "normas específicas mencionadas mas sem detalhamento de cumprimento"
+      ]
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "A CONTRATADA respondera por eventuais danos causados por imperieia ou negligencia.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "responder por danos causados",
+      "objeto": "danos causados por imperícia ou negligência",
+      "condicao": null,
+      "formula_fol": "∀x [DanoPorImpericiaNegligencia(x) → Obrigacao(CONTRATADA, Responder(x))]",
+      "codigo_z3": "ob_contratada_responder = Bool('ob_contratada_responder')\ns.add(ob_contratada_responder == True)",
+      "confianca": 0.7,
+      "ambiguidades": [
+        "Não especifica prazo para responder",
+        "Não define o que constitui imperícia ou negligência"
+      ]
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "Atraso no pagamento gera multa de 2% sobre o valor devido.",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "pagar multa",
+      "objeto": "multa de 2% sobre valor devido",
+      "condicao": "atraso no pagamento",
+      "formula_fol": "∀x [Atraso(x) → Obrigacao(Devedor, PagarMulta(0.02*ValorDevido(x)))]",
+      "codigo_z3": "atraso = Bool('atraso')\nmulta = Real('multa')\nvalor_devido = Real('valor_devido')\ns.add(Implies(atraso, multa == 0.02 * valor_devido))",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "Pode ser rescindido mediante aviso previo de 30 dias de antecedencia.",
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "acao": "rescindir",
+      "objeto": "contrato",
+      "condicao": "mediante aviso prévio de 30 dias de antecedência",
+      "formula_fol": "∀x [AvisoPrevio(x, 30dias) → Permissao(Partes, Rescindir(x))]",
+      "codigo_z3": "rescisao = Bool('rescisao')\nantecedencia = Int('antecedencia')\ns.add(antecedencia == 30)\ns.add(rescisao == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "O descumprimento do tempo de resposta gera desconto de 5% no valor mensal por ocorrencia.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "Uso obrigatorio de Equipamentos de Protecao Individual.",
+      "tipo_deontico": "obrigacao",
+      "agente": "todos os trabalhadores",
+      "acao": "usar Equipamentos de Proteção Individual",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Trabalhador(x) → Obrigacao(x, UsarEPI)]",
+      "codigo_z3": "obrigacao_uso_epi = Bool('ob_uso_epi')\ns.add(obrigacao_uso_epi == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Agente não especificado explicitamente; 'obrigatório' pode ser interpretado como dever geral"
+      ]
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "A CONTRATADA devera entregar laudo tecnico a cada visita preventiva.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "entregar laudo tecnico",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀v [VisitaPreventiva(v) → Obrigacao(CONTRATADA, EntregarLaudo(v))]",
+      "codigo_z3": "obrigacao_contratada_laudo = Bool('ob_contratada_laudo')\nvisitas = Int('visitas')\ns.add(obrigacao_contratada_laudo == True)\ns.add(visitas >= 0)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Prazo ambiguo: 'a cada visita preventiva' indica periodicidade mas sem valor numerico de dias"
+      ]
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "As manutencoes preventivas ocorrerao em horario comercial.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "realizar manutencoes preventivas",
+      "objeto": null,
+      "condicao": "em horario comercial",
+      "formula_fol": "∀t [ManutencaoPreventiva(t) → HorarioComercial(t)]",
+      "codigo_z3": "manutencao_preventiva = Bool('man_preventiva')\nhorario_comercial = Bool('hor_comercial')\ns.add(manutencao_preventiva == horario_comercial)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem deve realizar as manutenções",
+        "Horário comercial não definido precisamente"
+      ]
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "A CONTRATANTE providenciara a autorizacao de acesso dos tecnicos.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "providenciar autorizacao de acesso",
+      "objeto": "dos tecnicos",
+      "condicao": null,
+      "formula_fol": "Obrigacao(CONTRATANTE, ProvidenciarAutorizacaoAcesso(Tecnicos))",
+      "codigo_z3": "ob_contratante_autorizacao = Bool('ob_contratante_autorizacao')\ns.add(ob_contratante_autorizacao == True)",
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "Protecao de dados referentes aos moradores e rotinas do predio.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "proteger dados",
+      "objeto": "dados referentes aos moradores e rotinas do prédio",
+      "condicao": null,
+      "formula_fol": "∀d [DadosMoradoresRotinas(d) → Obrigacao(Partes, Proteger(d))]",
+      "codigo_z3": "proteger_dados = Bool('proteger_dados')\ns.add(proteger_dados == True)",
+      "confianca": 0.6,
+      "ambiguidades": [
+        "A cláusula não especifica quem é o agente responsável pela proteção",
+        "Não define prazos ou penalidades",
+        "Não especifica o que significa 'proteção' (sigilo, integridade, etc.)"
+      ]
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "Sem vinculo empregaticio.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "definir ausência de vínculo empregatício",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Contratado(x) → ¬VinculoEmpregaticio(x)]",
+      "codigo_z3": "vinculo_empregaticio = Bool('vinculo_empregaticio')\ns.add(vinculo_empregaticio == False)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Ausência de sujeito explícito; 'partes' inferido do contexto."
+      ]
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "Fica eleito o foro da Comarca de Fortaleza/CE.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Comarca de Fortaleza/CE",
+      "condicao": null,
+      "formula_fol": "Foro(Fortaleza)",
+      "codigo_z3": "foro_fortaleza = Bool('foro_fortaleza')\ns.add(foro_fortaleza == True)",
+      "confianca": 0.9,
+      "ambiguidades": []
+    }
+  ],
+  "total_formulas": 20
+}

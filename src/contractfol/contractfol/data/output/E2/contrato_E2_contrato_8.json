@@ -1,0 +1,417 @@
+{
+  "timestamp": "20260429_150924",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "realizar transporte",
+      "objeto": "dentro do Estado de Goiás",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "calcular valor do frete",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "tabela em anexo não especificada",
+        "unidade de quilometro rodado não definida"
+      ]
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "realizar entregas",
+      "objeto": "em todos os estados da região Nordeste e Sul do Brasil",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.88,
+      "ambiguidades": [
+        "A cláusula menciona 'sob pena de multa' mas não especifica o valor ou referência a uma cláusula de penalidade."
+      ]
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "faturar quinzenalmente",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 15,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "periodicidade exata não detalhada"
+      ]
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "utilizar frota propria em perfeitas condicoes",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'perfeitas condicoes' é subjetivo e pode gerar interpretações diversas"
+      ]
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "acao": "isentar-se de responsabilidade",
+      "objeto": "por acidentes causados por força maior",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'força maior' não é definido no texto."
+      ]
+    },
+    {
+      "id": "CL_8",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "assumir riscos por roubo, furto ou extravio da mercadoria",
+      "objeto": "durante o trajeto",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_9",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "reembolsar 100% dos prejuízos",
+      "objeto": "à CONTRATANTE",
+      "condicao": "em caso de roubo ou perda da carga",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_10",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte não especificada",
+      "acao": "emitir seguro RCTR-C",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado"
+      ]
+    },
+    {
+      "id": "CL_11",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes envolvidas",
+      "acao": "entregar cada carga no menor prazo possível",
+      "objeto": "cada carga",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.6,
+      "ambiguidades": [
+        "O termo 'mais rapido possivel' é vago e não especifica prazo objetivo",
+        "'sem enrolacao' é subjetivo e de difícil verificação"
+      ]
+    },
+    {
+      "id": "CL_12",
+      "tipo_deontico": "permissao",
+      "agente": "transportador",
+      "acao": "descontar mercadorias avariadas",
+      "objeto": "do pagamento do frete correspondente",
+      "condicao": "mercadorias avariadas",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.8,
+      "ambiguidades": [
+        "agente não explícito",
+        "natureza deôntica ambígua entre permissão e obrigação"
+      ]
+    },
+    {
+      "id": "CL_13",
+      "tipo_deontico": "proibicao",
+      "agente": "motorista da CONTRATADA",
+      "acao": "dirigir",
+      "objeto": "no periodo noturno (das 22h as 05h)",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_14",
+      "tipo_deontico": "direito",
+      "agente": "transportador",
+      "acao": "receber adicional de 20% no valor do frete",
+      "objeto": "viagens noturnas",
+      "condicao": "se a viagem for realizada no período noturno",
+      "prazo": null,
+      "valor": {
+        "montante": 20.0,
+        "descricao": "percentual adicional"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.75,
+      "ambiguidades": [
+        "não especifica quem é o transportador",
+        "não define o que é período noturno"
+      ]
+    },
+    {
+      "id": "CL_15",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATANTE e cliente final",
+      "acao": "responsabilizar-se",
+      "objeto": "suas respectivas obrigações",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.5,
+      "ambiguidades": [
+        "Cláusula genérica, sem especificação de ações, prazos ou condições. A palavra 'respectivamente' sugere que as responsabilidades são distintas, mas não são detalhadas."
+      ]
+    },
+    {
+      "id": "CL_16",
+      "tipo_deontico": "obrigacao",
+      "agente": "transportador",
+      "acao": "aguardar descarga",
+      "objeto": "veiculo",
+      "condicao": "após 5 horas de espera",
+      "prazo": {
+        "valor": 5,
+        "unidade": "horas"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica quem paga a taxa",
+        "não define o valor da taxa"
+      ]
+    },
+    {
+      "id": "CL_17",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "ter validade",
+      "objeto": "por tempo indeterminado",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_18",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte que rescinde",
+      "acao": "dar aviso de rescisão",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 10,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O agente não é especificado explicitamente; assume-se a parte que rescinde."
+      ]
+    },
+    {
+      "id": "CL_19",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "acao": "contratar motoristas autônomos",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_20",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Goiânia/GO",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    }
+  ],
+  "mapa_deontico": {
+    "—": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATADA": {
+      "obrigacoes": [
+        "CL_2",
+        "CL_4",
+        "CL_6",
+        "CL_9"
+      ],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_7",
+        "CL_19"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes": {
+      "obrigacoes": [
+        "CL_5",
+        "CL_20"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATANTE": {
+      "obrigacoes": [
+        "CL_8"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "parte não especificada": {
+      "obrigacoes": [
+        "CL_10"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes envolvidas": {
+      "obrigacoes": [
+        "CL_11"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "transportador": {
+      "obrigacoes": [
+        "CL_16"
+      ],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_12"
+      ],
+      "direitos": [
+        "CL_14"
+      ],
+      "penalidades": []
+    },
+    "motorista da CONTRATADA": {
+      "obrigacoes": [],
+      "proibicoes": [
+        "CL_13"
+      ],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATANTE e cliente final": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "contrato": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "parte que rescinde": {
+      "obrigacoes": [
+        "CL_18"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    }
+  },
+  "confianca_media": 0.8025
+}

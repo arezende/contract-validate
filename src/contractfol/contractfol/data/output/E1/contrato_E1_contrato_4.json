@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_150332",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_4.txt",
+  "titulo": "contrato_4",
+  "partes": [
+    "Comercio Eta Ltda",
+    "Fabrica Theta S.A."
+  ],
+  "contratante": "Comercio Eta Ltda",
+  "contratado": "Fabrica Theta S.A.",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "Fornecimento continuo de pecas automotivas pela CONTRATADA."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "QUANTIDADE",
+      "texto": "A CONTRATADA se compromete a fornecer 500 pecas por semana a CONTRATANTE."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "CONTRADICAO DE VOLUME",
+      "texto": "Fica estipulado que o volume maximo de entregas sera de 100 pecas por mes em carater de exclusividade."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "VIGENCIA",
+      "texto": "O contrato tem vigencia de 12 meses."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "PRECO",
+      "texto": "O preco unitario de cada peca e de R$ 50,00."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "PAGAMENTO",
+      "texto": "Os pagamentos serao realizados em ate 30 dias apos o faturamento."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "RESPONSABILIDADE DO FRETE",
+      "texto": "O frete para envio das pecas e de inteira responsabilidade e custo da CONTRATADA."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "CONTRADICAO DE FRETE",
+      "texto": "A CONTRATANTE obriga-se a pagar a transportadora todos os custos relativos ao frete de envio."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "QUALIDADE",
+      "texto": "Os produtos devem seguir as normas do Inmetro."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "DEVOLUCAO",
+      "texto": "Produtos com defeito poderao ser devolvidos em ate 7 dias."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "OMISSAO DE MULTA",
+      "texto": "A multa por atraso na entrega das pecas sera regida e calculada exclusivamente pelas regras descritas na Clausula 28 deste instrumento."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "GARANTIA",
+      "texto": "A garantia dos produtos e de 90 dias contra defeitos de fabricacao."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "OBRIGACAO DA CONTRATANTE",
+      "texto": "Receber as mercadorias no horario comercial."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "OBRIGACAO DA CONTRATADA",
+      "texto": "Emitir as respectivas Notas Fiscais Eletronicas."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "RESCISAO",
+      "texto": "O contrato podera ser cancelado mediante aviso previo de 60 dias."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "MULTA RESCISORIA",
+      "texto": "A rescisao imediata gera multa de R$ 10.000,00."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "AMBIGUIDADE NO PRECO",
+      "texto": "O preco unitario dos produtos podera sofrer alteracoes sempre que a CONTRATADA quiser."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "SUBCONTRATACAO",
+      "texto": "A CONTRATADA podera subcontratar o servico de fabricacao."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "SIGILO",
+      "texto": "As partes manterao sigilo sobre o modelo de negocios."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO",
+      "texto": "Elege-se o foro de Salvador/BA."
+    }
+  ],
+  "total_clausulas": 20
+}

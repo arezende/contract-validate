@@ -1,0 +1,307 @@
+{
+  "timestamp": "20260429_150205",
+  "contrato": "contrato_3",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "Prestacao de servicos de consultoria financeira e reestruturacao de processos.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "prestar servicos de consultoria financeira e reestruturacao de processos",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∃s [Servico(s) ∧ Tipo(s, ConsultoriaFinanceiraReestruturacao)]",
+      "codigo_z3": "servico = Bool('servico')\ntipo_consultoria = Bool('tipo_consultoria')\ns.add(servico == True)\ns.add(tipo_consultoria == True)",
+      "confianca": 0.5,
+      "ambiguidades": [
+        "Cláusula não expressa obrigação, proibição, permissão ou condição; apenas descreve o objeto do serviço."
+      ]
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "Analise de fluxo de caixa, reducao de custos e auditoria interna.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "analisar fluxo de caixa, redução de custos e auditoria interna",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "Analise(fluxo_caixa) ∧ Analise(reducao_custos) ∧ Analise(auditoria_interna)",
+      "codigo_z3": "fluxo = Bool('fluxo')\ncustos = Bool('custos')\nauditoria = Bool('auditoria')\ns.add(fluxo == True, custos == True, auditoria == True)",
+      "confianca": 0.5,
+      "ambiguidades": [
+        "Não especifica agente, ação deôntica ou condição; parece descritivo, não normativo"
+      ]
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "Os trabalhos serao remotos, com reunioes quinzenais na sede da CONTRATANTE.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "realizar reunioes quinzenais na sede",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀t [Obrigacao(Reuniao(t)) ∧ Periodo(Reuniao, 15dias) ∧ Local(Reuniao, SedeContratante)]",
+      "codigo_z3": "reuniao = Bool('reuniao')\nperiodo_reuniao = Int('pd_reuniao')\ns.add(reuniao == True)\ns.add(periodo_reuniao == 15)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se a obrigação é da CONTRATANTE ou do contratado"
+      ]
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "O contrato tera validade de 6 (seis) meses.",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "ter validade",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "Vigencia(Contrato, 6meses)",
+      "codigo_z3": "vigencia_contrato = Int('vig_contrato')\ns.add(vigencia_contrato == 6)",
+      "confianca": 0.97,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "O valor global da consultoria e de R$ 60.000,00.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "Sera pago em 6 parcelas mensais e iguais de R$ 10.000,00.",
+      "tipo_deontico": "obrigacao",
+      "agente": "devedor",
+      "acao": "pagar",
+      "objeto": "R$ 10.000,00 em 6 parcelas mensais e iguais",
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(Devedor, Pagar(x)) ∧ Parcelas(x, 6) ∧ ValorParcela(x, 10000.0)]",
+      "codigo_z3": "obrigacao_pagar = Bool('ob_pagar')\nparcelas = Int('parcelas')\nvalor_parcela = Int('valor_parcela')\ns.add(obrigacao_pagar == True)\ns.add(parcelas == 6)\ns.add(valor_parcela == 10000)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Agente não especificado, assumido como 'devedor'"
+      ]
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "Os pagamentos ocorrerao no dia 10 de cada mes mediante emissao de Nota Fiscal.",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte pagadora",
+      "acao": "realizar pagamentos",
+      "objeto": null,
+      "condicao": "mediante emissao de Nota Fiscal",
+      "formula_fol": "∀x [NotaFiscalEmitida(x) → Obrigacao(Pagadora, Pagar(x)) ∧ Prazo(Pagar, Dia10)]",
+      "codigo_z3": "obrigacao_pagamento = Bool('ob_pagamento')\nprazo_pagamento = Int('pz_pagamento')\ns.add(obrigacao_pagamento == True)\ns.add(prazo_pagamento == 10)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente nao explicitamente definido",
+        "periodicidade mensal inferida"
+      ]
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "Entregar relatorios mensais de desempenho e recomendacoes.",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte não especificada",
+      "acao": "entregar relatorios mensais de desempenho e recomendacoes",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀m [Obrigacao(Agente, EntregarRelatorio(m)) ∧ Periodo(Relatorio, 1mes)]",
+      "codigo_z3": "obrigacao_relatorio = Bool('ob_relatorio')\nperiodo_relatorio = Int('pd_relatorio')\ns.add(obrigacao_relatorio == True)\ns.add(periodo_relatorio == 1)",
+      "confianca": 0.75,
+      "ambiguidades": [
+        "agente não especificado",
+        "destinatário não especificado"
+      ]
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "Disponibilizar todos os documentos contabeis necessarios.",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte contratante",
+      "acao": "disponibilizar todos os documentos contábeis necessários",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(Agente, Disponibilizar(x)) ∧ DocumentoContabil(x)]",
+      "codigo_z3": "obrigacao_disp_docs = Bool('ob_disp_docs')\ns.add(obrigacao_disp_docs == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "falta especificar agente",
+        "falta prazo"
+      ]
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "As informacoes compartilhadas sao de natureza estritamente confidencial.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "tratar informacoes como confidenciais",
+      "objeto": "informacoes compartilhadas",
+      "condicao": null,
+      "formula_fol": "∀x [InformacaoCompartilhada(x) → Obrigacao(Partes, Confidencialidade(x))]",
+      "codigo_z3": "informacao = Bool('info')\nconfidencial = Bool('conf')\ns.add(confidencial == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "natureza da obrigação implícita"
+      ]
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "Multa de 2% sobre a parcela em atraso, mais juros legais.",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "pagar multa e juros",
+      "objeto": "sobre a parcela em atraso",
+      "condicao": "atraso no pagamento",
+      "formula_fol": "∀x [Atraso(x) → Obrigacao(Devedor, PagarMulta(x, 2%)) ∧ Obrigacao(Devedor, PagarJurosLegais(x))]",
+      "codigo_z3": "multa_2pct = Bool('multa_2pct')\njuros_legais = Bool('juros_legais')\natraso = Bool('atraso')\ns.add(Implies(atraso, And(multa_2pct, juros_legais)))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "juros legais não especificados"
+      ]
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "Rescisao sem justa causa exige aviso previo de 15 dias e multa de 20% do saldo devedor.",
+      "tipo_deontico": "condicao",
+      "agente": "empregador",
+      "acao": "rescindir sem justa causa",
+      "objeto": "contrato",
+      "condicao": "se rescisão sem justa causa",
+      "formula_fol": "∀x [RescisaoSemJustaCausa(x) → Obrigacao(Empregador, AvisoPrevio(15dias)) ∧ Obrigacao(Empregador, Multa(0.2 * SaldoDevedor))]",
+      "codigo_z3": "rescindiu = Bool('rescindiu')\naviso = Int('aviso')\nmulta = Real('multa')\nsaldo = Real('saldo')\ns.add(rescindiu == True)\ns.add(aviso == 15)\ns.add(multa == 0.2 * saldo)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não explicitamente nomeado",
+        "saldo devedor não definido"
+      ]
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "Os relatorios gerados pertencem a CONTRATANTE apos a quitacao.",
+      "tipo_deontico": "direito",
+      "agente": "CONTRATANTE",
+      "acao": "ter posse",
+      "objeto": "relatórios gerados",
+      "condicao": "após a quitação",
+      "formula_fol": "∀x [RelatorioGerado(x) ∧ Quitacao → Direito(CONTRATANTE, Posse(x))]",
+      "codigo_z3": "relatorio = Bool('relatorio')\nquitacao = Bool('quitacao')\ndireito_posse = Bool('dir_posse')\ns.add(Implies(And(relatorio, quitacao), direito_posse))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'pertencem' pode indicar propriedade ou posse, o que é ambíguo no contexto contratual."
+      ]
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "Nao ha vinculo empregaticio entre os consultores e a CONTRATANTE.",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATANTE",
+      "acao": "não constituir vínculo empregatício",
+      "objeto": "com os consultores",
+      "condicao": null,
+      "formula_fol": "∀x [Consultor(x) → ¬VinculoEmpregaticio(x, Contratante)]",
+      "codigo_z3": "vinculo = Bool('vinculo')\ns.add(vinculo == False)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "Todas as notificacoes deverao ser feitas por escrito ou e-mail corporativo.",
+      "tipo_deontico": "obrigacao",
+      "agente": "todas as partes",
+      "acao": "fazer notificacoes por escrito ou e-mail corporativo",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Notificacao(x) → (Escrita(x) ∨ EmailCorporativo(x))]",
+      "codigo_z3": "notificacao_escrita = Bool('not_escrita')\nnotificacao_email = Bool('not_email')\ns.add(Not(And(Not(notificacao_escrita), Not(notificacao_email))))",
+      "confianca": 0.92,
+      "ambiguidades": [
+        "não especifica quem recebe a notificação"
+      ]
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "Caso necessarias viagens, a CONTRATANTE arcara com transporte e hospedagem.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "arcar com transporte e hospedagem",
+      "objeto": null,
+      "condicao": "caso necessarias viagens",
+      "formula_fol": "∀x [ViagemNecessaria(x) → Obrigacao(CONTRATANTE, ArcarTransporteHospedagem(x))]",
+      "codigo_z3": "viagem_necessaria = Bool('viagem_necessaria')\nobrigacao_contratante = Bool('ob_contratante')\ns.add(viagem_necessaria == True)\ns.add(obrigacao_contratante == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica o que inclui 'transporte e hospedagem'",
+        "Não define o que são 'viagens necessarias'"
+      ]
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "Nenhuma parte sera penalizada por atrasos decorrentes de forca maior.",
+      "tipo_deontico": "permissao",
+      "agente": "nenhuma parte",
+      "acao": "não ser penalizada por atrasos",
+      "objeto": null,
+      "condicao": "decorrentes de força maior",
+      "formula_fol": "∀x ∀y [ForcaMaior(x) ∧ Atraso(y) ∧ CausadoPor(y, x) → ¬Penalidade(Parte, y)]",
+      "codigo_z3": "forca_maior = Bool('forca_maior')\npenalidade = Bool('penalidade')\ns.add(Implies(forca_maior, Not(penalidade)))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "o que constitui força maior não está definido"
+      ]
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "Qualquer mudanca de escopo devera ser formalizada por aditivo contratual.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes contratantes",
+      "acao": "formalizar mudanca de escopo",
+      "objeto": "aditivo contratual",
+      "condicao": "qualquer mudanca de escopo",
+      "formula_fol": "∀x [MudancaEscopo(x) → Obrigacao(Partes, FormalizarAditivo(x))]",
+      "codigo_z3": "ob_mudanca_escopo = Bool('ob_mudanca_escopo')\ns.add(ob_mudanca_escopo == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "O contrato obriga as partes e seus sucessores legais.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes e seus sucessores legais",
+      "acao": "cumprir o contrato",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [ParteSucessor(x) → Obrigacao(x, CumprirContrato)]",
+      "codigo_z3": "obrig_partes_sucessores = Bool('ob_partes_sucessores')\ns.add(obrig_partes_sucessores == True)",
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "Elege-se o foro da Comarca de Campinas/SP para eventuais disputas.",
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Comarca de Campinas/SP",
+      "condicao": "eventuais disputas",
+      "formula_fol": "∃f [Foro(f, Campinas) ∧ Permissao(Partes, Eleger(f)) ∧ Condicao(Disputa)]",
+      "codigo_z3": "foro_campinas = Bool('f_campinas')\ndisputa = Bool('d')\ns.add(Implies(disputa, foro_campinas))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'elege-se' pode ser interpretado como obrigação ou permissão; aqui tratado como permissão.",
+        "Não especifica quem elege (todas as partes?)."
+      ]
+    }
+  ],
+  "total_formulas": 20
+}

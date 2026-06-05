@@ -1,0 +1,411 @@
+{
+  "timestamp": "20260429_145707",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "prestar servicos de suporte tecnico em TI",
+      "objeto": "a CONTRATANTE",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "definicao",
+      "agente": "contratada",
+      "acao": "incluir manutencao preventiva e corretiva",
+      "objeto": "50 computadores e 2 servidores",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "executar servicos na sede",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.7,
+      "ambiguidades": [
+        "Sujeito implícito: quem executa os serviços? 'Serão executados' sugere passiva, agente não especificado. Assumindo CONTRATANTE como local, mas executor pode ser outro."
+      ]
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "definir prazo de vigência",
+      "objeto": "contrato",
+      "condicao": null,
+      "prazo": {
+        "valor": 12,
+        "unidade": "meses"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "entrar em vigor",
+      "objeto": "contrato",
+      "condicao": "na data de sua assinatura",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "definir valor total",
+      "objeto": "R$ 24.000,00",
+      "condicao": null,
+      "prazo": null,
+      "valor": {
+        "montante": 24000.0,
+        "descricao": "vinte e quatro mil reais"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "obrigacao",
+      "agente": "pagador",
+      "acao": "realizar pagamento",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 12,
+        "unidade": "meses"
+      },
+      "valor": {
+        "montante": 2000.0,
+        "descricao": "valor de cada parcela"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_8",
+      "tipo_deontico": "obrigacao",
+      "agente": "devedor",
+      "acao": "pagar parcela",
+      "objeto": "parcela",
+      "condicao": null,
+      "prazo": {
+        "valor": 5,
+        "unidade": "dias uteis"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem é o agente obrigado (devedor genérico)",
+        "Não define qual parcela ou mês"
+      ]
+    },
+    {
+      "id": "CL_9",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "reajustar valor",
+      "objeto": "com base na variação do IPCA",
+      "condicao": "após 12 meses",
+      "prazo": {
+        "valor": 12,
+        "unidade": "meses"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "referência temporal não clara"
+      ]
+    },
+    {
+      "id": "CL_10",
+      "tipo_deontico": "obrigacao",
+      "agente": "contratado",
+      "acao": "executar servicos com zelo",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente nao especificado",
+        "criterios de zelo nao definidos"
+      ]
+    },
+    {
+      "id": "CL_11",
+      "tipo_deontico": "obrigacao",
+      "agente": "parte contratada",
+      "acao": "fornecer acesso",
+      "objeto": "as dependencias e aos equipamentos necessarios para o trabalho",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado explicitamente",
+        "escopo de dependências e equipamentos não definido"
+      ]
+    },
+    {
+      "id": "CL_12",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "arcar com despesas",
+      "objeto": "com pecas de reposicao",
+      "condicao": "mediante aprovacao previa",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_13",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "manter sigilo sobre dados acessados",
+      "objeto": "dados acessados durante o serviço",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_14",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "pagar multa e juros",
+      "objeto": null,
+      "condicao": "atraso no pagamento",
+      "prazo": null,
+      "valor": {
+        "montante": null,
+        "descricao": "multa de 2% e juros de 1% ao mes"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "base de cálculo não especificada"
+      ]
+    },
+    {
+      "id": "CL_15",
+      "tipo_deontico": "permissao",
+      "agente": "qualquer das partes",
+      "acao": "rescindir contrato",
+      "objeto": null,
+      "condicao": "mediante aviso prévio de 30 dias",
+      "prazo": {
+        "valor": 30,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_16",
+      "tipo_deontico": "penalidade",
+      "agente": "partes",
+      "acao": "rescindir contrato",
+      "objeto": null,
+      "condicao": "descumprimento de qualquer cláusula",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_17",
+      "tipo_deontico": "penalidade",
+      "agente": "partes",
+      "acao": "pagar multa",
+      "objeto": "rescisão por justa causa",
+      "condicao": "rescisão por justa causa",
+      "prazo": null,
+      "valor": {
+        "montante": 10.0,
+        "descricao": "10% do valor total do contrato"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_18",
+      "tipo_deontico": "proibicao",
+      "agente": "partes contratantes",
+      "acao": "ceder ou transferir contrato",
+      "objeto": "a terceiros",
+      "condicao": "sem prévia anuência",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_19",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "abster-se do exercício de qualquer direito",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem se abstém",
+        "Conceito de 'exercicio de qualquer direito' pode ser amplo"
+      ]
+    },
+    {
+      "id": "CL_20",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "dirimir controversias no foro da Comarca de Sao Paulo/SP",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Agente não explícito; considerou-se 'partes' como agente."
+      ]
+    }
+  ],
+  "mapa_deontico": {
+    "CONTRATADA": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "contratada": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATANTE": {
+      "obrigacoes": [
+        "CL_3",
+        "CL_12"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes": {
+      "obrigacoes": [
+        "CL_9",
+        "CL_13",
+        "CL_20"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_16",
+        "CL_17"
+      ]
+    },
+    "pagador": {
+      "obrigacoes": [
+        "CL_7"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "devedor": {
+      "obrigacoes": [
+        "CL_8"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_14"
+      ]
+    },
+    "contratado": {
+      "obrigacoes": [
+        "CL_10"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "parte contratada": {
+      "obrigacoes": [
+        "CL_11"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "qualquer das partes": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_15"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes contratantes": {
+      "obrigacoes": [],
+      "proibicoes": [
+        "CL_18"
+      ],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    }
+  },
+  "confianca_media": 0.8959999999999999
+}

@@ -1,0 +1,303 @@
+{
+  "timestamp": "20260429_150630",
+  "contrato": "contrato_6",
+  "descricao": "Mapeamento deôntico com rastreabilidade às cláusulas originais",
+  "mapa": {
+    "obrigacao_prestador": {
+      "tipo_deontico": "obrigacao",
+      "agente": "prestador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_1",
+          "texto_original": "Prestacao de servicos de limpeza e conservacao das areas comuns do condominio.",
+          "acao": "prestar servicos de limpeza e conservacao",
+          "objeto": "areas comuns do condominio",
+          "condicao": null,
+          "confianca": 0.75,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATADA": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_2",
+          "texto_original": "A CONTRATADA fornecera 2 (dois) funcionarios trabalhando 8 horas por dia.",
+          "acao": "fornecer funcionarios",
+          "objeto": "2 funcionarios trabalhando 8 horas por dia",
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": {
+            "valor": 8,
+            "unidade": "horas"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_6",
+          "texto_original": "A CONTRATADA e a unica responsavel pelos direitos trabalhistas dos funcionarios.",
+          "acao": "ser responsável pelos direitos trabalhistas",
+          "objeto": "funcionários",
+          "condicao": null,
+          "confianca": 0.92,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_8",
+          "texto_original": "A CONTRATADA compromete-se a usar apenas materiais que sejam mais ou menos bons e de cheiro agradavel.",
+          "acao": "usar apenas materiais",
+          "objeto": "materiais que sejam mais ou menos bons e de cheiro agradavel",
+          "condicao": null,
+          "confianca": 0.6,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_9",
+          "texto_original": "A CONTRATADA deve substituir funcionarios em falta em ate 2 horas.",
+          "acao": "substituir funcionarios em falta",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 2,
+            "unidade": "horas"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_17",
+          "texto_original": "A CONTRATADA deve fornecer os Equipamentos de Protecao Individual.",
+          "acao": "fornecer Equipamentos de Protecao Individual",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_19",
+          "texto_original": "A CONTRATADA deve manter seguro de vida para os funcionarios.",
+          "acao": "manter seguro de vida",
+          "objeto": "para os funcionarios",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "proibicao_partes": {
+      "tipo_deontico": "proibicao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_3",
+          "texto_original": "O presente contrato tem vigencia de 24 meses e possui carater irrevogavel e irretratavel, nao podendo ser rescindido antecipadamente.",
+          "acao": "rescindir antecipadamente",
+          "objeto": "contrato",
+          "condicao": null,
+          "confianca": 0.92,
+          "prazo": {
+            "valor": 24,
+            "unidade": "meses"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "condicao_—": {
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "sentencas": [
+        {
+          "clausula_id": "CL_4",
+          "texto_original": "O custo mensal do servico e de R$ 6.000,00.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_pagador": {
+      "tipo_deontico": "obrigacao",
+      "agente": "pagador",
+      "sentencas": [
+        {
+          "clausula_id": "CL_5",
+          "texto_original": "Pagamento via boleto bancario com vencimento no dia 10 de cada mes.",
+          "acao": "pagar",
+          "objeto": "via boleto bancario",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 10,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "definicao_CONTRATADA": {
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_7",
+          "texto_original": "O fornecimento de produtos de limpeza e de responsabilidade da CONTRATADA.",
+          "acao": "fornecer produtos de limpeza",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_18",
+          "texto_original": "Responsabilidade exclusiva da CONTRATADA em acidentes de trabalho.",
+          "acao": "responsabilizar-se por acidentes de trabalho",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "permissao_CONTRATANTE": {
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_10",
+          "texto_original": "A CONTRATANTE podera reter pagamentos se a CONTRATADA nao comprovar o pagamento de salarios.",
+          "acao": "reter pagamentos",
+          "objeto": null,
+          "condicao": "se a CONTRATADA nao comprovar o pagamento de salarios",
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_sindico_do_CONTRATANTE": {
+      "tipo_deontico": "obrigacao",
+      "agente": "sindico do CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_11",
+          "texto_original": "O sindico do CONTRATANTE fiscalizara a qualidade do servico.",
+          "acao": "fiscalizar a qualidade do servico",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_funcionarios": {
+      "tipo_deontico": "obrigacao",
+      "agente": "funcionarios",
+      "sentencas": [
+        {
+          "clausula_id": "CL_12",
+          "texto_original": "Os funcionarios devem trabalhar devidamente uniformizados.",
+          "acao": "trabalhar uniformizados",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_funcionário": {
+      "tipo_deontico": "obrigacao",
+      "agente": "funcionário",
+      "sentencas": [
+        {
+          "clausula_id": "CL_13",
+          "texto_original": "O horario de trabalho sera das 08:00 as 17:00, de segunda a sexta.",
+          "acao": "trabalhar",
+          "objeto": "das 08:00 às 17:00, de segunda a sexta",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "permissao_Qualquer_das_partes": {
+      "tipo_deontico": "permissao",
+      "agente": "Qualquer das partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_14",
+          "texto_original": "Qualquer das partes podera rescindir este contrato a qualquer momento, por qualquer motivo, mediante simples aviso pelo WhatsApp sem nenhuma multa.",
+          "acao": "rescindir este contrato",
+          "objeto": null,
+          "condicao": "mediante simples aviso pelo WhatsApp",
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_partes": {
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_15",
+          "texto_original": "Reajuste anual pela convencao coletiva da categoria.",
+          "acao": "reajustar anualmente",
+          "objeto": "salário",
+          "condicao": "convenção coletiva da categoria",
+          "confianca": 0.7,
+          "prazo": {
+            "valor": 1,
+            "unidade": "ano"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_20",
+          "texto_original": "Elege-se o foro de Porto Alegre/RS.",
+          "acao": "eleger foro",
+          "objeto": "Porto Alegre/RS",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_parte_infratora": {
+      "tipo_deontico": "penalidade",
+      "agente": "parte infratora",
+      "sentencas": [
+        {
+          "clausula_id": "CL_16",
+          "texto_original": "Em caso de quebra de contrato, a parte infratora pagara uma multa de um valor razoavel a ser discutido depois.",
+          "acao": "pagar multa",
+          "objeto": null,
+          "condicao": "em caso de quebra de contrato",
+          "confianca": 0.6,
+          "prazo": null,
+          "valor": {
+            "montante": null,
+            "descricao": "valor razoável a ser discutido depois"
+          }
+        }
+      ]
+    }
+  }
+}

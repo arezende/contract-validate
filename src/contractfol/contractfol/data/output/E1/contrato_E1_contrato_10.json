@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_145909",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_10.txt",
+  "titulo": "contrato_10",
+  "partes": [
+    "Empresa Tau S.A.",
+    "Upsilon RH Ltda"
+  ],
+  "contratante": "Empresa Tau S.A.",
+  "contratado": "Upsilon RH Ltda",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "Terceirizacao de processos de recrutamento e selecao de pessoal."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "VALOR CONTRADICTORIO 1",
+      "texto": "O valor total da prestacao de servicos e de R$ 5.000,00 por semestre."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "VALOR CONTRADICTORIO 2",
+      "texto": "A CONTRATANTE pagara a CONTRATADA a quantia mensal inalteravel de R$ 15.000,00."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "PRAZO",
+      "texto": "A vigencia deste instrumento sera de 24 meses."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "DIAS UTEIS",
+      "texto": "Os servicos de entrevistas serao prestados exclusivamente de segunda a sexta-feira."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "CONTRADICAO DE DIAS",
+      "texto": "A CONTRATADA obriga-se a estar integralmente a disposicao aos sabados, domingos e feriados, sem custos extras."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "OMISSAO DE ANEXO",
+      "texto": "A execucao dos testes psicologicos devera seguir rigorosamente os metodos descritos no Anexo III deste contrato. (Nota: Nao ha Anexo III)."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "OBRIGACAO AMBIGUA",
+      "texto": "A CONTRATADA devera selecionar candidatos que parecam ser boas pessoas e que nao deem muito trabalho."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "MULTA RESCISORIA",
+      "texto": "Em caso de rescisao antecipada, a parte que der causa pagara multa de 20% do valor do contrato."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "ISENCAO CONTRADITORIA",
+      "texto": "Fica acordado que, em hipotese de rescisao antecipada, nenhuma das partes pagara qualquer tipo de multa ou indenizacao."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "PAGAMENTO",
+      "texto": "Os boletos vencem no dia 10."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "COMUNICACAO",
+      "texto": "Todo contato deve ser feito formalmente por e-mail com assinatura digital."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "AMBIGUIDADE DE COMUNICACAO",
+      "texto": "Se for mais rapido, a CONTRATANTE pode apenas avisar o porteiro da CONTRATADA sobre eventuais problemas."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "EXCLUSIVIDADE",
+      "texto": "A CONTRATADA trabalhara com exclusividade para a CONTRATANTE."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "CONTRADICAO DE EXCLUSIVIDADE",
+      "texto": "A CONTRATADA declara que atende outras 50 empresas e que a CONTRATANTE nao tem exclusividade."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "CONFIDENCIALIDADE",
+      "texto": "Sigilo total sobre salarios."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "VAGAS",
+      "texto": "O escopo cobre ate 10 vagas mensais."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "SOFTWARE",
+      "texto": "A CONTRATADA utilizara software proprio."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "RESPONSABILIDADE",
+      "texto": "A CONTRATADA nao decide a contratacao, apenas recomenda."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO AMBIGUO",
+      "texto": "As partes elegem o foro da capital do Estado para dirimir questoes judiciais relativas a este contrato."
+    }
+  ],
+  "total_clausulas": 20
+}

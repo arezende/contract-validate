@@ -1,0 +1,306 @@
+{
+  "timestamp": "20260429_150756",
+  "contrato": "contrato_7",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "Gerenciamento de campanhas de trafego pago e redes sociais.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "Gestao de contas no Google Ads e Instagram, com criacao de 12 artes mensais.",
+      "tipo_deontico": "obrigacao",
+      "agente": "Gestor",
+      "acao": "gerir contas no Google Ads e Instagram e criar artes mensais",
+      "objeto": "12 artes mensais",
+      "condicao": null,
+      "formula_fol": "∀m [Obrigacao(Gestor, GerirContas(m)) ∧ CriarArtes(m, 12)]",
+      "codigo_z3": "obrigacao_gestao = Bool('ob_gestao')\nartes_mensais = Int('artes_mensais')\ns.add(obrigacao_gestao == True)\ns.add(artes_mensais == 12)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica o agente",
+        "não especifica o destinatário das artes",
+        "não define prazo exato"
+      ]
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "O valor a ser investido nas plataformas (Google/Facebook) sera pago diretamente pela CONTRATANTE as plataformas.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "pagar diretamente às plataformas",
+      "objeto": "o valor a ser investido nas plataformas (Google/Facebook)",
+      "condicao": null,
+      "formula_fol": "∀x [ValorInvestido(x) → Obrigacao(CONTRATANTE, PagarDiretamente(x))]",
+      "codigo_z3": "obrigacao_contratante_pagar = Bool('ob_contratante_pagar')\ns.add(obrigacao_contratante_pagar == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se há prazo para pagamento",
+        "Não define o que ocorre em caso de inadimplemento"
+      ]
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "O fee mensal da agencia e de R$ 3.000,00 (tres mil reais).",
+      "tipo_deontico": "obrigacao",
+      "agente": "agência",
+      "acao": "pagar fee mensal",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀t [Obrigacao(Agencia, PagarFee(t)) ∧ Valor(PagarFee, 3000) ∧ Periodo(PagarFee, Mensal)]",
+      "codigo_z3": "obrigacao_agencia_fee = Bool('ob_agencia_fee')\nvalor_fee = Int('vl_fee')\ns.add(obrigacao_agencia_fee == True)\ns.add(valor_fee == 3000)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "O pagamento ocorrera via PIX ate o dia 05 do mes vigente da prestacao do servico.",
+      "tipo_deontico": "obrigacao",
+      "agente": "contratante",
+      "acao": "realizar pagamento via PIX",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀s [ServicoPrestado(s) → Obrigacao(Contratante, PagarPIX(s)) ∧ Prazo(Pagar, Dia5MesVigente)]",
+      "codigo_z3": "ob_pag_pix = Bool('ob_pag_pix')\ndia_pag = Int('dia_pag')\ns.add(ob_pag_pix == True)\ns.add(dia_pag == 5)",
+      "confianca": 0.9,
+      "ambiguidades": [
+        "agente não explicitamente definido, assumido como contratante"
+      ]
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "Contrato com duracao inicial de 6 (seis) meses, renovado automaticamente.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "Otimizar campanhas semanalmente e enviar relatorios de performance no dia 01 de cada mes.",
+      "tipo_deontico": "obrigacao",
+      "agente": "não especificado",
+      "acao": "otimizar campanhas",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀t [Obrigacao(Agente, OtimizarCampanhas(t)) ∧ Periodo(Otimizar, 7dias)]",
+      "codigo_z3": "obrigacao_otimizar = Bool('ob_otimizar')\nperiodo_otimizar = Int('pd_otimizar')\ns.add(obrigacao_otimizar == True)\ns.add(periodo_otimizar == 7)",
+      "confianca": 0.7,
+      "ambiguidades": [
+        "agente não especificado",
+        "sentença composta com duas obrigações não separadas"
+      ]
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "Aprovar as artes com no minimo 48 horas de antecedencia.",
+      "tipo_deontico": "obrigacao",
+      "agente": "não especificado",
+      "acao": "aprovar as artes",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀a [Arte(a) → Obrigacao(Agente, Aprovar(a)) ∧ Prazo(Aprovar, 48h)]",
+      "codigo_z3": "obrigacao_aprovar = Bool('ob_aprovar')\nprazo_aprovar = Int('pz_aprovar')\ns.add(obrigacao_aprovar == True)\ns.add(prazo_aprovar == 48)",
+      "confianca": 0.75,
+      "ambiguidades": [
+        "agente não especificado"
+      ]
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "As artes criadas pertencerao a CONTRATANTE.",
+      "tipo_deontico": "direito",
+      "agente": "CONTRATANTE",
+      "acao": "possuir as artes criadas",
+      "objeto": "artes criadas",
+      "condicao": null,
+      "formula_fol": "∀a [ArteCriada(a) → Pertence(a, CONTRATANTE)]",
+      "codigo_z3": "arte_criada = Bool('arte_criada')\npertence_contratante = Bool('pertence_contratante')\ns.add(arte_criada == True)\ns.add(pertence_contratante == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "A CONTRATADA nao garante volume fixo de vendas, visto que atua como atividade de meio e nao de resultado.",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "nao garantir volume fixo de vendas",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "¬∃v [Garantir(CONTRATADA, VolumeFixo(v))]",
+      "codigo_z3": "volume_fixo = Bool('volume_fixo')\ns.add(volume_fixo == False)",
+      "confianca": 0.75,
+      "ambiguidades": [
+        "A frase 'atua como atividade de meio e nao de resultado' é explicativa, não normativa."
+      ]
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "Atraso nos pagamentos da agencia implica em suspensao dos servicos apos 5 dias.",
+      "tipo_deontico": "condicao",
+      "agente": "agencia",
+      "acao": "atrasar pagamentos",
+      "objeto": null,
+      "condicao": "após 5 dias de atraso",
+      "formula_fol": "∀x [AtrasoPagamento(x) ∧ Prazo(Dias,5) → SuspensaoServicos(x)]",
+      "codigo_z3": "atraso = Bool('atraso')\nsuspensao = Bool('suspensao')\nprazo_dias = Int('prazo_dias')\ns.add(prazo_dias == 5)\ns.add(Implies(And(atraso, prazo_dias == 5), suspensao))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se a suspensão é automática ou depende de notificação"
+      ]
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "Rescisao por qualquer das partes com aviso previo de 30 dias.",
+      "tipo_deontico": "direito",
+      "agente": "qualquer parte",
+      "acao": "rescindir",
+      "objeto": "contrato",
+      "condicao": "com aviso prévio de 30 dias",
+      "formula_fol": "∀p [Parte(p) → Direito(p, Rescindir) ∧ Prazo(Rescindir, 30dias)]",
+      "codigo_z3": "direito_rescisao = Bool('dr_rescisao')\nprazo_aviso = Int('pz_aviso')\ns.add(direito_rescisao == True)\ns.add(prazo_aviso == 30)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica se é direito de ambas as partes ou apenas uma",
+        "não define consequências da rescisão"
+      ]
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "Quebra de sigilo ou falta de pagamento ensejam rescisao imediata.",
+      "tipo_deontico": "penalidade",
+      "agente": "parte infratora",
+      "acao": "rescindir contrato",
+      "objeto": null,
+      "condicao": "quebra de sigilo ou falta de pagamento",
+      "formula_fol": "∃x [QuebraSigilo(x) ∨ FaltaPagamento(x) → Obrigacao(RescisaoImediata)]",
+      "codigo_z3": "quebra_sigilo = Bool('quebra_sigilo')\nfalta_pagamento = Bool('falta_pagamento')\nrescisao = Bool('rescisao')\ns.add(Implies(Or(quebra_sigilo, falta_pagamento), rescisao))",
+      "confianca": 0.8,
+      "ambiguidades": [
+        "quem é o agente? 'parte infratora' é genérico",
+        "a rescisão é automática ou depende de notificação?"
+      ]
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "Dados de leads e clientes sao sigilosos.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "Fica estabelecida uma reuniao mensal de alinhamento via videoconferencia.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "realizar reuniao mensal de alinhamento via videoconferencia",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀m [Obrigacao(Partes, ReuniaoAlinhamento(m)) ∧ Periodo(Reuniao, 1mes)]",
+      "codigo_z3": "obrigacao_reuniao = Bool('ob_reuniao')\nperiodo_reuniao = Int('pd_reuniao')\ns.add(obrigacao_reuniao == True)\ns.add(periodo_reuniao == 1)",
+      "confianca": 0.9,
+      "ambiguidades": [
+        "não especifica quem convoca",
+        "não especifica duração"
+      ]
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "O suporte da agencia funciona em horario comercial (09h as 18h).",
+      "tipo_deontico": "definicao",
+      "agente": "agencia",
+      "acao": "funcionar em horario comercial",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀t [HorarioComercial(t) ↔ (t ≥ 9 ∧ t ≤ 18)]",
+      "codigo_z3": "hora = Int('hora')\ns.add(hora >= 9, hora <= 18)",
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "Artes extras fora do pacote serao cobradas a R$ 100,00 por unidade.",
+      "tipo_deontico": "obrigacao",
+      "agente": "cliente",
+      "acao": "pagar",
+      "objeto": "artes extras",
+      "condicao": "artes extras fora do pacote",
+      "formula_fol": "∀x [ArteExtra(x) → Obrigacao(Cliente, Pagar(x, 100))]",
+      "codigo_z3": "arte_extra = Bool('arte_extra')\npagamento = Int('pagamento')\ns.add(arte_extra == True)\ns.add(pagamento == 100)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem cobra",
+        "Não define prazo de pagamento"
+      ]
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "A CONTRATANTE fornecera niveis de acesso de administrador nas contas de anuncios.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "fornecer niveis de acesso de administrador",
+      "objeto": "nas contas de anuncios",
+      "condicao": null,
+      "formula_fol": "Obrigacao(CONTRATANTE, FornecerAcessoAdmin(contas_anuncios))",
+      "codigo_z3": "ob_contratante_acesso = Bool('ob_contratante_acesso')\ns.add(ob_contratante_acesso == True)",
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "As partes sao entidades independentes.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "ser entidades independentes",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Parte(x) → Independente(x)]",
+      "codigo_z3": "parte_independente = Bool('parte_independente')\ns.add(parte_independente == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Natureza jurídica da independência não especificada"
+      ]
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "Fica eleito o foro da Comarca de Curitiba/PR.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Comarca de Curitiba/PR",
+      "condicao": null,
+      "formula_fol": "Foro(Curitiba_PR)",
+      "codigo_z3": "foro_curitiba = Bool('foro_curitiba')\ns.add(foro_curitiba == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    }
+  ],
+  "total_formulas": 20
+}

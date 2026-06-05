@@ -1,0 +1,302 @@
+{
+  "timestamp": "20260429_145909",
+  "contrato": "contrato_10",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "Terceirizacao de processos de recrutamento e selecao de pessoal.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "O valor total da prestacao de servicos e de R$ 5.000,00 por semestre.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "A CONTRATANTE pagara a CONTRATADA a quantia mensal inalteravel de R$ 15.000,00.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "pagar quantia mensal inalteravel",
+      "objeto": "à CONTRATADA",
+      "condicao": null,
+      "formula_fol": "∀t [Obrigacao(CONTRATANTE, Pagar(CONTRATADA, 15000, t)) ∧ Periodo(Pagamento, mensal)]",
+      "codigo_z3": "obrigacao_pagamento = Bool('ob_pagamento')\nvalor_pagamento = Int('vl_pagamento')\ns.add(obrigacao_pagamento == True)\ns.add(valor_pagamento == 15000)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "A vigencia deste instrumento sera de 24 meses.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "vigência",
+      "objeto": "deste instrumento",
+      "condicao": null,
+      "formula_fol": "Vigencia(Instrumento, 24meses)",
+      "codigo_z3": "vigencia = Int('vigencia')\ns.add(vigencia == 24)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "Os servicos de entrevistas serao prestados exclusivamente de segunda a sexta-feira.",
+      "tipo_deontico": "obrigacao",
+      "agente": "prestador",
+      "acao": "prestar servicos de entrevistas",
+      "objeto": null,
+      "condicao": "exclusivamente de segunda a sexta-feira",
+      "formula_fol": "∀x [ServicoEntrevista(x) → DiaSemana(x) ∈ {segunda, terca, quarta, quinta, sexta}]",
+      "codigo_z3": "servico_entrevista = Bool('s_entrevista')\ndia_seg = Bool('dia_seg')\ndia_ter = Bool('dia_ter')\ndia_qua = Bool('dia_qua')\ndia_qui = Bool('dia_qui')\ndia_sex = Bool('dia_sex')\ns.add(servico_entrevista == True)\ns.add(Or(dia_seg, dia_ter, dia_qua, dia_qui, dia_sex))",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "A CONTRATADA obriga-se a estar integralmente a disposicao aos sabados, domingos e feriados, sem custos extras.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "estar integralmente a disposicao",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀d [DiaSemana(d) ∧ (Sabado(d) ∨ Domingo(d) ∨ Feriado(d)) → Obrigacao(CONTRATADA, Disponivel(d))]",
+      "codigo_z3": "obrigacao_disponivel = Bool('ob_disponivel')\nsabado = Bool('sabado')\ndomingo = Bool('domingo')\nferiado = Bool('feriado')\ns.add(obrigacao_disponivel == True)\ns.add(Or(sabado, domingo, feriado))",
+      "confianca": 0.95,
+      "ambiguidades": [
+        "A cláusula não especifica o período de vigência da obrigação, podendo ser interpretada como obrigação contínua ou apenas durante a vigência do contrato."
+      ]
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "A execucao dos testes psicologicos devera seguir rigorosamente os metodos descritos no Anexo III deste contrato. (Nota: Nao ha Anexo III).",
+      "tipo_deontico": "obrigacao",
+      "agente": "executor dos testes psicológicos",
+      "acao": "seguir rigorosamente os métodos descritos no Anexo III",
+      "objeto": "Anexo III",
+      "condicao": null,
+      "formula_fol": "∀x [TestePsicologico(x) → Obrigacao(Executor, SeguirMetodosAnexoIII(x))]",
+      "codigo_z3": "obrigacao_teste = Bool('ob_teste')\ns.add(obrigacao_teste == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Anexo III mencionado mas não existe; referência não verificável"
+      ]
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "A CONTRATADA devera selecionar candidatos que parecam ser boas pessoas e que nao deem muito trabalho.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "selecionar candidatos",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Candidato(x) → Obrigacao(CONTRATADA, Selecionar(x))]",
+      "codigo_z3": "obrigacao_contratada_selecionar = Bool('ob_contratada_selecionar')\ns.add(obrigacao_contratada_selecionar == True)",
+      "confianca": 0.65,
+      "ambiguidades": [
+        "Critérios subjetivos: 'parecam ser boas pessoas' e 'nao deem muito trabalho' são vagos e não objetivos."
+      ]
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "Em caso de rescisao antecipada, a parte que der causa pagara multa de 20% do valor do contrato.",
+      "tipo_deontico": "penalidade",
+      "agente": "parte que der causa",
+      "acao": "pagar multa",
+      "objeto": "20% do valor do contrato",
+      "condicao": "em caso de rescisao antecipada",
+      "formula_fol": "∀x [RescisaoAntecipada(x) ∧ Causa(x, y) → Obrigacao(y, PagarMulta(y, 0.2*ValorContrato))]",
+      "codigo_z3": "rescisao = Bool('rescisao')\ncausa = Bool('causa')\nmulta = Real('multa')\ns.add(Implies(And(rescisao, causa), multa == 0.2))",
+      "confianca": 0.95,
+      "ambiguidades": [
+        "não especifica quem define 'parte que der causa'"
+      ]
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "Fica acordado que, em hipotese de rescisao antecipada, nenhuma das partes pagara qualquer tipo de multa ou indenizacao.",
+      "tipo_deontico": "permissao",
+      "agente": "nenhuma das partes",
+      "acao": "pagar multa ou indenizacao",
+      "objeto": null,
+      "condicao": "em hipotese de rescisao antecipada",
+      "formula_fol": "∀p [Parte(p) ∧ RescisaoAntecipada → ¬Obrigacao(p, PagarMultaIndenizacao)]",
+      "codigo_z3": "parte_a = Bool('parte_a')\nparte_b = Bool('parte_b')\nrescisao_antecipada = Bool('rescisao_antecipada')\ns.add(Implies(rescisao_antecipada, Not(And(parte_a, parte_b))))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "expressão 'nenhuma das partes' pode ser interpretada como proibição bilateral ou permissão de não pagar"
+      ]
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "Os boletos vencem no dia 10.",
+      "tipo_deontico": "obrigacao",
+      "agente": "devedor",
+      "acao": "pagar boleto",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀b [Boleto(b) → Obrigacao(Devedor, Pagar(b)) ∧ Prazo(Pagar, Dia10)]",
+      "codigo_z3": "boleto = Bool('boleto')\nprazo = Int('prazo')\ns.add(boleto == True)\ns.add(prazo == 10)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O agente não está explícito na cláusula, assumindo 'devedor'."
+      ]
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "Todo contato deve ser feito formalmente por e-mail com assinatura digital.",
+      "tipo_deontico": "obrigacao",
+      "agente": "contato",
+      "acao": "ser feito formalmente por e-mail com assinatura digital",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Contato(x) → Obrigacao(RealizarFormalmente(x))]",
+      "codigo_z3": "obrigacao_contato_formal = Bool('ob_contato_formal')\ns.add(obrigacao_contato_formal == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "Se for mais rapido, a CONTRATANTE pode apenas avisar o porteiro da CONTRATADA sobre eventuais problemas.",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATANTE",
+      "acao": "avisar o porteiro da CONTRATADA",
+      "objeto": "sobre eventuais problemas",
+      "condicao": "se for mais rápido",
+      "formula_fol": "∀x [MaisRapido(x) → Permissao(CONTRATANTE, AvisarPorteiro(x))]",
+      "codigo_z3": "mais_rapido = Bool('mais_rapido')\npermissao_avisar = Bool('permissao_avisar')\ns.add(permissao_avisar == True)\ns.add(Implies(mais_rapido, permissao_avisar))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O que constitui 'mais rápido' não está definido"
+      ]
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "A CONTRATADA trabalhara com exclusividade para a CONTRATANTE.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "trabalhar com exclusividade",
+      "objeto": "para a CONTRATANTE",
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(CONTRATADA, TrabalharExclusivamente(CONTRATANTE))]",
+      "codigo_z3": "obrig_exclusividade = Bool('ob_exclusividade')\ns.add(obrig_exclusividade == True)",
+      "confianca": 0.65,
+      "ambiguidades": [
+        "O termo 'exclusividade' não é definido com precisão; pode haver interpretações sobre o escopo (serviços, horário, etc.)"
+      ]
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "A CONTRATADA declara que atende outras 50 empresas e que a CONTRATANTE nao tem exclusividade.",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "declarar",
+      "objeto": "que atende outras 50 empresas e que a CONTRATANTE não tem exclusividade",
+      "condicao": null,
+      "formula_fol": "Declaracao(CONTRATADA, AtendeOutrasEmpresas ∧ ¬Exclusividade(CONTRATANTE))",
+      "codigo_z3": "declaracao = Bool('declaracao')\natende_outras = Bool('atende_outras')\nexclusividade = Bool('exclusividade')\ns.add(declaracao == True)\ns.add(atende_outras == True)\ns.add(exclusividade == False)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não há obrigação ou proibição explícita, apenas declaração; 'outras 50 empresas' é vago"
+      ]
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "Sigilo total sobre salarios.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "manter sigilo total",
+      "objeto": "sobre salários",
+      "condicao": null,
+      "formula_fol": "∀x [Salario(x) → Obrigacao(Partes, ManterSigilo(x))]",
+      "codigo_z3": "sigilo_salarios = Bool('sig_salarios')\ns.add(sigilo_salarios == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "sigilo total indefinido"
+      ]
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "O escopo cobre ate 10 vagas mensais.",
+      "tipo_deontico": "permissao",
+      "agente": "escopo",
+      "acao": "cobrir vagas",
+      "objeto": "até 10 vagas mensais",
+      "condicao": null,
+      "formula_fol": "∀m [Escopo(CobrirVagas(m)) → Permissao(Cobrir, m) ∧ (NumVagas(m) ≤ 10)]",
+      "codigo_z3": "escopo_cobre = Bool('esc_cobre')\nvagas_mensais = Int('vg_mensais')\ns.add(escopo_cobre == True)\ns.add(vagas_mensais <= 10)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se o limite é por mês ou cumulativo",
+        "Não define o que são 'vagas' exatamente"
+      ]
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "A CONTRATADA utilizara software proprio.",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATADA",
+      "acao": "utilizar software próprio",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∃s [SoftwareProprio(s) ∧ Permissao(CONTRATADA, Utilizar(s))]",
+      "codigo_z3": "permissao_contratada_sw = Bool('per_contratada_sw')\ns.add(permissao_contratada_sw == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'utilizara' pode ser interpretado como permissão ou obrigação futura; optou-se por permissão."
+      ]
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "A CONTRATADA nao decide a contratacao, apenas recomenda.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "não decidir a contratação",
+      "objeto": "contratação",
+      "condicao": null,
+      "formula_fol": "∀x [Contratacao(x) → ¬Decide(CONTRATADA, x) ∧ Recomenda(CONTRATADA, x)]",
+      "codigo_z3": "decide_contratacao = Bool('decide_contratacao')\nrecomenda_contratacao = Bool('recomenda_contratacao')\ns.add(Not(decide_contratacao))\ns.add(recomenda_contratacao)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "A cláusula não especifica o que acontece se a CONTRATADA decidir; o 'apenas recomenda' implica permissão para recomendar, mas não obrigação."
+      ]
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "As partes elegem o foro da capital do Estado para dirimir questoes judiciais relativas a este contrato.",
+      "tipo_deontico": "obrigacao",
+      "agente": "Partes",
+      "acao": "eleger foro",
+      "objeto": "foro da capital do Estado",
+      "condicao": "para dirimir questões judiciais relativas a este contrato",
+      "formula_fol": "∀x [Contrato(x) → Obrigacao(Partes, ElegerForo(CapitalEstado, x))]",
+      "codigo_z3": "obrigacao_partes_foro = Bool('ob_partes_foro')\ns.add(obrigacao_partes_foro == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica qual Estado, nem prazo para eleição do foro"
+      ]
+    }
+  ],
+  "total_formulas": 20
+}

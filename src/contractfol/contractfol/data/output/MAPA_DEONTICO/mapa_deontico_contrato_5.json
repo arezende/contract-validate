@@ -1,0 +1,321 @@
+{
+  "timestamp": "20260429_150503",
+  "contrato": "contrato_5",
+  "descricao": "Mapeamento deôntico com rastreabilidade às cláusulas originais",
+  "mapa": {
+    "definicao_partes": {
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_1",
+          "texto_original": "Desenvolvimento de um sistema web personalizado para gestao de frotas.",
+          "acao": "desenvolver sistema web",
+          "objeto": "para gestão de frotas",
+          "condicao": null,
+          "confianca": 0.5,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_3",
+          "texto_original": "O prazo total para desenvolvimento e entrega e de 180 dias.",
+          "acao": "desenvolver e entregar",
+          "objeto": "produto ou serviço",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 180,
+            "unidade": "dias"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_4",
+          "texto_original": "As entregas serao fracionadas em 4 fases mensais, conforme anexo tecnico.",
+          "acao": "fracionar entregas",
+          "objeto": "em 4 fases mensais",
+          "condicao": "conforme anexo tecnico",
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 1,
+            "unidade": "mes"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_20",
+          "texto_original": "Elege-se o foro de Brasilia/DF.",
+          "acao": "eleger foro",
+          "objeto": "Brasília/DF",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_sistema": {
+      "tipo_deontico": "obrigacao",
+      "agente": "sistema",
+      "sentencas": [
+        {
+          "clausula_id": "CL_2",
+          "texto_original": "O sistema devera conter modulos de cadastro, rastreamento e relatorios financeiros.",
+          "acao": "conter modulos de cadastro, rastreamento e relatorios financeiros",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "condicao_—": {
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "sentencas": [
+        {
+          "clausula_id": "CL_5",
+          "texto_original": "O valor total do projeto e de R$ 80.000,00 (oitenta mil reais).",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_partes": {
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_6",
+          "texto_original": "O valor sera pago em 4 parcelas de R$ 20.000,00, vinculadas a aprovacao de cada fase.",
+          "acao": "pagar",
+          "objeto": "valor total de R$ 80.000,00",
+          "condicao": "vinculado à aprovação de cada fase",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": {
+            "montante": 80000.0,
+            "descricao": "4 parcelas de R$ 20.000,00"
+          }
+        },
+        {
+          "clausula_id": "CL_15",
+          "texto_original": "Em caso de rescisao antecipada, serao pagos os valores proporcionais as fases concluidas.",
+          "acao": "pagar valores proporcionais",
+          "objeto": "às fases concluídas",
+          "condicao": "em caso de rescisão antecipada",
+          "confianca": 0.88,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATANTE": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_7",
+          "texto_original": "A CONTRATANTE tera 5 dias uteis para homologar cada entrega.",
+          "acao": "homologar cada entrega",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.92,
+          "prazo": {
+            "valor": 5,
+            "unidade": "dias uteis"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "direito_CONTRATANTE": {
+      "tipo_deontico": "direito",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_8",
+          "texto_original": "O codigo-fonte sera de propriedade exclusiva da CONTRATANTE apos a quitacao total.",
+          "acao": "ter propriedade exclusiva",
+          "objeto": "código-fonte",
+          "condicao": "após a quitação total",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATADA": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_9",
+          "texto_original": "A CONTRATADA fornecera suporte tecnico gratuito por 90 dias apos a entrega final.",
+          "acao": "fornecer suporte técnico gratuito",
+          "objeto": null,
+          "condicao": "após a entrega final",
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 90,
+            "unidade": "dias"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_19",
+          "texto_original": "A CONTRATADA garante nao utilizar bibliotecas com licencas restritivas que prejudiquem a comercializacao.",
+          "acao": "não utilizar bibliotecas com licenças restritivas que prejudiquem a comercialização",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "permissao_prestador_de_serviço": {
+      "tipo_deontico": "permissao",
+      "agente": "prestador de serviço",
+      "sentencas": [
+        {
+          "clausula_id": "CL_10",
+          "texto_original": "Apos o periodo de suporte, eventuais manutencoes serao cobradas a parte.",
+          "acao": "cobrar manutenções",
+          "objeto": "a parte",
+          "condicao": "após o período de suporte",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "proibicao_CONTRATADA": {
+      "tipo_deontico": "proibicao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_11",
+          "texto_original": "E vedado a CONTRATADA utilizar dados da CONTRATANTE para outros fins.",
+          "acao": "utilizar dados da CONTRATANTE para outros fins",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_devedor": {
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "sentencas": [
+        {
+          "clausula_id": "CL_12",
+          "texto_original": "Atraso nos pagamentos gera multa de 2% e juros de 1% a.m.",
+          "acao": "atrasar pagamentos",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": null,
+          "valor": {
+            "montante": null,
+            "descricao": "multa de 2% e juros de 1% a.m."
+          }
+        }
+      ]
+    },
+    "penalidade_executor_do_projeto": {
+      "tipo_deontico": "penalidade",
+      "agente": "executor do projeto",
+      "sentencas": [
+        {
+          "clausula_id": "CL_13",
+          "texto_original": "Atraso nas fases do projeto gera desconto de 1% do valor da parcela por dia util.",
+          "acao": "atrasar fases do projeto",
+          "objeto": null,
+          "condicao": "atraso nas fases do projeto",
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 1,
+            "unidade": "dia util"
+          },
+          "valor": {
+            "montante": 0.01,
+            "descricao": "1% do valor da parcela por dia util"
+          }
+        }
+      ]
+    },
+    "obrigacao_não_especificado": {
+      "tipo_deontico": "obrigacao",
+      "agente": "não especificado",
+      "sentencas": [
+        {
+          "clausula_id": "CL_14",
+          "texto_original": "Novas funcionalidades deverao ser orcadas em termo aditivo.",
+          "acao": "orçar novas funcionalidades",
+          "objeto": "em termo aditivo",
+          "condicao": null,
+          "confianca": 0.8,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_contrato": {
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "sentencas": [
+        {
+          "clausula_id": "CL_16",
+          "texto_original": "Este contrato nao estabelece vinculo empregaticio.",
+          "acao": "estabelecer vinculo empregaticio",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "proibicao_nenhuma_das_partes": {
+      "tipo_deontico": "proibicao",
+      "agente": "nenhuma das partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_17",
+          "texto_original": "Nenhuma das partes podera ceder o contrato sem anuencia.",
+          "acao": "ceder o contrato",
+          "objeto": null,
+          "condicao": "sem anuência",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_gestores_do_projeto": {
+      "tipo_deontico": "obrigacao",
+      "agente": "gestores do projeto",
+      "sentencas": [
+        {
+          "clausula_id": "CL_18",
+          "texto_original": "Toda comunicacao oficial sera realizada via e-mail dos gestores do projeto.",
+          "acao": "realizar comunicacao oficial",
+          "objeto": "via e-mail",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    }
+  }
+}

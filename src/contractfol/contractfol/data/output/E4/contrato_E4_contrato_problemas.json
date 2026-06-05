@@ -1,0 +1,27 @@
+{
+  "timestamp": "20260429_151140",
+  "etapa": "E4 — Análise Formal",
+  "problemas": [
+    {
+      "tipo": "lacuna_penalidade",
+      "severidade": "media",
+      "clausulas": [
+        "CL_4"
+      ],
+      "descricao": "CL_4: obrigação sem penalidade associada",
+      "sugestao": "Adicionar cláusula de penalidade para esta obrigação"
+    },
+    {
+      "tipo": "lacuna_penalidade",
+      "severidade": "media",
+      "clausulas": [
+        "CL_5"
+      ],
+      "descricao": "CL_5: obrigação sem penalidade associada",
+      "sugestao": "Adicionar cláusula de penalidade para esta obrigação"
+    }
+  ],
+  "total_problemas": 2,
+  "cobertura_penalidades": 0.0,
+  "tempo_ms": 15.3
+}

@@ -1,0 +1,108 @@
+{
+  "timestamp": "20260429_151140",
+  "contrato": "contrato_problemas",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "O presente contrato tem por objeto a prestação de serviços de consultoria técnica entre a Empresa Contratante ACME Consultoria Ltda. e a Empresa Contratada Soluções Digitais S.A. para desenvolvimento de plataforma de gerenciamento de projetos.",
+      "tipo_deontico": "definicao",
+      "agente": "Empresa Contratante ACME Consultoria Ltda. e Empresa Contratada Soluções Digitais S.A.",
+      "acao": "prestar serviços de consultoria técnica",
+      "objeto": "desenvolvimento de plataforma de gerenciamento de projetos",
+      "condicao": null,
+      "formula_fol": "∃x [Contrato(x) ∧ Objeto(x, 'prestacao_servicos_consultoria') ∧ Partes(x, 'ACME', 'SolucoesDigitais')]",
+      "codigo_z3": "contrato = Bool('contrato')\nobjeto = String('objeto')\ns.add(contrato == True)\ns.add(objeto == 'prestacao_servicos_consultoria')",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "2.1 A ACME deverá repassar os recursos financeiros em até 30 dias após a aprovação da prestação de contas parcial. 2.2 A ACME deverá disponibilizar infraestrutura tecnológica adequada para os testes da plataforma. 2.3 A ACME fornecerá suporte técnico em requisitos de negócio para a equipe de desenvolvimento.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "",
+      "codigo_z3": "",
+      "confianca": 0.5,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "3.1 A Soluções Digitais deverá apresentar relatório de progresso a cada 90 dias. 3.2 A Soluções Digitais deverá selecionar profissionais conforme critérios técnicos do anexo de perfis. 3.3 É vedado à Soluções Digitais utilizar os recursos do contrato para pagamento de despesas com pessoal permanente não alocado ao projeto.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "'list' object has no attribute 'get'"
+      ]
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "4.1 A ACME repassará o valor total de R$ 500.000,00 em parcelas mensais. 4.2 A Soluções Digitais poderá utilizar os recursos para contratação de profissionais temporários e permanentes alocados exclusivamente ao projeto.",
+      "tipo_deontico": "obrigacao",
+      "agente": "ACME",
+      "acao": "repassar valor total",
+      "objeto": "R$ 500.000,00 em parcelas mensais",
+      "condicao": null,
+      "formula_fol": "Obrigacao(ACME, Repassar(500000)) ∧ Prazo(Repassar, Mensal)",
+      "codigo_z3": "obrigacao_acme_repassar = Bool('ob_acme_repassar')\nvalor_total = Int('vl_total')\ns.add(obrigacao_acme_repassar == True)\ns.add(valor_total == 500000)",
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "5.1 O presente contrato terá vigência de 24 meses a partir da data de assinatura. 5.2 O prazo para prestação de contas final é de 60 dias após o encerramento da vigência.",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes contratantes",
+      "acao": "cumprir vigência e prestar contas final",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Contrato(x) → Vigencia(x, 24meses) ∧ Obrigacao(Partes, PrestarContasFinal(x)) ∧ Prazo(PrestarContas, 60dias, AposEncerramento)]",
+      "codigo_z3": "vigencia = Int('vigencia')\nprazo_pc = Int('prazo_pc')\ns.add(vigencia == 24)\ns.add(prazo_pc == 60)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "objeto da prestação de contas não definido"
+      ]
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "6.1 O descumprimento das obrigações pela Soluções Digitais sujeitará à suspensão dos repasses. 6.2 Caso a Soluções Digitais não apresente o relatório no prazo, a ACME poderá rescindir o contrato.",
+      "tipo_deontico": "penalidade",
+      "agente": "ACME",
+      "acao": "suspender repasses ou rescindir contrato",
+      "objeto": null,
+      "condicao": "descumprimento das obrigações ou não apresentação de relatório no prazo",
+      "formula_fol": "∀x (Descumprimento(x) → Permitido(ACME, SuspenderRepasses)) ∧ ∀y (NaoApresentarRelatorioPrazo(y) → Permitido(ACME, RescindirContrato(y)))",
+      "codigo_z3": "descumprimento = Bool('descumprimento')\nnao_relatorio_prazo = Bool('nao_relatorio_prazo')\nsuspensao = Bool('suspensao')\nrescisao = Bool('rescisao')\ns.add(descumprimento == True)\ns.add(nao_relatorio_prazo == True)\ns.add(suspensao == True)\ns.add(rescisao == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "O termo 'descumprimento das obrigações' é genérico, não especifica quais obrigações."
+      ]
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "7.1 O contrato poderá ser rescindido por acordo entre as partes ou descumprimento de cláusulas.",
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "acao": "rescindir contrato",
+      "objeto": null,
+      "condicao": "por acordo entre as partes ou descumprimento de cláusulas",
+      "formula_fol": "∀x [Acordo(x) ∨ Descumprimento(x) → Permissao(Partes, Rescindir)]",
+      "codigo_z3": "perm_rescisao = Bool('perm_rescisao')\nacordo = Bool('acordo')\ndescumprimento = Bool('descumprimento')\ns.add(perm_rescisao == True)\ns.add(perm_rescisao == (acordo | descumprimento))",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica qual parte pode rescindir em caso de descumprimento"
+      ]
+    }
+  ],
+  "total_formulas": 7
+}

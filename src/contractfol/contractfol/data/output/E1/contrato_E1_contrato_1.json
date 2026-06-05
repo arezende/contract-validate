@@ -1,0 +1,135 @@
+{
+  "timestamp": "20260429_145707",
+  "etapa": "E1 — Pré-processamento",
+  "arquivo": "contrato_1.txt",
+  "titulo": "contrato_1",
+  "partes": [
+    "Empresa Alpha Ltda",
+    "Servicos Beta ME"
+  ],
+  "contratante": "Empresa Alpha Ltda",
+  "contratado": "Servicos Beta ME",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "numero": "1",
+      "secao": "OBJETO",
+      "texto": "O presente instrumento tem por objeto a prestacao de servicos de suporte tecnico em TI pela CONTRATADA a CONTRATANTE."
+    },
+    {
+      "id": "CL_2",
+      "numero": "2",
+      "secao": "ESCOPO",
+      "texto": "Os servicos incluem a manutencao preventiva e corretiva de 50 computadores e 2 servidores."
+    },
+    {
+      "id": "CL_3",
+      "numero": "3",
+      "secao": "LOCAL",
+      "texto": "Os servicos serao executados na sede da CONTRATANTE."
+    },
+    {
+      "id": "CL_4",
+      "numero": "4",
+      "secao": "VIGENCIA",
+      "texto": "O prazo de vigencia deste contrato e de 12 (doze) meses."
+    },
+    {
+      "id": "CL_5",
+      "numero": "5",
+      "secao": "INICIO",
+      "texto": "Este contrato entra em vigor na data de sua assinatura."
+    },
+    {
+      "id": "CL_6",
+      "numero": "6",
+      "secao": "VALOR",
+      "texto": "O valor total do presente contrato e de R$ 24.000,00 (vinte e quatro mil reais)."
+    },
+    {
+      "id": "CL_7",
+      "numero": "7",
+      "secao": "PAGAMENTO",
+      "texto": "O pagamento sera realizado em 12 parcelas mensais de R$ 2.000,00."
+    },
+    {
+      "id": "CL_8",
+      "numero": "8",
+      "secao": "VENCIMENTO",
+      "texto": "O vencimento de cada parcela ocorrera ate o 5º dia util de cada mes."
+    },
+    {
+      "id": "CL_9",
+      "numero": "9",
+      "secao": "REAJUSTE",
+      "texto": "Apos 12 meses, o valor sera reajustado com base na variacao do IPCA."
+    },
+    {
+      "id": "CL_10",
+      "numero": "10",
+      "secao": "OBRIGACOES DA CONTRATADA",
+      "texto": "Executar os servicos com zelo, utilizando profissionais qualificados."
+    },
+    {
+      "id": "CL_11",
+      "numero": "11",
+      "secao": "OBRIGACOES DA CONTRATANTE",
+      "texto": "Fornecer acesso as dependencias e aos equipamentos necessarios para o trabalho."
+    },
+    {
+      "id": "CL_12",
+      "numero": "12",
+      "secao": "DESPESAS",
+      "texto": "Despesas com pecas de reposicao serao arcadas pela CONTRATANTE, mediante aprovacao previa."
+    },
+    {
+      "id": "CL_13",
+      "numero": "13",
+      "secao": "CONFIDENCIALIDADE",
+      "texto": "As partes comprometem-se a manter absoluto sigilo sobre dados acessados durante o servico."
+    },
+    {
+      "id": "CL_14",
+      "numero": "14",
+      "secao": "MULTA MORATORIA",
+      "texto": "Em caso de atraso no pagamento, incidera multa de 2% e juros de 1% ao mes."
+    },
+    {
+      "id": "CL_15",
+      "numero": "15",
+      "secao": "RESCISAO",
+      "texto": "O contrato podera ser rescindido por qualquer das partes mediante aviso previo de 30 dias."
+    },
+    {
+      "id": "CL_16",
+      "numero": "16",
+      "secao": "JUSTA CAUSA",
+      "texto": "O descumprimento de qualquer clausula enseja a rescisao imediata do contrato."
+    },
+    {
+      "id": "CL_17",
+      "numero": "17",
+      "secao": "MULTA RESCISORIA",
+      "texto": "A rescisao por justa causa implicara em multa equivalente a 10% do valor total do contrato."
+    },
+    {
+      "id": "CL_18",
+      "numero": "18",
+      "secao": "CESSAO",
+      "texto": "E vedada a cessao ou transferencia deste contrato a terceiros sem previa anuencia."
+    },
+    {
+      "id": "CL_19",
+      "numero": "19",
+      "secao": "TOLERANCIA",
+      "texto": "A abstencao do exercicio de qualquer direito nao implicara em novacao ou renuncia."
+    },
+    {
+      "id": "CL_20",
+      "numero": "20",
+      "secao": "FORO",
+      "texto": "Fica eleito o foro da Comarca de Sao Paulo/SP para dirimir quaisquer controversias."
+    }
+  ],
+  "total_clausulas": 20
+}

@@ -1,0 +1,415 @@
+{
+  "timestamp": "20260429_151051",
+  "etapa": "E2 — Extração Estruturada",
+  "clausulas": [
+    {
+      "id": "CL_1",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "2 validation errors for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type\nacao\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_2",
+      "tipo_deontico": "obrigacao",
+      "agente": "prestador",
+      "acao": "realizar visitas preventivas e atender chamados emergenciais",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 1,
+        "unidade": "mes"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado explicitamente",
+        "periodicidade de chamados emergenciais não definida"
+      ]
+    },
+    {
+      "id": "CL_3",
+      "tipo_deontico": "obrigacao",
+      "agente": "Chamados emergenciais",
+      "acao": "atendidos",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 4,
+        "unidade": "horas uteis"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": [
+        "Não especifica quem deve atender os chamados emergenciais"
+      ]
+    },
+    {
+      "id": "CL_4",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "vigorar por 12 meses",
+      "objeto": "contrato",
+      "condicao": null,
+      "prazo": {
+        "valor": 12,
+        "unidade": "meses"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_5",
+      "tipo_deontico": "definicao",
+      "agente": "contrato",
+      "acao": "definir valor mensal",
+      "objeto": "R$ 4.500,00",
+      "condicao": null,
+      "prazo": {
+        "valor": 1,
+        "unidade": "mês"
+      },
+      "valor": {
+        "montante": 4500.0,
+        "descricao": "valor mensal do contrato"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_6",
+      "tipo_deontico": "obrigacao",
+      "agente": "devedor",
+      "acao": "efetuar pagamento",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 20,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "não especifica quem é o devedor",
+        "não especifica o valor"
+      ]
+    },
+    {
+      "id": "CL_7",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "reembolsar",
+      "objeto": "pecas de reposicao adquiridas pela CONTRATADA",
+      "condicao": "mediante apresentacao de cupom fiscal",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica prazo para reembolso",
+        "Não especifica valor a ser reembolsado"
+      ]
+    },
+    {
+      "id": "CL_8",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "utilizar ferramentas proprias",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_9",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "cumprir normas de segurança do trabalho",
+      "objeto": "NR-10 e NR-35",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "agente não especificado",
+        "normas específicas mencionadas mas sem detalhamento de cumprimento"
+      ]
+    },
+    {
+      "id": "CL_10",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "responder por danos causados",
+      "objeto": "danos causados por imperícia ou negligência",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.7,
+      "ambiguidades": [
+        "Não especifica prazo para responder",
+        "Não define o que constitui imperícia ou negligência"
+      ]
+    },
+    {
+      "id": "CL_11",
+      "tipo_deontico": "penalidade",
+      "agente": "devedor",
+      "acao": "pagar multa",
+      "objeto": "multa de 2% sobre valor devido",
+      "condicao": "atraso no pagamento",
+      "prazo": null,
+      "valor": {
+        "montante": 0.02,
+        "descricao": "2% sobre o valor devido"
+      },
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_12",
+      "tipo_deontico": "permissao",
+      "agente": "partes",
+      "acao": "rescindir",
+      "objeto": "contrato",
+      "condicao": "mediante aviso prévio de 30 dias de antecedência",
+      "prazo": {
+        "valor": 30,
+        "unidade": "dias"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_13",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "id": "CL_14",
+      "tipo_deontico": "obrigacao",
+      "agente": "todos os trabalhadores",
+      "acao": "usar Equipamentos de Proteção Individual",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Agente não especificado explicitamente; 'obrigatório' pode ser interpretado como dever geral"
+      ]
+    },
+    {
+      "id": "CL_15",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "entregar laudo tecnico",
+      "objeto": null,
+      "condicao": null,
+      "prazo": {
+        "valor": 1,
+        "unidade": "visita"
+      },
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Prazo ambiguo: 'a cada visita preventiva' indica periodicidade mas sem valor numerico de dias"
+      ]
+    },
+    {
+      "id": "CL_16",
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "acao": "realizar manutencoes preventivas",
+      "objeto": null,
+      "condicao": "em horario comercial",
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem deve realizar as manutenções",
+        "Horário comercial não definido precisamente"
+      ]
+    },
+    {
+      "id": "CL_17",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "acao": "providenciar autorizacao de acesso",
+      "objeto": "dos tecnicos",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "id": "CL_18",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "proteger dados",
+      "objeto": "dados referentes aos moradores e rotinas do prédio",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.6,
+      "ambiguidades": [
+        "A cláusula não especifica quem é o agente responsável pela proteção",
+        "Não define prazos ou penalidades",
+        "Não especifica o que significa 'proteção' (sigilo, integridade, etc.)"
+      ]
+    },
+    {
+      "id": "CL_19",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "definir ausência de vínculo empregatício",
+      "objeto": null,
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Ausência de sujeito explícito; 'partes' inferido do contexto."
+      ]
+    },
+    {
+      "id": "CL_20",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Comarca de Fortaleza/CE",
+      "condicao": null,
+      "prazo": null,
+      "valor": null,
+      "penalidade_ref": null,
+      "confianca": 0.9,
+      "ambiguidades": []
+    }
+  ],
+  "mapa_deontico": {
+    "—": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "prestador": {
+      "obrigacoes": [
+        "CL_2"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "Chamados emergenciais": {
+      "obrigacoes": [
+        "CL_3"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "partes": {
+      "obrigacoes": [
+        "CL_9",
+        "CL_16"
+      ],
+      "proibicoes": [],
+      "permissoes": [
+        "CL_12"
+      ],
+      "direitos": [],
+      "penalidades": []
+    },
+    "contrato": {
+      "obrigacoes": [],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "devedor": {
+      "obrigacoes": [
+        "CL_6"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": [
+        "CL_11"
+      ]
+    },
+    "CONTRATANTE": {
+      "obrigacoes": [
+        "CL_7",
+        "CL_17"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "CONTRATADA": {
+      "obrigacoes": [
+        "CL_8",
+        "CL_10",
+        "CL_15"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    },
+    "todos os trabalhadores": {
+      "obrigacoes": [
+        "CL_14"
+      ],
+      "proibicoes": [],
+      "permissoes": [],
+      "direitos": [],
+      "penalidades": []
+    }
+  },
+  "confianca_media": 0.7775
+}

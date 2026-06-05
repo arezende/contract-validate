@@ -1,0 +1,327 @@
+{
+  "timestamp": "20260429_150756",
+  "contrato": "contrato_7",
+  "descricao": "Mapeamento deôntico com rastreabilidade às cláusulas originais",
+  "mapa": {
+    "condicao_—": {
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "sentencas": [
+        {
+          "clausula_id": "CL_1",
+          "texto_original": "Gerenciamento de campanhas de trafego pago e redes sociais.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_6",
+          "texto_original": "Contrato com duracao inicial de 6 (seis) meses, renovado automaticamente.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_14",
+          "texto_original": "Dados de leads e clientes sao sigilosos.",
+          "acao": "—",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.0,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_Gestor": {
+      "tipo_deontico": "obrigacao",
+      "agente": "Gestor",
+      "sentencas": [
+        {
+          "clausula_id": "CL_2",
+          "texto_original": "Gestao de contas no Google Ads e Instagram, com criacao de 12 artes mensais.",
+          "acao": "gerir contas no Google Ads e Instagram e criar artes mensais",
+          "objeto": "12 artes mensais",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 1,
+            "unidade": "mês"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_CONTRATANTE": {
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_3",
+          "texto_original": "O valor a ser investido nas plataformas (Google/Facebook) sera pago diretamente pela CONTRATANTE as plataformas.",
+          "acao": "pagar diretamente às plataformas",
+          "objeto": "o valor a ser investido nas plataformas (Google/Facebook)",
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_18",
+          "texto_original": "A CONTRATANTE fornecera niveis de acesso de administrador nas contas de anuncios.",
+          "acao": "fornecer niveis de acesso de administrador",
+          "objeto": "nas contas de anuncios",
+          "condicao": null,
+          "confianca": 0.92,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_agência": {
+      "tipo_deontico": "obrigacao",
+      "agente": "agência",
+      "sentencas": [
+        {
+          "clausula_id": "CL_4",
+          "texto_original": "O fee mensal da agencia e de R$ 3.000,00 (tres mil reais).",
+          "acao": "pagar fee mensal",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": {
+            "valor": 1,
+            "unidade": "mês"
+          },
+          "valor": {
+            "montante": 3000.0,
+            "descricao": "tres mil reais"
+          }
+        }
+      ]
+    },
+    "obrigacao_contratante": {
+      "tipo_deontico": "obrigacao",
+      "agente": "contratante",
+      "sentencas": [
+        {
+          "clausula_id": "CL_5",
+          "texto_original": "O pagamento ocorrera via PIX ate o dia 05 do mes vigente da prestacao do servico.",
+          "acao": "realizar pagamento via PIX",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": {
+            "valor": 5,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_não_especificado": {
+      "tipo_deontico": "obrigacao",
+      "agente": "não especificado",
+      "sentencas": [
+        {
+          "clausula_id": "CL_7",
+          "texto_original": "Otimizar campanhas semanalmente e enviar relatorios de performance no dia 01 de cada mes.",
+          "acao": "otimizar campanhas",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.7,
+          "prazo": {
+            "valor": 7,
+            "unidade": "dias"
+          },
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_8",
+          "texto_original": "Aprovar as artes com no minimo 48 horas de antecedencia.",
+          "acao": "aprovar as artes",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.75,
+          "prazo": {
+            "valor": 48,
+            "unidade": "horas"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "direito_CONTRATANTE": {
+      "tipo_deontico": "direito",
+      "agente": "CONTRATANTE",
+      "sentencas": [
+        {
+          "clausula_id": "CL_9",
+          "texto_original": "As artes criadas pertencerao a CONTRATANTE.",
+          "acao": "possuir as artes criadas",
+          "objeto": "artes criadas",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "definicao_CONTRATADA": {
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "sentencas": [
+        {
+          "clausula_id": "CL_10",
+          "texto_original": "A CONTRATADA nao garante volume fixo de vendas, visto que atua como atividade de meio e nao de resultado.",
+          "acao": "nao garantir volume fixo de vendas",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.75,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "condicao_agencia": {
+      "tipo_deontico": "condicao",
+      "agente": "agencia",
+      "sentencas": [
+        {
+          "clausula_id": "CL_11",
+          "texto_original": "Atraso nos pagamentos da agencia implica em suspensao dos servicos apos 5 dias.",
+          "acao": "atrasar pagamentos",
+          "objeto": null,
+          "condicao": "após 5 dias de atraso",
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 5,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "direito_qualquer_parte": {
+      "tipo_deontico": "direito",
+      "agente": "qualquer parte",
+      "sentencas": [
+        {
+          "clausula_id": "CL_12",
+          "texto_original": "Rescisao por qualquer das partes com aviso previo de 30 dias.",
+          "acao": "rescindir",
+          "objeto": "contrato",
+          "condicao": "com aviso prévio de 30 dias",
+          "confianca": 0.85,
+          "prazo": {
+            "valor": 30,
+            "unidade": "dias"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "penalidade_parte_infratora": {
+      "tipo_deontico": "penalidade",
+      "agente": "parte infratora",
+      "sentencas": [
+        {
+          "clausula_id": "CL_13",
+          "texto_original": "Quebra de sigilo ou falta de pagamento ensejam rescisao imediata.",
+          "acao": "rescindir contrato",
+          "objeto": null,
+          "condicao": "quebra de sigilo ou falta de pagamento",
+          "confianca": 0.8,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_partes": {
+      "tipo_deontico": "obrigacao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_15",
+          "texto_original": "Fica estabelecida uma reuniao mensal de alinhamento via videoconferencia.",
+          "acao": "realizar reuniao mensal de alinhamento via videoconferencia",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": {
+            "valor": 1,
+            "unidade": "mês"
+          },
+          "valor": null
+        }
+      ]
+    },
+    "definicao_agencia": {
+      "tipo_deontico": "definicao",
+      "agente": "agencia",
+      "sentencas": [
+        {
+          "clausula_id": "CL_16",
+          "texto_original": "O suporte da agencia funciona em horario comercial (09h as 18h).",
+          "acao": "funcionar em horario comercial",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.9,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    },
+    "obrigacao_cliente": {
+      "tipo_deontico": "obrigacao",
+      "agente": "cliente",
+      "sentencas": [
+        {
+          "clausula_id": "CL_17",
+          "texto_original": "Artes extras fora do pacote serao cobradas a R$ 100,00 por unidade.",
+          "acao": "pagar",
+          "objeto": "artes extras",
+          "condicao": "artes extras fora do pacote",
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": {
+            "montante": 100.0,
+            "descricao": "por unidade"
+          }
+        }
+      ]
+    },
+    "definicao_partes": {
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "sentencas": [
+        {
+          "clausula_id": "CL_19",
+          "texto_original": "As partes sao entidades independentes.",
+          "acao": "ser entidades independentes",
+          "objeto": null,
+          "condicao": null,
+          "confianca": 0.85,
+          "prazo": null,
+          "valor": null
+        },
+        {
+          "clausula_id": "CL_20",
+          "texto_original": "Fica eleito o foro da Comarca de Curitiba/PR.",
+          "acao": "eleger foro",
+          "objeto": "Comarca de Curitiba/PR",
+          "condicao": null,
+          "confianca": 0.95,
+          "prazo": null,
+          "valor": null
+        }
+      ]
+    }
+  }
+}

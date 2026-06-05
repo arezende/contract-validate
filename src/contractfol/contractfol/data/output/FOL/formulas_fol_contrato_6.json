@@ -1,0 +1,292 @@
+{
+  "timestamp": "20260429_150630",
+  "contrato": "contrato_6",
+  "descricao": "Fórmulas FOL com rastreabilidade às cláusulas originais",
+  "formulas": [
+    {
+      "clausula_id": "CL_1",
+      "texto_original": "Prestacao de servicos de limpeza e conservacao das areas comuns do condominio.",
+      "tipo_deontico": "obrigacao",
+      "agente": "prestador",
+      "acao": "prestar servicos de limpeza e conservacao",
+      "objeto": "areas comuns do condominio",
+      "condicao": null,
+      "formula_fol": "∀x [AreaComum(x) → Obrigacao(Prestador, LimparConservar(x))]",
+      "codigo_z3": "prestador_servico = Bool('pr_servico')\ns.add(prestador_servico == True)",
+      "confianca": 0.75,
+      "ambiguidades": [
+        "Agente nao especificado explicitamente",
+        "Prazo nao definido",
+        "Nao ha penalidade associada"
+      ]
+    },
+    {
+      "clausula_id": "CL_2",
+      "texto_original": "A CONTRATADA fornecera 2 (dois) funcionarios trabalhando 8 horas por dia.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer funcionarios",
+      "objeto": "2 funcionarios trabalhando 8 horas por dia",
+      "condicao": null,
+      "formula_fol": "∃x [Funcionario(x) ∧ Quantidade(x, 2) ∧ HorasTrabalho(x, 8) ∧ Obrigacao(CONTRATADA, Fornecer(x))]",
+      "codigo_z3": "funcionario1 = Bool('func1')\nfuncionario2 = Bool('func2')\nhoras1 = Int('horas1')\nhoras2 = Int('horas2')\ns.add(funcionario1 == True)\ns.add(funcionario2 == True)\ns.add(horas1 == 8)\ns.add(horas2 == 8)",
+      "confianca": 0.9,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_3",
+      "texto_original": "O presente contrato tem vigencia de 24 meses e possui carater irrevogavel e irretratavel, nao podendo ser rescindido antecipadamente.",
+      "tipo_deontico": "proibicao",
+      "agente": "partes",
+      "acao": "rescindir antecipadamente",
+      "objeto": "contrato",
+      "condicao": null,
+      "formula_fol": "¬∃t [t < 24meses ∧ Rescindir(partes, contrato, t)]",
+      "codigo_z3": "rescindir_antecipado = Bool('rescindir_antecipado')\ns.add(rescindir_antecipado == False)",
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_4",
+      "texto_original": "O custo mensal do servico e de R$ 6.000,00.",
+      "tipo_deontico": "condicao",
+      "agente": "—",
+      "acao": "—",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "ERRO",
+      "codigo_z3": "",
+      "confianca": 0.0,
+      "ambiguidades": [
+        "1 validation error for ClausulaEstruturada\nagente\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.12/v/string_type"
+      ]
+    },
+    {
+      "clausula_id": "CL_5",
+      "texto_original": "Pagamento via boleto bancario com vencimento no dia 10 de cada mes.",
+      "tipo_deontico": "obrigacao",
+      "agente": "pagador",
+      "acao": "pagar",
+      "objeto": "via boleto bancario",
+      "condicao": null,
+      "formula_fol": "∀m [Obrigacao(Pagador, PagarBoleto(m)) ∧ Prazo(Pagamento, dia10)]",
+      "codigo_z3": "pagamento_boleto = Bool('pg_boleto')\ndia_vencimento = Int('dv')\ns.add(pagamento_boleto == True)\ns.add(dia_vencimento == 10)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica quem é o pagador",
+        "Não especifica o beneficiário"
+      ]
+    },
+    {
+      "clausula_id": "CL_6",
+      "texto_original": "A CONTRATADA e a unica responsavel pelos direitos trabalhistas dos funcionarios.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "ser responsável pelos direitos trabalhistas",
+      "objeto": "funcionários",
+      "condicao": null,
+      "formula_fol": "∀x [Funcionario(x) → Obrigacao(CONTRATADA, ResponsavelDireitosTrabalhistas(x))]",
+      "codigo_z3": "obrigacao_contratada_resp = Bool('ob_contratada_resp')\nfuncionario = Bool('funcionario')\ns.add(obrigacao_contratada_resp == True)\ns.add(Implica(funcionario, obrigacao_contratada_resp))",
+      "confianca": 0.92,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_7",
+      "texto_original": "O fornecimento de produtos de limpeza e de responsabilidade da CONTRATADA.",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer produtos de limpeza",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [ProdutoLimpeza(x) → Responsabilidade(CONTRATADA, Fornecer(x))]",
+      "codigo_z3": "fornecimento_produtos = Bool('fornec_prod')\ns.add(fornecimento_produtos == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica prazo, condições ou penalidades. A frase pode ser interpretada como definição de responsabilidade ou obrigação implícita."
+      ]
+    },
+    {
+      "clausula_id": "CL_8",
+      "texto_original": "A CONTRATADA compromete-se a usar apenas materiais que sejam mais ou menos bons e de cheiro agradavel.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "usar apenas materiais",
+      "objeto": "materiais que sejam mais ou menos bons e de cheiro agradavel",
+      "condicao": null,
+      "formula_fol": "∀x [Material(x) → Obrigacao(CONTRATADA, Usar(x)) ∧ (Bom(x) ∨ CheiroAgradavel(x))]",
+      "codigo_z3": "obrigacao_usar_materiais = Bool('ob_usar_materiais')\nmaterial = Bool('material')\nbom = Bool('bom')\ncheiro_agradavel = Bool('cheiro_agradavel')\ns.add(obrigacao_usar_materiais == True)\ns.add(material == True)\ns.add(Or(bom, cheiro_agradavel))",
+      "confianca": 0.6,
+      "ambiguidades": [
+        "'mais ou menos bons' é vago e subjetivo",
+        "'cheiro agradavel' é subjetivo e não mensurável"
+      ]
+    },
+    {
+      "clausula_id": "CL_9",
+      "texto_original": "A CONTRATADA deve substituir funcionarios em falta em ate 2 horas.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "substituir funcionarios em falta",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [FuncionarioFalta(x) → Obrigacao(CONTRATADA, Substituir(x)) ∧ Prazo(Substituir, 2h)]",
+      "codigo_z3": "obrigacao_substituir = Bool('ob_substituir')\nprazo_substituir = Int('pz_substituir')\ns.add(obrigacao_substituir == True)\ns.add(prazo_substituir == 2)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_10",
+      "texto_original": "A CONTRATANTE podera reter pagamentos se a CONTRATADA nao comprovar o pagamento de salarios.",
+      "tipo_deontico": "permissao",
+      "agente": "CONTRATANTE",
+      "acao": "reter pagamentos",
+      "objeto": null,
+      "condicao": "se a CONTRATADA nao comprovar o pagamento de salarios",
+      "formula_fol": "∀x [¬ComprovarSalarios(CONTRATADA,x) → Permissao(CONTRATANTE, ReterPagamentos(x))]",
+      "codigo_z3": "comprovar_salarios = Bool('comprovar_salarios')\nreter_pagamentos = Bool('reter_pagamentos')\ns.add(Implies(Not(comprovar_salarios), reter_pagamentos))",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_11",
+      "texto_original": "O sindico do CONTRATANTE fiscalizara a qualidade do servico.",
+      "tipo_deontico": "obrigacao",
+      "agente": "sindico do CONTRATANTE",
+      "acao": "fiscalizar a qualidade do servico",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(SindicoContratante, FiscalizarQualidade(x))]",
+      "codigo_z3": "ob_sindico_fiscalizar = Bool('ob_sindico_fiscalizar')\ns.add(ob_sindico_fiscalizar == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_12",
+      "texto_original": "Os funcionarios devem trabalhar devidamente uniformizados.",
+      "tipo_deontico": "obrigacao",
+      "agente": "funcionarios",
+      "acao": "trabalhar uniformizados",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Funcionario(x) → Obrigacao(x, TrabalharUniformizado)]",
+      "codigo_z3": "ob_func_uniforme = Bool('ob_func_uniforme')\ns.add(ob_func_uniforme == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_13",
+      "texto_original": "O horario de trabalho sera das 08:00 as 17:00, de segunda a sexta.",
+      "tipo_deontico": "obrigacao",
+      "agente": "funcionário",
+      "acao": "trabalhar",
+      "objeto": "das 08:00 às 17:00, de segunda a sexta",
+      "condicao": null,
+      "formula_fol": "∀d [DiaUtil(d) → Obrigacao(Funcionario, Trabalhar(d, 8h, 17h))]",
+      "codigo_z3": "obrigacao_trabalho = Bool('ob_trabalho')\ndia_util = Bool('dia_util')\ns.add(obrigacao_trabalho == True)\ns.add(dia_util == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_14",
+      "texto_original": "Qualquer das partes podera rescindir este contrato a qualquer momento, por qualquer motivo, mediante simples aviso pelo WhatsApp sem nenhuma multa.",
+      "tipo_deontico": "permissao",
+      "agente": "Qualquer das partes",
+      "acao": "rescindir este contrato",
+      "objeto": null,
+      "condicao": "mediante simples aviso pelo WhatsApp",
+      "formula_fol": "∀x [Parte(x) → Permissao(x, Rescindir(x))]",
+      "codigo_z3": "perm_rescindir = Bool('perm_rescindir')\ns.add(perm_rescindir == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_15",
+      "texto_original": "Reajuste anual pela convencao coletiva da categoria.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "reajustar anualmente",
+      "objeto": "salário",
+      "condicao": "convenção coletiva da categoria",
+      "formula_fol": "∀x [ConvencaoColetiva(x) → Obrigacao(Partes, ReajustarSalario(x)) ∧ Prazo(Reajuste, 1ano)]",
+      "codigo_z3": "reajuste_anual = Bool('reaj_anual')\nprazo_reajuste = Int('pz_reajuste')\ns.add(reajuste_anual == True)\ns.add(prazo_reajuste == 1)",
+      "confianca": 0.7,
+      "ambiguidades": [
+        "Não especifica claramente se é obrigação, permissão ou direito; assume-se obrigação implícita.",
+        "Não define quem é responsável pelo reajuste; assume-se 'partes' genérico."
+      ]
+    },
+    {
+      "clausula_id": "CL_16",
+      "texto_original": "Em caso de quebra de contrato, a parte infratora pagara uma multa de um valor razoavel a ser discutido depois.",
+      "tipo_deontico": "penalidade",
+      "agente": "parte infratora",
+      "acao": "pagar multa",
+      "objeto": null,
+      "condicao": "em caso de quebra de contrato",
+      "formula_fol": "∀x [QuebraContrato(x) → Obrigacao(Infrator, PagarMulta(x))]",
+      "codigo_z3": "quebra = Bool('quebra')\npagar = Bool('pagar')\ns.add(Implies(quebra, pagar))",
+      "confianca": 0.6,
+      "ambiguidades": [
+        "valor da multa não especificado",
+        "critério de razoabilidade subjetivo",
+        "momento de discussão futuro"
+      ]
+    },
+    {
+      "clausula_id": "CL_17",
+      "texto_original": "A CONTRATADA deve fornecer os Equipamentos de Protecao Individual.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "fornecer Equipamentos de Protecao Individual",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀x [Obrigacao(CONTRATADA, Fornecer(x)) ∧ EPI(x)]",
+      "codigo_z3": "obrigacao_fornecer_epi = Bool('ob_fornecer_epi')\ns.add(obrigacao_fornecer_epi == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_18",
+      "texto_original": "Responsabilidade exclusiva da CONTRATADA em acidentes de trabalho.",
+      "tipo_deontico": "definicao",
+      "agente": "CONTRATADA",
+      "acao": "responsabilizar-se por acidentes de trabalho",
+      "objeto": null,
+      "condicao": null,
+      "formula_fol": "∀a [AcidenteTrabalho(a) → Responsabilidade(CONTRATADA, a)]",
+      "codigo_z3": "responsabilidade_contratada = Bool('resp_contr')\ns.add(responsabilidade_contratada == True)",
+      "confianca": 0.85,
+      "ambiguidades": [
+        "Não especifica se a responsabilidade é total ou parcial",
+        "Não define o que constitui acidente de trabalho"
+      ]
+    },
+    {
+      "clausula_id": "CL_19",
+      "texto_original": "A CONTRATADA deve manter seguro de vida para os funcionarios.",
+      "tipo_deontico": "obrigacao",
+      "agente": "CONTRATADA",
+      "acao": "manter seguro de vida",
+      "objeto": "para os funcionarios",
+      "condicao": null,
+      "formula_fol": "∀x [Funcionario(x) → Obrigacao(CONTRATADA, ManterSeguroVida(x))]",
+      "codigo_z3": "ob_contratada_seguro = Bool('ob_contratada_seguro')\ns.add(ob_contratada_seguro == True)",
+      "confianca": 0.95,
+      "ambiguidades": []
+    },
+    {
+      "clausula_id": "CL_20",
+      "texto_original": "Elege-se o foro de Porto Alegre/RS.",
+      "tipo_deontico": "definicao",
+      "agente": "partes",
+      "acao": "eleger foro",
+      "objeto": "Porto Alegre/RS",
+      "condicao": null,
+      "formula_fol": "Foro(PortoAlegreRS)",
+      "codigo_z3": "foro = String('foro')\ns.add(foro == 'Porto Alegre/RS')",
+      "confianca": 0.95,
+      "ambiguidades": []
+    }
+  ],
+  "total_formulas": 20
+}
