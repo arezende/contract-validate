@@ -1,0 +1,26 @@
+# Configuração do experimento ContractFOL v3
+# Todos os valores são defaults — qualquer flag CLI sobrepõe.
+
+# ── Caminhos ──────────────────────────────────────────────────────────────────
+data:    data/raw/clause/datasets/
+splits:  data/splits/
+output:  outputs/llm_only/
+
+# ── Corpus ────────────────────────────────────────────────────────────────────
+n_per_cell:    50       # instâncias por célula (perturb_type × dimension)
+test_fraction: 0.30     # fração reservada para test (nunca usar durante dev)
+seed:          42
+
+# ── Modelos a avaliar ─────────────────────────────────────────────────────────
+# Aliases definidos em models.yaml
+models:
+  - gpt-4o-mini
+  - deepseek
+
+# ── Tarefas e níveis de prompt ────────────────────────────────────────────────
+tasks:   [eval1, eval2]   # eval1 | eval2 | eval3
+levels:  [l1, l2]         # l1 | l2
+
+# ── Execução ──────────────────────────────────────────────────────────────────
+max_concurrent: 5
+split: dev                # dev (padrão) | test (APENAS após congelamento)

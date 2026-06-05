@@ -1,6 +1,8 @@
 """
 Runner do braço LLM-only do ContractFOL v3.
 
+Defaults carregados de config/experiment.yaml; qualquer flag CLI sobrepõe.
+
 Fluxo:
   1. Carrega dataset CLAUSE via corpus.ingest
   2. Cria split dev/test estratificado (ou recarrega split existente)
@@ -9,19 +11,15 @@ Fluxo:
   5. Salva predições em JSONL + JSON de resumo
   6. Imprime tabela de métricas Eval_1 e Eval_2
 
-Uso:
-    python experiments/run_llm_only.py \
-        --data data/raw/clause/datasets/ \
-        --splits data/splits/ \
-        --output outputs/llm_only/ \
-        --models gpt-4o-mini deepseek \
-        --tasks eval1 eval2 \
-        --levels l1 l2
+Uso mínimo (usa tudo do experiment.yaml):
+    python experiments/run_llm_only.py
+
+Sobrepondo parâmetros:
+    python experiments/run_llm_only.py --models gpt-4o-mini --n-per-cell 10
 
 Flags úteis:
-    --n-per-cell 50       instâncias por célula (perturb_type × dimension)
-    --max-concurrent 5    chamadas de API em paralelo
-    --split dev           usar split dev (default) ou test (CUIDADO: contaminação)
+    --config              caminho alternativo para o YAML (default: config/experiment.yaml)
+    --split dev|test      split a usar (default: dev — nunca use test antes de congelar)
     --dry-run             mostra configuração e sai sem chamar APIs
 """
 
@@ -34,6 +32,8 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+
+import yaml
 
 logging.basicConfig(
     level=logging.INFO,
@@ -223,40 +223,106 @@ def compute_and_print_metrics(
 # ─── main ─────────────────────────────────────────────────────────────────────
 
 
+_DEFAULT_CONFIG = Path(__file__).parent.parent / "src/contractfol/config/experiment.yaml"
+
+
+def _load_config(path: Path) -> dict:
+    """Load experiment.yaml; return empty dict if file not found."""
+    if not path.exists():
+        logger.warning("Config file not found: %s — using CLI defaults only", path)
+        return {}
+    with path.open("r", encoding="utf-8") as fh:
+        return yaml.safe_load(fh) or {}
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        description="Runner do braço LLM-only — ContractFOL v3"
+        description="Runner do braço LLM-only — ContractFOL v3",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    p.add_argument("--data",    required=True,
-                   help="Caminho para data/raw/clause/datasets/")
-    p.add_argument("--splits",  default="data/splits/",
-                   help="Diretório onde dev.jsonl / test.jsonl serão lidos/gravados")
-    p.add_argument("--output",  default="outputs/llm_only/",
-                   help="Diretório de saída para predições e resumo")
-    p.add_argument("--models",  nargs="+", required=True,
-                   help="Aliases de modelo (ex: gpt-4o-mini deepseek)")
-    p.add_argument("--tasks",   nargs="+", default=["eval1"],
-                   choices=["eval1", "eval2", "eval3"],
-                   help="Tarefas de avaliação a executar")
-    p.add_argument("--levels",  nargs="+", default=["l1", "l2"],
-                   choices=["l1", "l2"],
-                   help="Níveis de prompt")
-    p.add_argument("--split",   default="dev", choices=["dev", "test"],
-                   help="Qual split usar (default: dev — nunca use test antes de congelar)")
-    p.add_argument("--n-per-cell",     type=int, default=50,
-                   help="Instâncias por célula no split estratificado")
-    p.add_argument("--test-fraction",  type=float, default=0.3,
-                   help="Fração do split reservada para test")
-    p.add_argument("--seed",           type=int, default=42)
-    p.add_argument("--max-concurrent", type=int, default=5,
-                   help="Chamadas de API em paralelo")
+    p.add_argument("--config", default=str(_DEFAULT_CONFIG),
+                   help="Arquivo YAML de configuração do experimento")
+    p.add_argument("--data",
+                   help="Caminho para data/raw/clause/datasets/ (sobrepõe config)")
+    p.add_argument("--splits",
+                   help="Diretório de dev.jsonl / test.jsonl (sobrepõe config)")
+    p.add_argument("--output",
+                   help="Diretório de saída para predições e resumo (sobrepõe config)")
+    p.add_argument("--models",  nargs="+",
+                   help="Aliases de modelo — ex: gpt-4o-mini deepseek (sobrepõe config)")
+    p.add_argument("--tasks",   nargs="+", choices=["eval1", "eval2", "eval3"],
+                   help="Tarefas de avaliação (sobrepõe config)")
+    p.add_argument("--levels",  nargs="+", choices=["l1", "l2"],
+                   help="Níveis de prompt (sobrepõe config)")
+    p.add_argument("--split",   choices=["dev", "test"],
+                   help="Split a usar — dev (padrão) ou test (sobrepõe config)")
+    p.add_argument("--n-per-cell",     type=int,
+                   help="Instâncias por célula no split estratificado (sobrepõe config)")
+    p.add_argument("--test-fraction",  type=float,
+                   help="Fração reservada para test (sobrepõe config)")
+    p.add_argument("--seed",           type=int,
+                   help="Semente aleatória (sobrepõe config)")
+    p.add_argument("--max-concurrent", type=int,
+                   help="Chamadas de API em paralelo (sobrepõe config)")
     p.add_argument("--dry-run", action="store_true",
                    help="Mostra configuração e sai sem chamar APIs")
     return p
 
 
+def _merge(cfg: dict, args: argparse.Namespace) -> argparse.Namespace:
+    """Apply config values where CLI arg is None (not provided)."""
+    mapping = {
+        "data":           ("data",           str),
+        "splits":         ("splits",         str),
+        "output":         ("output",         str),
+        "models":         ("models",         list),
+        "tasks":          ("tasks",          list),
+        "levels":         ("levels",         list),
+        "split":          ("split",          str),
+        "n_per_cell":     ("n_per_cell",     int),
+        "test_fraction":  ("test_fraction",  float),
+        "seed":           ("seed",           int),
+        "max_concurrent": ("max_concurrent", int),
+    }
+    for attr, (key, cast) in mapping.items():
+        if getattr(args, attr, None) is None and key in cfg:
+            val = cfg[key]
+            setattr(args, attr, cast(val) if not isinstance(val, cast) else val)
+
+    # hard defaults when neither CLI nor config provided
+    defaults = {
+        "splits":         "data/splits/",
+        "output":         "outputs/llm_only/",
+        "tasks":          ["eval1", "eval2"],
+        "levels":         ["l1", "l2"],
+        "split":          "dev",
+        "n_per_cell":     50,
+        "test_fraction":  0.3,
+        "seed":           42,
+        "max_concurrent": 5,
+    }
+    for attr, default in defaults.items():
+        if getattr(args, attr, None) is None:
+            setattr(args, attr, default)
+
+    return args
+
+
 def main() -> None:
-    args = build_parser().parse_args()
+    parser = build_parser()
+    args = parser.parse_args()
+
+    cfg = _load_config(Path(args.config))
+    args = _merge(cfg, args)
+
+    if not args.data:
+        parser.error(
+            "--data é obrigatório (ou defina 'data:' em experiment.yaml)"
+        )
+    if not args.models:
+        parser.error(
+            "--models é obrigatório (ou defina 'models:' em experiment.yaml)"
+        )
 
     if args.split == "test":
         print(
