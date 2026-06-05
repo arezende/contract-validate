@@ -98,6 +98,19 @@ def _infer_source_dataset(file_path: Path) -> str:
 
 
 # ---------------------------------------------------------------------------
+# URL field coercion — real CLAUSE data stores law_url1/2 as list[str]
+# ---------------------------------------------------------------------------
+
+def _coerce_url(value: object) -> str | None:
+    """Normalise a URL field that may arrive as str, list[str], or None."""
+    if value is None:
+        return None
+    if isinstance(value, list):
+        return value[0] if value else None
+    return str(value)
+
+
+# ---------------------------------------------------------------------------
 # Single perturbation → DiscrepancyInstance
 # ---------------------------------------------------------------------------
 
@@ -106,10 +119,17 @@ def _perturbation_to_instance(
     perturb_idx: int,
     perturb: dict,
     source_dataset: str,
+    category: str = "",
 ) -> DiscrepancyInstance:
-    """Convert one perturbation dict to a DiscrepancyInstance."""
+    """Convert one perturbation dict to a DiscrepancyInstance.
+
+    ``category`` is the immediate parent directory name of the JSON file
+    (e.g. "Ambiguities", "Inconsistency") and is prepended to the
+    instance_id so that IDs remain unique across category directories.
+    """
     file_stem = Path(file_name).stem
-    instance_id = f"{file_stem}_p{perturb_idx}"
+    prefix = f"{category}_" if category else ""
+    instance_id = f"{prefix}{file_stem}_p{perturb_idx}"
 
     perturb_type, dimension = _parse_type_field(perturb.get("type", ""))
 
@@ -126,8 +146,8 @@ def _perturbation_to_instance(
         contradicted_text=perturb.get("contradicted_text"),
         contradicted_law=perturb.get("contradicted_law"),
         law_citation=perturb.get("law_citation"),
-        law_url1=perturb.get("law_url1"),
-        law_url2=perturb.get("law_url2"),
+        law_url1=_coerce_url(perturb.get("law_url1")),
+        law_url2=_coerce_url(perturb.get("law_url2")),
         scraped_snippet_1=perturb.get("scraped_snippet_1"),
         scraped_snippet_2=perturb.get("scraped_snippet_2"),
         gold_label=True,
@@ -183,13 +203,15 @@ def load_instances(path: str | Path) -> list[DiscrepancyInstance]:
             logger.error("Unexpected top-level JSON type in %s: %s", json_file, type(data))
             continue
 
+        category = json_file.parent.name
+
         for contract_obj in data:
             file_name = contract_obj.get("file_name", json_file.name)
             perturbations = contract_obj.get("perturbation", [])
 
             for idx, perturb in enumerate(perturbations):
                 try:
-                    inst = _perturbation_to_instance(file_name, idx, perturb, source_dataset)
+                    inst = _perturbation_to_instance(file_name, idx, perturb, source_dataset, category)
                 except (KeyError, ValidationError) as exc:
                     logger.error(
                         "Skipping perturbation %d of %r: %s",
