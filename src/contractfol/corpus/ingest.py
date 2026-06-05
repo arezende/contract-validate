@@ -41,7 +41,8 @@ from __future__ import annotations
 
 import json
 import logging
-import re
+import os
+import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -50,6 +51,27 @@ from pydantic import ValidationError
 from contractfol.corpus.schema import DiscrepancyInstance
 
 logger = logging.getLogger(__name__)
+
+
+# ---------------------------------------------------------------------------
+# Windows long-path workaround
+# rglob() uses FindFirstFile (no 260-char limit) but open() uses CreateFile
+# (fails for paths > MAX_PATH).  Prepending \\?\ switches to extended-length
+# mode (up to 32,767 chars).
+# ---------------------------------------------------------------------------
+
+def _read_json(path: Path) -> object:
+    """Read and parse a JSON file, handling Windows MAX_PATH on retry."""
+    try:
+        with path.open("r", encoding="utf-8") as fh:
+            return json.load(fh)
+    except OSError:
+        if sys.platform != "win32":
+            raise
+        long = "\\\\?\\" + os.path.abspath(str(path))
+        with open(long, "r", encoding="utf-8") as fh:
+            return json.load(fh)
+
 
 # ---------------------------------------------------------------------------
 # Type-field parser
@@ -198,8 +220,7 @@ def load_instances(path: str | Path) -> list[DiscrepancyInstance]:
     for json_file in json_files:
         source_dataset = _infer_source_dataset(json_file)
         try:
-            with json_file.open("r", encoding="utf-8") as fh:
-                data = json.load(fh)
+            data = _read_json(json_file)
         except Exception as exc:
             logger.error("Failed to read %s: %s", json_file, exc)
             continue
