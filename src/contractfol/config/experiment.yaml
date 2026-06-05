@@ -14,7 +14,6 @@ seed:          42
 # ── Modelos a avaliar ─────────────────────────────────────────────────────────
 # Aliases definidos em models.yaml
 models:
-  - gpt-4o-mini
   - deepseek
 
 # ── Tarefas e níveis de prompt ────────────────────────────────────────────────

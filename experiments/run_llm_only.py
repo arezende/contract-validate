@@ -379,6 +379,20 @@ def main() -> None:
         print("\n  [dry-run] Saindo sem chamar APIs.")
         return
 
+    # Verificar chaves de API disponíveis
+    import os
+    _KEY_VARS = ["CONTRACTFOL_API_KEY", "DEEPSEEK_API_KEY", "OPENAI_API_KEY",
+                 "GROQ_API_KEY", "DASHSCOPE_API_KEY", "MOONSHOT_API_KEY", "GOOGLE_API_KEY"]
+    keys_set = [v for v in _KEY_VARS if os.getenv(v)]
+    if not keys_set:
+        logger.error(
+            "Nenhuma chave de API encontrada. Defina uma variável de ambiente:\n"
+            "  $env:CONTRACTFOL_API_KEY = 'sk-...'   (PowerShell)\n"
+            "  export CONTRACTFOL_API_KEY=sk-...     (bash/zsh)"
+        )
+        sys.exit(1)
+    logger.info("Chaves de API disponíveis: %s", keys_set)
+
     # 1. Splits
     dev, test = ensure_splits(
         data_path, splits_dir, args.n_per_cell, args.test_fraction, args.seed

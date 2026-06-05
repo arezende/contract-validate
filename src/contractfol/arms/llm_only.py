@@ -253,7 +253,26 @@ async def run_batch(
 
     async def _bounded(instance, model_alias, eval_task, prompt_level):
         async with semaphore:
-            return await run_instance(instance, model_alias, eval_task, prompt_level)
+            try:
+                return await run_instance(instance, model_alias, eval_task, prompt_level)
+            except Exception as exc:
+                logger.error(
+                    "API error — instance=%s model=%s task=%s level=%s: %s",
+                    instance.instance_id, model_alias, eval_task, prompt_level, exc,
+                )
+                return LLMPrediction(
+                    instance_id=instance.instance_id,
+                    model_alias=model_alias,
+                    prompt_level=prompt_level,
+                    eval_task=eval_task,
+                    answer=False,
+                    dimension=None,
+                    location=None,
+                    explanation=None,
+                    law_citation=None,
+                    raw_response="",
+                    error=str(exc),
+                )
 
     tasks = [
         _bounded(instance, model_alias, eval_task, prompt_level)
@@ -263,7 +282,11 @@ async def run_batch(
         for prompt_level in prompt_levels
     ]
 
-    return list(await asyncio.gather(*tasks))
+    results = await asyncio.gather(*tasks)
+    errors = sum(1 for r in results if r.error)
+    if errors:
+        logger.warning("%d/%d calls failed (see error field in predictions)", errors, len(results))
+    return list(results)
 
 
 def run_batch_sync(
