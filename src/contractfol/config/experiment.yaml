@@ -1,0 +1,27 @@
+# ContractFOL v3 — LLM-only experiment configuration
+# Inference params follow CLAUSE Appendix A: temperature=0.2, top_p=0.95, max_tokens=8192
+# Override any field with env vars (CONTRACTFOL_LLM, CONTRACTFOL_API_KEY, etc.)
+
+data:           data/raw/clause/datasets/
+splits:         data/splits/
+output:         outputs/llm_only/
+
+n_per_cell:     50       # instances per (perturb_type × dimension) cell
+test_fraction:  0.30
+seed:           42
+
+models:
+  - deepseek
+
+tasks:
+  - eval1
+  - eval2
+
+# eval3 levels: l1 = zero-shot, l2 = one-shot
+# eval1 and eval2 have a single canonical prompt (level ignored)
+levels:
+  - l1
+  - l2
+
+max_concurrent: 5
+split:          dev      # "dev" or "test" (never use "test" during development)
