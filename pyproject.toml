@@ -11,7 +11,7 @@ dependencies = [
     "pydantic>=2.0",
     "openai",
     "anthropic",
-    "google-generativeai",
+    "google-genai>=1.0",
     "httpx",
     "spacy>=3.7",
     "rouge-score==0.1.2",
