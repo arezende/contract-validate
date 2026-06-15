@@ -34,6 +34,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
+from dotenv import load_dotenv
+
+# Load .env from repo root (gitignored — safe to store API keys there)
+load_dotenv(Path(__file__).parent.parent / ".env")
 
 logging.basicConfig(
     level=logging.INFO,

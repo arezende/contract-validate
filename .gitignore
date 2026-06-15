@@ -21,9 +21,10 @@ env/
 *.swp
 *.swo
 
-# Environment variables
+# Environment variables (chaves reais — nunca commitar)
 .env
 .env.*
+!.env.example
 
 # Cache
 .cache/
