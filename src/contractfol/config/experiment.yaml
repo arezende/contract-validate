@@ -11,7 +11,7 @@ test_fraction:  0.30
 seed:           42
 
 models:
-  - deepseek
+  - gemini-2.0-flash
 
 tasks:
   - eval1
