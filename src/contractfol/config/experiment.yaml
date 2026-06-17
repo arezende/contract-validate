@@ -16,6 +16,7 @@ models:
 tasks:
   - eval1
   - eval2
+  - eval3
 
 # eval3 levels: l1 = zero-shot, l2 = one-shot
 # eval1 and eval2 have a single canonical prompt (level ignored)

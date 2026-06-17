@@ -65,6 +65,7 @@ from contractfol.metrics.eval1_2 import (
     eval2_metrics,
     per_category_metrics,
 )
+from contractfol.metrics.eval3 import LocationAlignmentMetrics, location_alignment
 
 logger = logging.getLogger("run_llm_only")
 
@@ -214,6 +215,35 @@ def compute_and_print_metrics(
         print(f"\n  {model}  {task}_{level}  (n={len(preds)})")
         for cls in ("in_text", "legal", "none", "macro"):
             print(f"    {cls:<10} {_fmt(m2[cls])}")
+
+    _print_section("MÉTRICAS EVAL_3 — Location Alignment (ROUGE, METEOR)")
+
+    for (model, task, level), preds in sorted(groups.items()):
+        if task != "eval3":
+            continue
+        preds_by_id: dict[str, list[dict]] = {}
+        for p in preds:
+            inst = instances_by_id.get(p.instance_id)
+            if inst and inst.gold_label:
+                preds_by_id[p.instance_id] = p.spans or []
+
+        if not preds_by_id:
+            continue
+
+        m3 = location_alignment(preds_by_id, instances_by_id)
+        key = f"{model}__{task}__{level}"
+        summary[key] = {
+            "n": m3.n,
+            "rouge1": round(m3.rouge1, 4),
+            "rouge2": round(m3.rouge2, 4),
+            "rougeL": round(m3.rougeL, 4),
+            "meteor": round(m3.meteor, 4),
+        }
+        print(f"\n  {model}  {task}_{level}  (n={m3.n})")
+        print(
+            f"    ROUGE-1={m3.rouge1:.3f}  ROUGE-2={m3.rouge2:.3f}  "
+            f"ROUGE-L={m3.rougeL:.3f}  METEOR={m3.meteor:.3f}"
+        )
 
     _print_section("MÉTRICAS EVAL_1 POR CATEGORIA (modelo com maior F1 no geral)")
 

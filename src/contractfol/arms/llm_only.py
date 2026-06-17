@@ -34,12 +34,14 @@ PROMPTS: dict[str, str] = {
     # Negative instances receive original_text (via changed_text = original_text).
     # ------------------------------------------------------------------
     "eval1": """\
-You are a US contractual lawyer who answers concisely.
+You are a U.S. contract attorney who answers concisely.
 
 Please read the legal document below in full.
 
 Document:
+```
 {changed_text}
+```
 
 Does this document contain any discrepancy? Reply with only "Yes" or "No".""",
 
@@ -48,20 +50,24 @@ Does this document contain any discrepancy? Reply with only "Yes" or "No".""",
     # Model must output exactly one label; no explanation.
     # ------------------------------------------------------------------
     "eval2": """\
-You are a US law expert. Review the following contract document and classify \
-the type of contradiction it contains.
+You are a legal expert specializing in U.S. law. You will read a legal document \
+very carefully and classify it into one of the following three categories:
 
-A contradiction can be one of three types:
-- in_text: one part of the document contradicts another part of the same document
-- outer_law: the document contradicts a federal, state, or municipal law of the \
-United States
-- no_contradiction: the document does not appear to contain any contradiction
+1. In-text contradiction: The document contains one or more statement or clause \
+that contradicts another part of the same document.
 
-Contract:
-{changed_text}
+2. Outer-law contradiction: The document contains one or more statement or clause \
+that contradicts existing U.S. federal, state or city laws (or any other U.S. laws).
 
-Classify the document. Reply with exactly one label — "in_text", "outer_law", or \
-"no_contradiction" — and nothing else. No explanation.""",
+3. No contradiction: The document does not appear to contain any discrepancy \
+or contradiction.
+
+Classify the document below. Respond with only one of the labels: \
+"In-text contradiction", "Outer-law contradiction", or "No contradiction". \
+Do not provide any explanation.
+
+Document:
+{changed_text}""",
 
     # ------------------------------------------------------------------
     # Eval_3 (in_text, L1 — zero-shot): span extraction + explanation
@@ -81,12 +87,12 @@ Discrepancy categories to consider:
 Contract:
 {changed_text}
 
-Identify all problematic spans. Return exactly a JSON array with no markdown \
-and no commentary. Each element must contain:
+Identify all problematic spans. Return ONLY a valid JSON array (no markdown, no code fences, \
+no commentary, double quotes only). Each element must contain:
   "text"        — the exact sentence or span from the contract
   "explanation" — what it contradicts and why
 
-Return [] if nothing is found.""",
+If no discrepancy is found, return: []""",
 
     # ------------------------------------------------------------------
     # Eval_3 (in_text, L2 — one-shot): same as L1 + resolved example
@@ -110,12 +116,12 @@ Output: [{"text": "All outstanding balances are payable within 60 days of receip
 Contract:
 {changed_text}
 
-Identify all problematic spans. Return exactly a JSON array with no markdown \
-and no commentary. Each element must contain:
+Identify all problematic spans. Return ONLY a valid JSON array (no markdown, no code fences, \
+no commentary, double quotes only). Each element must contain:
   "text"        — the exact sentence or span from the contract
   "explanation" — what it contradicts and why
 
-Return [] if nothing is found.""",
+If no discrepancy is found, return: []""",
 
     # ------------------------------------------------------------------
     # Eval_3 (legal, L1 — zero-shot): span + explanation + law citation
@@ -135,13 +141,13 @@ Discrepancy categories to consider:
 Contract:
 {changed_text}
 
-Identify all problematic spans. Return exactly a JSON array with no markdown \
-and no commentary. Each element must contain:
+Identify all problematic spans. Return ONLY a valid JSON array (no markdown, no code fences, \
+no commentary, double quotes only). Each element must contain:
   "text"        — the exact sentence or span from the contract
   "explanation" — what it contradicts and why
   "law"         — the specific statute, regulation, or case violated (or "N/A")
 
-Return [] if nothing is found.""",
+If no discrepancy is found, return: []""",
 
     # ------------------------------------------------------------------
     # Eval_3 (legal, L2 — one-shot): same as L1 + resolved example
@@ -165,13 +171,13 @@ Output: [{"text": "Employees shall work up to 50 hours per week at their standar
 Contract:
 {changed_text}
 
-Identify all problematic spans. Return exactly a JSON array with no markdown \
-and no commentary. Each element must contain:
+Identify all problematic spans. Return ONLY a valid JSON array (no markdown, no code fences, \
+no commentary, double quotes only). Each element must contain:
   "text"        — the exact sentence or span from the contract
   "explanation" — what it contradicts and why
   "law"         — the specific statute, regulation, or case violated (or "N/A")
 
-Return [] if nothing is found.""",
+If no discrepancy is found, return: []""",
 }
 
 # eval1 and eval2 have a single canonical prompt; prompt_level is ignored.
@@ -179,13 +185,18 @@ _LEVELLESS_TASKS: frozenset[str] = frozenset({"eval1", "eval2"})
 
 # Maps paper output labels for eval2 → internal Dimension schema
 _EVAL2_LABEL_MAP: dict[str, str] = {
-    "no_contradiction": "none",
     "no contradiction": "none",
+    "no_contradiction": "none",
     "nocontradiction": "none",
+    "outer-law contradiction": "legal",
+    "outer_law contradiction": "legal",
+    "outer-law": "legal",
     "outer_law": "legal",
     "outer law": "legal",
-    "in_text": "in_text",
+    "in-text contradiction": "in_text",
+    "in_text contradiction": "in_text",
     "in-text": "in_text",
+    "in_text": "in_text",
     "intext": "in_text",
 }
 
