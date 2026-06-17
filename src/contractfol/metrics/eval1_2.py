@@ -73,23 +73,29 @@ def eval2_metrics(
     gold_dimensions: list[str],
 ) -> dict[str, ClassificationMetrics]:
     """
-    Dimension classification (Eval_2).
-    Returns dict with keys "in_text", "legal", "macro" (macro-averaged).
-    A prediction of None counts as wrong for both dimensions.
+    Dimension classification (Eval_2) — 3-class: in_text, legal, none (no_contradiction).
+
+    Returns dict with keys "in_text", "legal", "none", "macro", and "overall_accuracy".
+    overall_accuracy is the standard multiclass accuracy (matches paper Table 4).
+    A prediction of None counts as "none".
     """
     if len(predictions) != len(gold_dimensions):
         raise ValueError(
             f"Length mismatch: predictions={len(predictions)}, gold_dimensions={len(gold_dimensions)}"
         )
 
-    classes = ["in_text", "legal"]
+    classes = ["in_text", "legal", "none"]
     counts: dict[str, dict[str, int]] = {
         c: {"tp": 0, "fp": 0, "fn": 0, "tn": 0} for c in classes
     }
 
+    n_correct = 0
     for pred, gold in zip(predictions, gold_dimensions):
+        pred_norm = pred if pred in classes else "none"
+        if pred_norm == gold:
+            n_correct += 1
         for cls in classes:
-            pred_positive = pred == cls
+            pred_positive = pred_norm == cls
             gold_positive = gold == cls
             if pred_positive and gold_positive:
                 counts[cls]["tp"] += 1
@@ -105,12 +111,12 @@ def eval2_metrics(
         c = counts[cls]
         result[cls] = _compute_metrics(c["tp"], c["fp"], c["fn"], c["tn"])
 
-    # Macro average
+    # Macro average across all 3 classes
     macro_f1 = _safe_div(sum(result[c].f1 for c in classes), len(classes))
     macro_precision = _safe_div(sum(result[c].precision for c in classes), len(classes))
     macro_recall = _safe_div(sum(result[c].recall for c in classes), len(classes))
-    macro_accuracy = _safe_div(sum(result[c].accuracy for c in classes), len(classes))
-    macro_n = sum(result[c].n for c in classes)
+    macro_accuracy = _safe_div(n_correct, len(predictions))   # true overall accuracy
+    macro_n = len(predictions)
     macro_tp = sum(result[c].tp for c in classes)
     macro_fp = sum(result[c].fp for c in classes)
     macro_fn = sum(result[c].fn for c in classes)

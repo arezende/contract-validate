@@ -52,6 +52,7 @@ sys.path.insert(0, str(_root / "src"))
 from contractfol.arms.llm_only import LLMPrediction, run_batch_sync
 from contractfol.corpus.ingest import load_instances
 from contractfol.corpus.sample import (
+    create_negatives,
     load_splits,
     make_splits,
     save_splits,
@@ -190,8 +191,13 @@ def compute_and_print_metrics(
     for (model, task, level), preds in sorted(groups.items()):
         if task != "eval2":
             continue
-        gold_dims = [instances_by_id[p.instance_id].dimension for p in preds]
-        pred_dims = [p.dimension for p in preds]
+        gold_dims = [
+            instances_by_id[p.instance_id].dimension
+            if instances_by_id[p.instance_id].gold_label
+            else "none"
+            for p in preds
+        ]
+        pred_dims = [p.dimension or "none" for p in preds]
 
         m2 = eval2_metrics(pred_dims, gold_dims)
         key = f"{model}__{task}__{level}"
@@ -203,10 +209,10 @@ def compute_and_print_metrics(
                 "tp": m2[cls].tp, "fp": m2[cls].fp,
                 "fn": m2[cls].fn, "tn": m2[cls].tn,
             }
-            for cls in ("in_text", "legal", "macro")
+            for cls in ("in_text", "legal", "none", "macro")
         }
         print(f"\n  {model}  {task}_{level}  (n={len(preds)})")
-        for cls in ("in_text", "legal", "macro"):
+        for cls in ("in_text", "legal", "none", "macro"):
             print(f"    {cls:<10} {_fmt(m2[cls])}")
 
     _print_section("MÉTRICAS EVAL_1 POR CATEGORIA (modelo com maior F1 no geral)")
@@ -415,14 +421,22 @@ def main() -> None:
         data_path, splits_dir, args.n_per_cell, args.test_fraction, args.seed
     )
     instances = dev if args.split == "dev" else test
-    logger.info("Usando %s split: %d instâncias", args.split, len(instances))
+    logger.info("Usando %s split: %d instâncias (positivos)", args.split, len(instances))
 
-    instances_by_id = {i.instance_id: i for i in instances}
+    # Create paired negative instances (CLAUSE protocol: 1 negative per positive)
+    negatives = create_negatives(instances)
+    all_instances = instances + negatives
+    logger.info(
+        "Instâncias totais (pos+neg): %d + %d = %d",
+        len(instances), len(negatives), len(all_instances),
+    )
+
+    instances_by_id = {i.instance_id: i for i in all_instances}
 
     # 2. Run
-    _print_section(f"EXECUÇÃO — {len(instances)} instâncias × {len(args.models)} modelo(s)")
+    _print_section(f"EXECUÇÃO — {len(all_instances)} instâncias × {len(args.models)} modelo(s)")
     predictions = run_batch_sync(
-        instances=instances,
+        instances=all_instances,
         model_aliases=args.models,
         eval_tasks=args.tasks,
         prompt_levels=args.levels,

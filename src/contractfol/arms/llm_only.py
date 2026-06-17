@@ -53,16 +53,17 @@ Answer concisely with only "Yes" or "No".""",
 You are a US law expert. Review the following contract document and classify \
 the type of contradiction it contains.
 
-A contradiction can be one of two types:
+A contradiction can be one of three types:
 - in_text: one part of the document contradicts another part of the same document
 - outer_law: the document contradicts a federal, state, or municipal law of the \
 United States
+- no_contradiction: the document does not appear to contain any contradiction
 
 Contract:
 {changed_text}
 
-Classify the contradiction. Reply with exactly one label — "in_text" or \
-"outer_law" — and nothing else. No explanation.""",
+Classify the document. Reply with exactly one label — "in_text", "outer_law", or \
+"no_contradiction" — and nothing else. No explanation.""",
 
     # ------------------------------------------------------------------
     # Eval_3 (in_text, L1 — zero-shot): span extraction + explanation
@@ -180,6 +181,9 @@ _LEVELLESS_TASKS: frozenset[str] = frozenset({"eval1", "eval2"})
 
 # Maps paper output labels for eval2 → internal Dimension schema
 _EVAL2_LABEL_MAP: dict[str, str] = {
+    "no_contradiction": "none",
+    "no contradiction": "none",
+    "nocontradiction": "none",
     "outer_law": "legal",
     "outer law": "legal",
     "in_text": "in_text",
@@ -232,19 +236,19 @@ def _parse_eval1(raw: str, base: dict) -> LLMPrediction:
 def _parse_eval2(raw: str, base: dict) -> LLMPrediction:
     try:
         text = raw.strip().lower()
-        dim = "in_text"
+        dim = "none"   # default: treat unrecognized response as no_contradiction
         for label, mapped in _EVAL2_LABEL_MAP.items():
             if label in text:
                 dim = mapped
                 break
         return LLMPrediction(
-            **base, answer=True, dimension=dim,
+            **base, answer=(dim != "none"), dimension=dim,
             location=None, explanation=None, law_citation=None,
             spans=None, error=None,
         )
     except Exception as exc:
         return LLMPrediction(
-            **base, answer=True, dimension="in_text",
+            **base, answer=False, dimension="none",
             location=None, explanation=None, law_citation=None,
             spans=None, error=str(exc),
         )

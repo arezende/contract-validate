@@ -79,6 +79,34 @@ def stratified_sample(
     return result
 
 
+def create_negatives(positives: list[DiscrepancyInstance]) -> list[DiscrepancyInstance]:
+    """Create one negative (unperturbed) instance for each positive.
+
+    Protocol (CLAUSE paper §3):
+      Eval_1 — model receives (original_text, changed_text). For negatives,
+               changed_text == original_text, so the model should answer "No".
+      Eval_2 — model receives only changed_text. For negatives this is the
+               original unperturbed contract; the gold class is "no_contradiction".
+
+    dimension is inherited from the source positive for per-category bucketing
+    (matches Table 3 of the paper where each category mixes pos+neg). gold_label=False
+    is the sole indicator that this is a negative.
+    """
+    return [
+        DiscrepancyInstance(
+            instance_id=f"{inst.instance_id}_neg",
+            source_dataset=inst.source_dataset,
+            perturb_type=inst.perturb_type,
+            dimension=inst.dimension,          # inherited — for category tracking only
+            original_text=inst.original_text,
+            changed_text=inst.original_text,   # no modification → identical to original
+            explanation="",
+            gold_label=False,
+        )
+        for inst in positives
+    ]
+
+
 def make_splits(
     instances: list[DiscrepancyInstance],
     test_fraction: float = 0.3,
