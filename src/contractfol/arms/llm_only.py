@@ -348,7 +348,7 @@ async def run_batch(
     model_aliases: list[str],
     eval_tasks: list[str],
     prompt_levels: list[str],
-    max_concurrent: int = 5,
+    max_concurrent: int = 1,
 ) -> list[LLMPrediction]:
     """Run all (instance × model × task × level) combinations.
 
@@ -406,7 +406,7 @@ def run_batch_sync(
     model_aliases: list[str],
     eval_tasks: list[str],
     prompt_levels: list[str],
-    max_concurrent: int = 5,
+    max_concurrent: int = 1,
 ) -> list[LLMPrediction]:
     """Synchronous wrapper for run_batch."""
     return asyncio.run(
