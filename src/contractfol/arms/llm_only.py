@@ -28,22 +28,20 @@ logger = logging.getLogger(__name__)
 
 PROMPTS: dict[str, str] = {
     # ------------------------------------------------------------------
-    # Eval_1: binary defect detection — receives original + changed
+    # Eval_1: binary defect detection — single document (CLAUSE §4 protocol).
+    # Model must use its own legal knowledge; no reference original provided.
+    # Positive instances receive changed_text (perturbed).
+    # Negative instances receive original_text (via changed_text = original_text).
     # ------------------------------------------------------------------
     "eval1": """\
-You are a US contractual lawyer. You will be given two versions of a contract: \
-the original and a modified version. Your task is to determine whether the \
-modified version contains any discrepancy compared to the original. \
-A discrepancy includes inconsistencies, ambiguities, omissions, misaligned \
-terminology, or structural flaws.
+You are a US contractual lawyer who answers concisely.
 
-Original contract:
-{original_text}
+Please read the legal document below in full.
 
-Modified contract:
+Document:
 {changed_text}
 
-Answer concisely with only "Yes" or "No".""",
+Does this document contain any discrepancy? Reply with only "Yes" or "No".""",
 
     # ------------------------------------------------------------------
     # Eval_2: dimension classification — receives only changed document.
@@ -314,16 +312,14 @@ async def run_instance(
 ) -> LLMPrediction:
     """Run one instance through the LLM-only arm.
 
-    Protocol (Appendix B):
-      eval1 — receives original_text + changed_text for direct comparison.
+    Protocol (CLAUSE paper §4):
+      eval1 — single document only (changed_text). For negatives, create_negatives()
+               sets changed_text = original_text, so the model sees the clean contract.
       eval2 — receives only changed_text; prompt_level is ignored.
       eval3 — receives only changed_text; routes on instance.dimension × prompt_level.
     """
     if eval_task == "eval1":
-        prompt = PROMPTS["eval1"].format(
-            original_text=instance.original_text,
-            changed_text=instance.changed_text,
-        )
+        prompt = PROMPTS["eval1"].format(changed_text=instance.changed_text)
     elif eval_task == "eval2":
         prompt = PROMPTS["eval2"].format(changed_text=instance.changed_text)
     elif eval_task == "eval3":
