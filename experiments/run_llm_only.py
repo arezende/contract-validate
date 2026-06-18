@@ -52,7 +52,6 @@ sys.path.insert(0, str(_root / "src"))
 from contractfol.arms.llm_only import LLMPrediction, run_batch_sync
 from contractfol.corpus.ingest import load_instances
 from contractfol.corpus.sample import (
-    create_negatives,
     load_splits,
     make_splits,
     save_splits,
@@ -187,17 +186,14 @@ def compute_and_print_metrics(
         }
         print(f"  {model:<22}  {task:<6}  {level:<4}  {m.n:>5}  {_fmt(m)}")
 
-    _print_section("MÉTRICAS EVAL_2 — Classificação de dimensão (in_text / legal)")
+    _print_section("MÉTRICAS EVAL_2 — Classificação de dimensão (in_text / legal / none)")
 
     for (model, task, level), preds in sorted(groups.items()):
         if task != "eval2":
             continue
-        gold_dims = [
-            instances_by_id[p.instance_id].dimension
-            if instances_by_id[p.instance_id].gold_label
-            else "none"
-            for p in preds
-        ]
+        # All instances are positive (perturbed); gold is always in_text or legal.
+        # "none" can still appear as a model prediction (false negative / abstention).
+        gold_dims = [instances_by_id[p.instance_id].dimension for p in preds]
         pred_dims = [p.dimension or "none" for p in preds]
 
         m2 = eval2_metrics(pred_dims, gold_dims)
@@ -423,8 +419,11 @@ def main() -> None:
     print(f"  levels          : {args.levels}")
     print(f"  n_per_cell      : {args.n_per_cell}")
     print(f"  max_concurrent  : {args.max_concurrent}")
-    total_calls = (
-        args.n_per_cell * 10 * len(args.models) * len(args.tasks) * len(args.levels)
+    # eval1/eval2 use a single level (l1); eval3 uses all prompt_levels
+    _n_levelless = sum(1 for t in args.tasks if t in {"eval1", "eval2"})
+    _n_leveled = sum(1 for t in args.tasks if t not in {"eval1", "eval2"})
+    total_calls = args.n_per_cell * 10 * len(args.models) * (
+        _n_levelless + _n_leveled * len(args.levels)
     )
     print(f"  ~chamadas API   : ≤{total_calls:,}")
 
@@ -451,22 +450,17 @@ def main() -> None:
         data_path, splits_dir, args.n_per_cell, args.test_fraction, args.seed
     )
     instances = dev if args.split == "dev" else test
-    logger.info("Usando %s split: %d instâncias (positivos)", args.split, len(instances))
-
-    # Create paired negative instances (CLAUSE protocol: 1 negative per positive)
-    negatives = create_negatives(instances)
-    all_instances = instances + negatives
     logger.info(
-        "Instâncias totais (pos+neg): %d + %d = %d",
-        len(instances), len(negatives), len(all_instances),
+        "Usando %s split: %d instâncias perturbadas (positivos)",
+        args.split, len(instances),
     )
 
-    instances_by_id = {i.instance_id: i for i in all_instances}
+    instances_by_id = {i.instance_id: i for i in instances}
 
     # 2. Run
-    _print_section(f"EXECUÇÃO — {len(all_instances)} instâncias × {len(args.models)} modelo(s)")
+    _print_section(f"EXECUÇÃO — {len(instances)} instâncias × {len(args.models)} modelo(s)")
     predictions = run_batch_sync(
-        instances=all_instances,
+        instances=instances,
         model_aliases=args.models,
         eval_tasks=args.tasks,
         prompt_levels=args.levels,
@@ -491,7 +485,7 @@ def main() -> None:
             "levels": args.levels,
             "n_per_cell": args.n_per_cell,
             "seed": args.seed,
-            "n_instances": len(instances),
+            "n_instances_positive": len(instances),
             "n_predictions": len(predictions),
         },
         "metrics": summary,

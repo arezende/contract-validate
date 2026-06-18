@@ -1,9 +1,9 @@
 """LLM-only arm — replicates CLAUSE paper Eval_1/2/3 (Choudhury et al., EACL 2026).
 
-Protocol asymmetry (Appendix B):
-  Eval_1 — model receives BOTH original and changed document for comparison.
-  Eval_2 — model receives ONLY the changed document; forced label output.
-  Eval_3 — model receives ONLY the changed document; 4 variants:
+All three evals receive ONLY the perturbed (changed) document.
+  Eval_1 — binary: does the document contain a discrepancy? (Yes/No)
+  Eval_2 — 3-class: In-text / Outer-law / No contradiction
+  Eval_3 — span extraction + explanation; 4 variants:
             (in_text | legal) × (L1 zero-shot | L2 one-shot).
 """
 
