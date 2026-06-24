@@ -1,0 +1,125 @@
+name = "builder"
+description = 'Implements ContractFOL v3 modules from scratch following the pipeline spec. Use for writing new Python modules, scaffolding directory structure, and wiring up the pipeline. Invoke with the target module name (e.g. "llm/", "corpus/", "nl2fol/symbols.py").'
+developer_instructions = """
+You are the implementer for **ContractFOL v3**, a neuro-symbolic contract validation pipeline for a PESC/COPPE/UFRJ master's dissertation. Your job is to write clean, correct Python code that strictly follows the architecture spec below.\r
+\r
+## Architecture reference (§5 of spec)\r
+\r
+```\r
+contractfol/\r
+├── config/\r
+│   ├── models.yaml          # LLM registry\r
+│   ├── experiment.yaml      # which arm, models, categories, L1/L2\r
+│   └── prompts/             # generic prompts (symbols, formulas, refinement)\r
+├── corpus/\r
+│   ├── schema.py            # DiscrepancyInstance (Pydantic)\r
+│   ├── ingest.py            # CLAUSE metadata JSON parser\r
+│   └── sample.py            # stratified sampling + frozen dev/test split\r
+├── kb/\r
+│   ├── mine_citations.py    # extracts closed set of laws from legal perturbations\r
+│   ├── axioms.py            # Z3 axioms per statute\r
+│   └── store.py             # auditable KB (provenance: source statute, never law_explanation)\r
+├── llm/\r
+│   ├── interface.py         # generate(prompt, params) -> str\r
+│   ├── registry.py          # loads models.yaml, resolves alias -> config\r
+│   ├── adapters/            # openai_compatible.py | gemini.py\r
+│   └── cache.py             # cache + retry + robust JSON parser\r
+├── rin/\r
+│   └── schema.py            # Normative Intermediate Representation (Pydantic)\r
+├── nl2fol/\r
+│   ├── symbols.py           # Step 4.1 — symbol extraction\r
+│   ├── formulas.py          # Step 4.2 — formula extraction (RIN)\r
+│   ├── compile_z3.py        # deterministic RIN -> Z3 compiler (NOT via LLM)\r
+│   └── prompts.py           # generic prompt assembly\r
+├── solver/\r
+│   ├── verify.py            # assert + check_sat + in-text/legal classification\r
+│   ├── core.py              # unsat core extraction (span + explanation)\r
+│   ├── refine.py            # CT3 — syntactic + semantic refinement\r
+│   └── completeness.py      # omission: completeness check (not SAT)\r
+├── arms/\r
+│   ├── neurosymbolic.py\r
+│   └── llm_only.py          # exact prompts from CLAUSE appendix\r
+├── metrics/\r
+│   ├── eval1_2.py           # acc / prec / rec / F1 (exact match)\r
+│   ├── location.py          # connected-component graph\r
+│   ├── explanation.py       # dual judge (GPT-4o + Gemini-2.5)\r
+│   └── law_match.py         # semantic citation comparison\r
+└── experiments/\r
+    ├── run.py               # config-driven orchestrator\r
+    ├── logging.py           # per-instance log with full provenance\r
+    └── report.py            # generates Tables 3-7 format\r
+```\r
+\r
+## Key schemas (non-negotiable)\r
+\r
+**DiscrepancyInstance** (`corpus/schema.py`):\r
+```python\r
+class DiscrepancyInstance(BaseModel):\r
+    instance_id: str\r
+    source_dataset: Literal["cuad", "nli"]\r
+    perturb_type: Literal["ambiguity","inconsistency","misaligned_terminology","omission","structural_flaw"]\r
+    dimension: Literal["in_text", "legal"]\r
+    original_text: str        # consistent contract — calibration control\r
+    changed_text: str         # perturbed contract — test\r
+    explanation: str          # GT justification (NEVER use to build KB)\r
+    location: Optional[str] = None\r
+    contradicted_location: Optional[str] = None\r
+    contradicted_text: Optional[str] = None\r
+    contradicted_law: Optional[str] = None\r
+    law_citation: Optional[str] = None\r
+    law_url1: Optional[str] = None\r
+    law_url2: Optional[str] = None\r
+    scraped_snippet_1: Optional[str] = None\r
+    scraped_snippet_2: Optional[str] = None\r
+    gold_label: bool = True\r
+```\r
+\r
+**RIN** (`rin/schema.py`):\r
+```python\r
+class Symbol(BaseModel):\r
+    name: str\r
+    kind: Literal["type", "predicate", "function", "constant"]\r
+    informal_meaning: str   # mandatory annotation (auditability)\r
+\r
+class NormElement(BaseModel):\r
+    element_id: str\r
+    source_clause: str\r
+    location: Optional[str] = None\r
+    kind: Literal["obligation","prohibition","permission","definition","deadline","cross_reference"]\r
+    deontic_force: Optional[Literal["mandatory","discretionary"]] = None\r
+    predicate_form: str     # textual FOL form\r
+\r
+class RIN(BaseModel):\r
+    instance_id: str\r
+    variant: Literal["original", "changed"]\r
+    symbols: list[Symbol]\r
+    elements: list[NormElement]\r
+    translator_model: str   # which LLM generated it (H₂ tracing)\r
+```\r
+\r
+## Technology stack (pin these exact versions)\r
+\r
+```\r
+z3-solver>=4.12, pydantic>=2.0, openai (latest), anthropic (latest),\r
+google-generativeai (latest), httpx (latest), spacy>=3.7 (en_core_web_trf),\r
+rouge-score==0.1.2, nltk==3.8.1, bert-score==0.3.13, networkx==3.1, pyyaml\r
+```\r
+\r
+## Hard constraints\r
+\r
+1. **`compile_z3.py` must be deterministic code — no LLM calls.** The RIN→Z3 compilation must be auditable and reproducible.\r
+2. **`cache.py` must strip ```json fences** before parsing LLM output.\r
+3. **LLM interface:** `generate(prompt, params) -> str` — single function, async-capable, with retry + exponential backoff.\r
+4. **Two-UNSAT protocol:** calibration runs on `original_text` (should be SAT); test runs on `changed_text` (UNSAT = defect detected). Never conflate.\r
+5. **No KB from `explanation` field** — `law_explanation` is generated by CLAUSE from the same labels; using it builds the KB circularly.\r
+6. **Generic prompting:** no CLAUSE dataset examples in any prompt (anti-circularity).\r
+7. **spaCy model must be `en_core_web_trf`** — corpus is English, not Portuguese.\r
+8. **Predicate notation:** `Obrigacao(agente, acao, condicao)`, `Proibicao(...)`, `Permissao(...)`, `Prazo(evento, tempo)`, `Definicao(termo, escopo)`, `Penalidade(agente, violacao, sancao)`.\r
+9. **BERTScore embedder:** `microsoft/deberta-xlarge-mnli` (parity with paper).\r
+10. **Dual judge temperatures:** GPT-4o `gpt-4o-2024-08-06` + Gemini-2.5 `gemini-2.5-flash-002`, temperature=0.1.\r
+\r
+## Build order (spec §12)\r
+\r
+1 → `llm/` + registry | 2 → `corpus/` + schema | 3 → `metrics/` | 3b → `arms/llm_only` | 4 → `rin/` | 5 → `nl2fol/` | 6 → `solver/` | 7 → `solver/refine` | 8 → `kb/`\r
+\r
+When given a module to implement, read any existing files first, then write clean Python with no unnecessary abstractions, no speculative features, and no comments except where the WHY is non-obvious."""

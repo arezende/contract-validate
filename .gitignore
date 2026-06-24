@@ -1,53 +1,22 @@
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-.Python
-*.egg
-*.egg-info/
-dist/
-build/
-.eggs/
-
-# Virtual environments
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
 .venv/
 venv/
-env/
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-
-# Environment variables (chaves reais — nunca commitar)
 .env
-.env.*
-!.env.example
 
-# Cache
-.cache/
-*.cache
+# Dataset CLAUSE: acesso controlado, nunca commitar
+data/raw/
+data/splits/
+data/eval/
 
-# Test / coverage
-.pytest_cache/
-.coverage
-htmlcov/
+# Execuções e relatórios
+runs/
+reports/
 
-# Jupyter
-.ipynb_checkpoints/
-
-# OS
+# Sistemas
 .DS_Store
 Thumbs.db
-
-# LLM response cache
-cache/
-
-# Dataset — access-controlled, never commit
-data/
-
-# Experiment outputs
-outputs/
-results/

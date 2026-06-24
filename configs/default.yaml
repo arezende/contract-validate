@@ -1,0 +1,13 @@
+seed: 42
+sample_fraction: 0.10
+bootstrap_rounds: 5000
+temperature: 0.0
+
+paths:
+  raw_data: data/raw/clause/datasets
+  all_instances: data/splits/all_instances.jsonl
+  dev: data/splits/dev.jsonl
+  test: data/splits/test.jsonl
+  test_10pct: data/splits/test_10pct_stratified.jsonl
+  eval1_10pct: data/eval/eval1_test_10pct.jsonl
+  eval2_10pct: data/eval/eval2_test_10pct.jsonl

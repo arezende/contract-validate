@@ -1,268 +1,209 @@
-# ContractFOL v3
+# CLAUSE LLM Eval
 
-Pipeline neurossimbólico para detecção de defeitos em contratos comerciais.
-Dissertação de mestrado — PESC/COPPE/UFRJ.
+Projeto Python para avaliar LLMs no benchmark **CLAUSE** com foco em:
 
-**Baseline:** *Better Call CLAUSE* (Choudhury et al., Findings of EACL 2026; arXiv:2511.00340)  
-**Exemplar metodológico:** VERUS-LM (Callewaert, Vandevelde & Vennekens; arXiv:2501.14540)
+1. reduzir custo usando **subamostra estratificada de 10%**;
+2. avaliar **Eval_1**, **Eval_2** e uma versão inicial de **Eval_3**;
+3. estimar incerteza com **bootstrap estratificado sobre predições salvas**;
+4. comparar os resultados obtidos com os valores reportados pelos autores.
 
----
-
-## Visão geral
-
-O pipeline tem dois braços que compartilham toda a infraestrutura (ingestão, LLM, métricas) e diferem apenas no passo de predição:
-
-```
-Corpus CLAUSE (CUAD + ContractNLI)
-         │
-         ├─── Braço LLM-only  ──► prompts exatos do artigo ──► veredito direto
-         │
-         └─── Braço neurossimbólico
-                  │
-                  ▼
-            NL → Símbolos (LLM)
-                  │
-                  ▼
-            Símbolos → NormElements / RIN (LLM)
-                  │
-                  ▼
-            RIN → Z3 (compilador determinístico, zero LLM)
-                  │
-                  ▼
-            check_sat ──► UNSAT = defeito detectado
-                  │
-                  ▼
-            unsat_core ──► span + explicação auditável
-```
-
-Essa separação torna H₁ um controle limpo: a comparação isola o efeito do raciocínio simbólico, não uma diferença de infraestrutura.
+> O dataset CLAUSE tem acesso controlado. Os arquivos do dataset **não devem ser commitados**. A pasta `data/` está no `.gitignore`.
 
 ---
 
-## Hipóteses
+## 1. Estrutura esperada do dataset
 
-| ID | Enunciado | Como se mede |
-|----|-----------|--------------|
-| **H₁** | O braço neurossimbólico supera o LLM-only na detecção de defeitos | `arms/neurosymbolic` vs. `arms/llm_only`, mesmo dado, mesmas métricas |
-| **H₂** | Modelos de raciocínio superam modelos padrão como tradutores NL→FOL | Trocar o modelo em `nl2fol/`; contrastar `is_reasoning: true/false`; taxa de SAT espúrio nos originais |
-| **H₃** | O refinamento CT3 melhora a qualidade da formalização | Ligar/desligar `solver/refine.py`; ablação sem / só sintático / sintático+semântico |
+Coloque os dados brutos em:
 
----
-
-## Estrutura do repositório
-
-```
-contractfol/
-├── config/
-│   ├── models.yaml          # registry de 9 LLMs com is_reasoning flag
-│   ├── experiment.yaml      # configuração de runs (braço, modelos, categorias, L1/L2)
-│   └── prompts/             # prompts genéricos (sem exemplos do CLAUSE)
-├── corpus/
-│   ├── schema.py            # DiscrepancyInstance (Pydantic)
-│   ├── ingest.py            # parser do metadata JSON do CLAUSE (FIELD_MAP configurável)
-│   ├── sample.py            # amostragem estratificada + split dev/test congelado
-│   └── fixtures.py          # instâncias sintéticas para testes (10 células cobertas)
-├── kb/
-│   ├── mine_citations.py    # conjunto fechado de citações legais (dimensão legal only)
-│   ├── axioms.py            # 8 axiomas Z3 auditáveis (FCRA, UCC, WARN, FMLA, GDPR, FAA)
-│   └── store.py             # KB store com tabela de proveniência
-├── llm/
-│   ├── interface.py         # generate(prompt, model_alias) → str  (async + sync)
-│   ├── registry.py          # carrega models.yaml; list_models(); is_reasoning_model()
-│   ├── cache.py             # cache em disco + retry 2/4/8/16s + parser JSON robusto
-│   └── adapters/
-│       ├── openai_compatible.py   # GPT-4o, LLaMA/Groq, DeepSeek, Kimi, Qwen
-│       └── gemini.py              # Gemini 2.0/2.5 (SDK nativo)
-├── rin/
-│   └── schema.py            # Symbol · NormElement · RIN (Pydantic, serialização JSONL)
-├── nl2fol/
-│   ├── prompts.py           # prompts genéricos com exemplo fictício (anti-circularidade)
-│   ├── symbols.py           # Step 4.1 — extração de Symbol via LLM
-│   ├── formulas.py          # Step 4.2 — extração de NormElement → RIN via LLM
-│   └── compile_z3.py        # compilador determinístico RIN → Z3 (ZERO chamadas de LLM)
-├── solver/
-│   ├── verify.py            # check_sat + protocolo dos dois UNSATs + classificação in-text/legal
-│   ├── core.py              # unsat_core → span + explicação auditável (sem LLM)
-│   ├── refine.py            # CT3: refinamento sintático + semântico (só no original_text)
-│   └── completeness.py      # omissão: checagem de completude (mecanismo separado do SAT)
-├── arms/
-│   ├── llm_only.py          # 6 prompts CLAUSE (eval1/2/3 × L1/L2) + LLMPrediction
-│   └── neurosymbolic.py     # orquestrador neurossimbólico (stub — Etapa 6+)
-└── metrics/
-    ├── eval1_2.py           # Accuracy/Precision/Recall/F1 por exact match
-    ├── location.py          # location_alignment via grafo de componentes conexas (networkx)
-    ├── explanation.py       # juiz duplo GPT-4o + Gemini-2.5 (temp=0.1, 4 dimensões 0–5)
-    └── law_match.py         # comparação semântica de citação via Gemini (paralegal judge)
+```text
+data/raw/clause/datasets/
+├── CUAD_Dataset/
+│   ├── Ambiguities/
+│   ├── Inconsistencies/
+│   ├── Misaligned_Terminology/
+│   ├── Omissions/
+│   └── Structural_Flaws/
+└── NLI_Dataset/
+    ├── Ambiguities/
+    ├── Inconsistencies/
+    ├── Misaligned_Terminology/
+    ├── Omissions/
+    └── Structural_Flaws/
 ```
 
 ---
 
-## Instalação
+## 2. Instalação
+
+### Windows PowerShell
+
+```powershell
+cd C:\Projetos
+Expand-Archive .\clause_llm_eval_project.zip -DestinationPath .
+cd .\clause_llm_eval_project
+
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+pip install -e .
+copy .env.example .env
+```
+
+### Linux / WSL
 
 ```bash
+cd ~/projetos
+unzip clause_llm_eval_project.zip
+cd clause_llm_eval_project
+
+python3 -m venv .venv
+source .venv/bin/activate
+
 pip install -e .
-python -m spacy download en_core_web_trf
+cp .env.example .env
 ```
 
-Versões de métricas **pinadas** (divergir invalida a comparação com o artigo):
-
-```
-rouge-score==0.1.2
-nltk==3.8.1
-bert-score==0.3.13
-networkx==3.1
-```
-
-### Variáveis de ambiente
-
-| Variável | Provedor |
-|----------|----------|
-| `OPENAI_API_KEY` | OpenAI (GPT-4o, GPT-4o-mini) |
-| `GROQ_API_KEY` | Groq (LLaMA-3.3-70b) |
-| `DEEPSEEK_API_KEY` | DeepSeek (deepseek-chat, deepseek-reasoner) |
-| `MOONSHOT_API_KEY` | Kimi / Moonshot |
-| `DASHSCOPE_API_KEY` | Qwen via Alibaba DashScope |
-| `GOOGLE_API_KEY` | Gemini 2.0/2.5 |
-
 ---
 
-## Modelos registrados
+## 3. Pipeline recomendado
 
-| Alias | Modelo | Adaptador | `is_reasoning` |
-|-------|--------|-----------|----------------|
-| `gpt-4o` | gpt-4o-2024-08-06 | openai_compatible | false |
-| `gpt-4o-mini` | gpt-4o-mini-2024-07-18 | openai_compatible | false |
-| `gemini-2.0-flash` | gemini-2.0-flash-exp | gemini | false |
-| `gemini-2.5-flash` | gemini-2.5-flash-002 | gemini | false |
-| `llama-3.3-70b` | meta-llama/llama-3.3-70b-instruct | openai_compatible | false |
-| `qwen` | qwen-max | openai_compatible | false |
-| `deepseek` | deepseek-chat | openai_compatible | false |
-| `deepseek-reasoner` | deepseek-reasoner | openai_compatible | **true** |
-| `kimi` | moonshot-v1-128k | openai_compatible | false |
+### 3.1 Ingestão do CLAUSE
 
-O flag `is_reasoning` é o eixo de contraste de H₂.
-
----
-
-## Corpus
-
-**CLAUSE** (acesso controlado — solicitar via formulário oficial):
-- CUAD: 4.711 contratos / 12.869 perturbações
-- ContractNLI: 2.803 contratos / 11.086 perturbações
-- Total: 23.955 perturbações validadas
-
-**Taxonomia** — 5 tipos × 2 dimensões = 10 categorias:
-
-| Tipo | in-text | legal |
-|------|---------|-------|
-| Ambiguity | ✓ | ✓ |
-| Inconsistency | ✓ | ✓ |
-| Misaligned Terminology | ✓ | ✓ |
-| Omission | ✓ | ✓ |
-| Structural Flaw | ✓ | ✓ |
-
----
-
-## Protocolo dos dois UNSATs
-
-UNSAT tem dois significados distintos neste pipeline — distingui-los é central:
-
-| Contexto | UNSAT significa | Ação |
-|----------|----------------|------|
-| `original_text` (calibração) | Erro do tradutor — contradição espúria | Refinar com CT3 semântico |
-| `changed_text` (teste) | Defeito real detectado | Reportar como Eval_1 = "Yes" |
-
-O refinamento semântico (CT3) é aplicado **exclusivamente** no `original_text`. Aplicá-lo no `changed_text` eliminaria exatamente o sinal que se quer detectar.
-
-A taxa de SAT espúrio nos originais é métrica de qualidade do tradutor e alimenta H₂.
-
----
-
-## KB Legal
-
-8 axiomas Z3 auditáveis com proveniência explícita (estatuto → axioma):
-
-| ID | Estatuto | Tipologia | Restrição Z3 |
-|----|----------|-----------|--------------|
-| `fcra_dispute_deadline_30` | 15 U.S.C. § 1681i(a)(1)(A) | deadline_limit | `dispute_investigation_days ≤ 30` |
-| `fcra_notification_deadline_5` | 15 U.S.C. § 1681i(a)(6)(A) | deadline_limit | `notification_days ≤ 5` |
-| `warn_act_notice_60` | 29 U.S.C. § 2102(a) | deadline_limit | `notice_days ≥ 60` |
-| `fmla_leave_12_weeks` | 29 U.S.C. § 2612(a)(1) | mandatory_disclosure | `leave_weeks ≥ 12` |
-| `gdpr_art33_breach_notification_72h` | GDPR Art. 33 | deadline_limit | `breach_notification_hours ≤ 72` |
-| `ucc_2_207_acceptance` | UCC § 2-207 | canonical_definition | `acceptance_with_additional_terms = True` |
-| `faa_arbitration_clause_enforceable` | 9 U.S.C. § 2 | canonical_definition | — |
-| `ucc_2_207_merchant_terms_deontic` | UCC § 2-207 | deontic_force | v2 only |
-
-**Regra anti-circularidade:** axiomas derivados exclusivamente do texto do estatuto (`scraped_snippet_1/2` ou URL `.gov`/Cornell LII). Nunca do campo `explanation` ou `law_explanation` do CLAUSE.
-
----
-
-## Métricas (paridade exata com o artigo)
-
-### Eval_1 — Detecção binária
-`eval1_metrics(predictions, gold_labels)` → `ClassificationMetrics(accuracy, precision, recall, f1, tp, fp, fn, tn)`
-
-### Eval_2 — Classificação de dimensão
-`eval2_metrics(predictions, gold_dimensions)` → `dict["in_text" | "legal" | "macro", ClassificationMetrics]`
-
-### Eval_3 — Span + explicação + citação
-- **`location_alignment`**: grafo não-direcionado `G=(V,E)`, aresta sse interseção não-vazia de frases normalizadas; TP = componente com ≥1 GT e ≥1 pred; ROUGE-1/2/L, METEOR, BERTScore (`microsoft/deberta-xlarge-mnli`)
-- **`explanation_match`**: juiz duplo GPT-4o + Gemini-2.5, temp=0.1, 4 rubricas (Accuracy/Completeness/Clarity/Legal Reasoning, 0–5) + flag `adequate`
-- **`law_match`**: juiz paralegal Gemini-2.5-flash, temp=0.0, score binário
-
----
-
-## Braço LLM-only
-
-Replica os prompts exatos do apêndice do artigo:
-
-```python
-from contractfol.arms.llm_only import run_batch_sync, LLMPrediction
-from contractfol.corpus.sample import load_splits
-
-dev, test = load_splits("data/splits/")
-predictions = run_batch_sync(
-    instances=dev,
-    model_aliases=["gpt-4o-mini", "qwen", "deepseek"],
-    eval_tasks=["eval1", "eval2", "eval3"],
-    prompt_levels=["l1", "l2"],
-    max_concurrent=5,
-)
+```bash
+clause-eval ingest \
+  --data data/raw/clause/datasets \
+  --output data/splits/all_instances.jsonl
 ```
 
-Os 6 prompts (`eval1_l1/l2`, `eval2_l1/l2`, `eval3_l1/l2`) estão em `arms/llm_only.py::PROMPTS` e marcados com `# NOTE: verify against CLAUSE appendix` — substituir pelo texto exato do artigo quando o acesso for concedido.
+### 3.2 Criar split dev/test congelado
+
+```bash
+clause-eval make-splits \
+  --input data/splits/all_instances.jsonl \
+  --dev-output data/splits/dev.jsonl \
+  --test-output data/splits/test.jsonl \
+  --test-fraction 0.30 \
+  --seed 42
+```
+
+Depois da primeira geração, **não altere** `test.jsonl`.
+
+### 3.3 Criar subamostra estratificada de 10% do teste
+
+```bash
+clause-eval sample \
+  --input data/splits/test.jsonl \
+  --output data/splits/test_10pct_stratified.jsonl \
+  --fraction 0.10 \
+  --seed 42
+```
+
+### 3.4 Construir Eval_1
+
+Eval_1 usa `changed_text` como positivo e `original_text` como negativo.
+
+```bash
+clause-eval build-eval1 \
+  --input data/splits/test_10pct_stratified.jsonl \
+  --output data/eval/eval1_test_10pct.jsonl \
+  --seed 42
+```
+
+### 3.5 Construir Eval_2
+
+Eval_2 usa `changed_text` e espera a dimensão `in_text` ou `legal`.
+
+```bash
+clause-eval build-eval2 \
+  --input data/splits/test_10pct_stratified.jsonl \
+  --output data/eval/eval2_test_10pct.jsonl \
+  --seed 42
+```
+
+### 3.6 Rodar um modelo
+
+Teste primeiro com `mock`:
+
+```bash
+clause-eval run \
+  --input data/eval/eval1_test_10pct.jsonl \
+  --output runs/eval1_mock_predictions.jsonl \
+  --task eval1 \
+  --provider mock \
+  --model mock
+```
+
+OpenAI:
+
+```bash
+clause-eval run \
+  --input data/eval/eval1_test_10pct.jsonl \
+  --output runs/eval1_gpt4o_mini_predictions.jsonl \
+  --task eval1 \
+  --provider openai \
+  --model gpt-4o-mini \
+  --temperature 0
+```
+
+Gemini:
+
+```bash
+clause-eval run \
+  --input data/eval/eval1_test_10pct.jsonl \
+  --output runs/eval1_gemini_predictions.jsonl \
+  --task eval1 \
+  --provider gemini \
+  --model gemini-2.5-flash \
+  --temperature 0
+```
+
+Ollama local:
+
+```bash
+clause-eval run \
+  --input data/eval/eval1_test_10pct.jsonl \
+  --output runs/eval1_llama_predictions.jsonl \
+  --task eval1 \
+  --provider ollama \
+  --model llama3.1:8b \
+  --temperature 0
+```
+
+### 3.7 Calcular métricas
+
+```bash
+clause-eval metrics \
+  --input runs/eval1_gpt4o_mini_predictions.jsonl \
+  --task eval1 \
+  --output reports/eval1_gpt4o_mini_metrics.json
+```
+
+### 3.8 Bootstrap estratificado
+
+```bash
+clause-eval bootstrap \
+  --input runs/eval1_gpt4o_mini_predictions.jsonl \
+  --task eval1 \
+  --output reports/eval1_gpt4o_mini_bootstrap.json \
+  --n-bootstrap 5000 \
+  --seed 42
+```
 
 ---
 
-## Medidas anti-circularidade
+## 4. Protocolo científico adotado
 
-1. **Prompting genérico** — nenhum exemplo do CLAUSE nos prompts de tradução
-2. **KB do texto estatutário** — nunca do campo `explanation` do CLAUSE
-3. **Split test congelado** — calibração de prompt apenas no dev set
-4. **Juiz validado** — herda Tabela 8 do CLAUSE (diferenças vs. humano < 0,3)
-5. **Corpus independente** — perturbações não criadas pelo autor do pipeline
-
----
-
-## Subagentes de projeto
-
-Seis agentes especializados em `.claude/agents/`:
-
-| Agente | Quando usar |
-|--------|-------------|
-| `builder` | Implementar novos módulos seguindo a spec |
-| `formalization-qa` | Após qualquer mudança em `nl2fol/`, `solver/`, `rin/` |
-| `metric-parity-auditor` | Após qualquer mudança em `metrics/` |
-| `circularity-reviewer` | Antes de qualquer experimento ou resultado reportado |
-| `results-writer` | Converter saída de experimentos em tabelas ABNT |
-| `desk-reject-simulator` | Antes de submeter ao IST |
+- `dev.jsonl` é usado para calibrar prompts e parsers.
+- `test.jsonl` é congelado antes da avaliação.
+- A subamostra de 10% é estratificada por `perturb_type × dimension`.
+- Para Eval_1, a unidade-base é `instance_id`; o par `original_text`/`changed_text` é preservado.
+- O bootstrap é aplicado **sobre as predições salvas**, não reexecutando o LLM.
+- Intervalos de confiança são calculados pelos percentis 2,5% e 97,5%.
 
 ---
 
-## Referências
+## 5. Observação metodológica
 
-- CHOUDHURY, M. R. et al. **Better Call CLAUSE: A Discrepancy Benchmark for Auditing LLMs Legal Reasoning Capabilities.** Findings of EACL 2026, p. 5776–5818. arXiv:2511.00340.
-- CALLEWAERT, B.; VANDEVELDE, S.; VENNEKENS, J. **VERUS-LM: a Versatile Framework for Combining LLMs with Symbolic Reasoning.** arXiv:2501.14540, 2025.
-- HENDRYCKS, D. et al. **CUAD: An Expert-Annotated NLP Dataset for Legal Contracts.** arXiv:2103.06268, 2021.
-- KOREEDA, Y.; MANNING, C. D. **ContractNLI: A Dataset for Document-level Natural Language Inference for Contracts.** EMNLP 2021, p. 7578–7589.
-- PAN, L. et al. **Logic-LM: Empowering Large Language Models with Symbolic Solvers for Faithful Logical Reasoning.** Findings of EMNLP 2023, p. 3806–3824.
+A amostra de 10% não é bootstrap. Ela é uma **subamostra estratificada para redução de custo**.
+
+O bootstrap vem depois, sobre as predições salvas, para estimar a incerteza das métricas.
