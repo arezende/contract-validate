@@ -1,0 +1,96 @@
+{
+  "run_id": "20260618T172718",
+  "config": {
+    "data": "data\\raw\\clause\\datasets",
+    "split": "dev",
+    "models": [
+      "gpt-4o-mini"
+    ],
+    "tasks": [
+      "eval1",
+      "eval2",
+      "eval3"
+    ],
+    "levels": [
+      "l1",
+      "l2"
+    ],
+    "n_per_cell": 50,
+    "seed": 42,
+    "n_instances_positive": 70,
+    "n_predictions": 280
+  },
+  "metrics": {
+    "gpt-4o-mini__eval1__l1": {
+      "n": 70,
+      "accuracy": 0.32857142857142857,
+      "precision": 1.0,
+      "recall": 0.32857142857142857,
+      "f1": 0.4946236559139785,
+      "tp": 23,
+      "fp": 0,
+      "fn": 47,
+      "tn": 0
+    },
+    "gpt-4o-mini__eval2__l1": {
+      "in_text": {
+        "n": 70,
+        "accuracy": 0.6142857142857143,
+        "precision": 0.7857142857142857,
+        "recall": 0.3142857142857143,
+        "f1": 0.44897959183673464,
+        "tp": 11,
+        "fp": 3,
+        "fn": 24,
+        "tn": 32
+      },
+      "legal": {
+        "n": 70,
+        "accuracy": 0.5285714285714286,
+        "precision": 1.0,
+        "recall": 0.05714285714285714,
+        "f1": 0.1081081081081081,
+        "tp": 2,
+        "fp": 0,
+        "fn": 33,
+        "tn": 35
+      },
+      "none": {
+        "n": 70,
+        "accuracy": 0.22857142857142856,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 54,
+        "fn": 0,
+        "tn": 16
+      },
+      "macro": {
+        "n": 70,
+        "accuracy": 0.18571428571428572,
+        "precision": 0.5952380952380952,
+        "recall": 0.12380952380952381,
+        "f1": 0.18569589998161426,
+        "tp": 13,
+        "fp": 57,
+        "fn": 57,
+        "tn": 83
+      }
+    },
+    "gpt-4o-mini__eval3__l1": {
+      "n": 70,
+      "rouge1": 0.3253,
+      "rouge2": 0.318,
+      "rougeL": 0.3241,
+      "meteor": 0.0
+    },
+    "gpt-4o-mini__eval3__l2": {
+      "n": 70,
+      "rouge1": 0.0,
+      "rouge2": 0.0,
+      "rougeL": 0.0,
+      "meteor": 0.0
+    }
+  }
+}
